@@ -1,40 +1,34 @@
 # AGENTS.md
 
-## Linting and Formatting
+## Stack
 
-This project uses [Ultracite](https://ultracite.ai) with the Oxlint + Oxfmt backend.
+- **Runtime & package manager:** Bun 1.3+ (`bun`)
+- **Language:** TypeScript (strict, `module: ESNext`, `moduleResolution: bundler`)
+- **Monorepo:** Turborepo with Bun workspaces (`apps/*`, `packages/*`)
+- **Web app:** React 19 + Vite 8 (with React Compiler)
+- **API app:** Elysia + Bun runtime
+- **Linting/formatting:** Ultracite (Oxlint + Oxfmt), type-aware
 
-### Commands
+## Commands
 
-- `bun run lint:check` — Check all packages for lint/format issues (read-only)
-- `bun run lint:fix` — Auto-fix lint and formatting issues across all packages
+| Task                  | Command              |
+| --------------------- | -------------------- |
+| Dev (all apps)        | `bun run dev`        |
+| Build (all apps)      | `bun run build`      |
+| Type-check (all apps) | `bun run type:check` |
+| Lint check (all apps) | `bun run lint:check` |
+| Lint fix (all apps)   | `bun run lint:fix`   |
 
-To target a single app:
+Run `bun run lint:check` before considering a task complete.
 
-```bash
-cd apps/web && bun run lint:check
-cd apps/api && bun run lint:fix
-```
+## Domain Guidance
 
-### Config Files
+Read these only when working in the relevant area:
 
-| File                        | Purpose                                                    |
-| --------------------------- | ---------------------------------------------------------- |
-| `oxlint.config.ts` (root)   | Base oxlint config with the `ultracite/oxlint/core` preset |
-| `oxfmt.config.ts` (root)    | Formatter config extending `ultracite/oxfmt`               |
-| `apps/web/oxlint.config.ts` | Web-specific config: core + React preset                   |
-| `apps/api/oxlint.config.ts` | API-specific config: core preset only                      |
-
-Type-aware linting is enabled via `oxlint-tsgolint`.
-
-### Standards
-
-When writing code, follow the Ultracite code standards:
-
-- **Types:** Use explicit types when they improve clarity. Prefer `unknown` over `any`. Use `as const` for immutable values.
-- **Modern JS/TS:** Prefer `const`, destructuring, optional chaining, nullish coalescing, template literals, `for...of`, and concise arrow functions.
-- **Async:** Always `await` promises in async functions. Prefer `async/await` over promise chains. Remove `console.log`, `debugger`, and `alert` from production code.
-- **React:** Use function components, keep hooks top-level with correct deps, avoid nested component definitions, and use semantic HTML.
-- **Organization:** Keep functions focused, prefer early returns, avoid `dangerouslySetInnerHTML` and `eval()`, prefer specific imports.
-
-Always run `bun run lint:check` before considering a task complete.
+| Area | File | Covers |
+| --- | --- | --- |
+| Monorepo & shared tooling | [docs/monorepo.md](docs/monorepo.md) | Workspaces, Turborepo task pipeline, shared configs, Ultracite standards |
+| Web app conventions | [docs/web/conventions.md](docs/web/conventions.md) | React 19 patterns, React Compiler, path aliases, TS config |
+| Web app tooling | [docs/web/tooling.md](docs/web/tooling.md) | Vite config, build/dev scripts, app-specific oxlint |
+| API app conventions | [docs/api/conventions.md](docs/api/conventions.md) | Elysia patterns, Bun runtime, path aliases, TS config |
+| API app tooling | [docs/api/tooling.md](docs/api/tooling.md) | Bun build/dev scripts, app-specific oxlint |
