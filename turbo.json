@@ -21,6 +21,10 @@
     "lint:fix": {
       "cache": false,
       "outputs": []
+    },
+    "type:check": {
+      "dependsOn": ["^type:check"],
+      "outputs": []
     }
   }
 }

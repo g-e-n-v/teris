@@ -11,8 +11,9 @@
     "dev": "turbo run dev",
     "build": "turbo run build",
     "start": "turbo run start",
-    "lint:check": "ultracite check",
-    "lint:fix": "ultracite fix"
+    "lint:check": "ultracite check --type-aware",
+    "lint:fix": "ultracite fix --type-aware",
+    "type:check": "turbo run type:check"
   },
   "devDependencies": {
     "oxfmt": "^0.61.0",

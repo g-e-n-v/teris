@@ -6,7 +6,8 @@
   "scripts": {
     "build": "bun build main.ts --outdir dist",
     "dev": "bun --watch main.ts",
-    "start": "bun main.ts"
+    "start": "bun main.ts",
+    "type:check": "tsc --noEmit"
   },
   "dependencies": {
     "elysia": "^1.3"
