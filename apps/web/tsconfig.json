@@ -1,8 +1,14 @@
 {
   "compilerOptions": {
-    "lib": ["ESNext", "DOM"],
-    "types": ["bun-types"]
+    "paths": {
+      "$/*": ["./*"]
+    },
+    "lib": ["ESNext", "DOM", "DOM.Iterable"],
+    "jsx": "react-jsx",
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true
   },
   "extends": "../../tsconfig.json",
-  "include": ["*.ts"]
+  "include": ["**/*.ts", "**/*.tsx"]
 }
