@@ -21,3 +21,4 @@ build/
 # editor
 .idea/
 .vscode/
+!.zed/

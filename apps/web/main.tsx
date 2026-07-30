@@ -1,3 +1,9 @@
 import { createRoot } from "react-dom/client";
 
-createRoot(document.getElementById("root")!).render(<h1>Hello from Web</h1>);
+const root = document.querySelector("#root");
+
+if (!root) {
+  throw new Error("Root element not found");
+}
+
+createRoot(root).render(<h1>Hello from Web</h1>);

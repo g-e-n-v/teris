@@ -4,8 +4,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "bun --watch main.ts",
     "build": "bun build main.ts --outdir dist",
+    "dev": "bun --watch main.ts",
     "start": "bun main.ts"
   },
   "dependencies": {
