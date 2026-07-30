@@ -1,8 +1,5 @@
-const server = Bun.serve({
-  port: 3000,
-  fetch(req) {
-    return new Response("Hello from API");
-  },
-});
+import { Elysia } from "elysia";
 
-console.log(`API listening on http://localhost:${server.port}`);
+const app = new Elysia().get("/", () => "Hello from API").listen(3000);
+
+console.log(`API listening on ${app.server?.url.origin}`);
