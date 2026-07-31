@@ -21,6 +21,10 @@
 
 Run `bun run lint:check` before considering a task complete.
 
+## Naming Conventions
+
+All file and folder names must be **kebab-case** (e.g. `user-profile.tsx`, `auth-service.ts`, `api-client/`). This applies to source files, test files, asset files, and directories across all apps and packages. The only exceptions are well-known config files that tools expect at fixed names (`package.json`, `tsconfig.json`, `vite.config.ts`, `oxlint.config.ts`, `oxfmt.config.ts`, `index.html`, etc.).
+
 ## Domain Guidance
 
 Read these only when working in the relevant area:

@@ -17,12 +17,16 @@ App: `@teris/web` — located at `apps/web/`.
 - Keep hooks at the top level of the component — no nested component definitions inside other components.
 - Use semantic HTML elements.
 
+## Naming Conventions
+
+All file and folder names must be **kebab-case** (e.g. `user-profile.tsx`, `auth-service.ts`, `components/`), including components, hooks, utilities, assets, and test files. The only exceptions are well-known config files that tools expect at fixed names (`package.json`, `tsconfig.json`, `vite.config.ts`, `oxlint.config.ts`, `index.html`, `main.tsx`, etc.).
+
 ## Path Aliases
 
 The `$` alias maps to the app root (`apps/web/`):
 
 ```ts
-import { foo } from "$/components/foo";
+import { foo } from "$/components/user-profile";
 ```
 
 Configured in both `vite.config.ts` (Vite resolve alias) and `tsconfig.json` (`paths`).

@@ -70,6 +70,10 @@ cd apps/api && bun run lint:fix
 | `apps/web/oxlint.config.ts` | Web-specific: core + React preset                               |
 | `apps/api/oxlint.config.ts` | API-specific: core preset only                                  |
 
+## Naming Conventions
+
+All file and folder names must be **kebab-case** (e.g. `user-profile.tsx`, `auth-service.ts`, `api-client/`). This applies to source files, test files, asset files, and directories across all apps and packages. The only exceptions are well-known config files that tools expect at fixed names (`package.json`, `tsconfig.json`, `vite.config.ts`, `oxlint.config.ts`, `oxfmt.config.ts`, `index.html`, etc.).
+
 ### Code Standards
 
 - **Types:** Use explicit types when they improve clarity. Prefer `unknown` over `any`. Use `as const` for immutable values.
