@@ -1,0 +1,23 @@
+all:
+  jobs:
+    - &lint
+      name: lint:check
+      glob: "*.{js,ts,jsx,tsx,json,css,md}"
+      run: bun run lint:check
+
+    - &typecheck
+      name: type:check
+      glob: "*.{ts,tsx}"
+      run: bun run type:check
+
+pre-commit:
+  parallel: true
+  jobs:
+    - *lint
+    - *typecheck
+
+pre-push:
+  parallel: true
+  jobs:
+    - *lint
+    - *typecheck

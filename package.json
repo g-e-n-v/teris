@@ -16,6 +16,7 @@
     "type:check": "turbo run type:check"
   },
   "devDependencies": {
+    "lefthook": "^2.1.10",
     "oxfmt": "^0.61.0",
     "oxlint": "^1.76.0",
     "oxlint-tsgolint": "^7.0.2001",

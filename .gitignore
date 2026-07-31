@@ -22,3 +22,6 @@ build/
 .idea/
 .vscode/
 !.zed/
+
+# lefthook local overrides
+lefthook-local.yml
