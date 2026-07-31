@@ -21,18 +21,18 @@
 
 Run `bun run lint:check` before considering a task complete.
 
-## Naming Conventions
+## Naming
 
-All file and folder names must be **kebab-case** (e.g. `user-profile.tsx`, `auth-service.ts`, `api-client/`). This applies to source files, test files, asset files, and directories across all apps and packages. The only exceptions are well-known config files that tools expect at fixed names (`package.json`, `tsconfig.json`, `vite.config.ts`, `oxlint.config.ts`, `oxfmt.config.ts`, `index.html`, etc.).
+All file and folder names use **kebab-case** (e.g. `user-profile.tsx`, `auth-service.ts`, `api-client/`). Exceptions are well-known config files (`package.json`, `tsconfig.json`, `vite.config.ts`, `oxlint.config.ts`, `oxfmt.config.ts`, `index.html`, etc.).
 
-## Domain Guidance
+## Technical Docs
 
 Read these only when working in the relevant area:
 
 | Area | File | Covers |
 | --- | --- | --- |
-| Monorepo & shared tooling | [docs/monorepo.md](docs/monorepo.md) | Workspaces, Turborepo task pipeline, shared configs, Ultracite standards |
-| Web app conventions | [docs/web/conventions.md](docs/web/conventions.md) | React 19 patterns, React Compiler, path aliases, TS config |
-| Web app tooling | [docs/web/tooling.md](docs/web/tooling.md) | Vite config, build/dev scripts, app-specific oxlint |
-| API app conventions | [docs/api/conventions.md](docs/api/conventions.md) | Elysia patterns, Bun runtime, path aliases, TS config |
-| API app tooling | [docs/api/tooling.md](docs/api/tooling.md) | Bun build/dev scripts, app-specific oxlint |
+| Monorepo | [docs/technical/monorepo.md](docs/technical/monorepo.md) | Workspaces, Turborepo pipeline, shared TS config, linting |
+| Web app conventions | [docs/technical/web/conventions.md](docs/technical/web/conventions.md) | React 19 patterns, React Compiler, path aliases, TS config |
+| Web app tooling | [docs/technical/web/tooling.md](docs/technical/web/tooling.md) | Vite config, scripts, entry point, build output |
+| API app conventions | [docs/technical/api/conventions.md](docs/technical/api/conventions.md) | Elysia patterns, Bun runtime, path aliases, TS config |
+| API app tooling | [docs/technical/api/tooling.md](docs/technical/api/tooling.md) | Build/run scripts, entry point, build output |

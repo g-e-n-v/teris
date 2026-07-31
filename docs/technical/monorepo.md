@@ -1,4 +1,4 @@
-# Monorepo & Shared Tooling
+# Monorepo & Workspaces
 
 ## Workspaces
 
@@ -43,7 +43,7 @@ Root `tsconfig.json` provides the base configuration extended by all apps:
 
 Each app extends this and adds its own `lib`, `paths`, and app-specific flags.
 
-## Linting and Formatting (Ultracite)
+## Linting & Formatting
 
 This project uses [Ultracite](https://ultracite.ai) with the Oxlint + Oxfmt backend. Type-aware linting is enabled via `oxlint-tsgolint`.
 
@@ -69,17 +69,6 @@ cd apps/api && bun run lint:fix
 | `oxfmt.config.ts` (root)    | Formatter config extending `ultracite/oxfmt`, `printWidth: 100` |
 | `apps/web/oxlint.config.ts` | Web-specific: core + React preset                               |
 | `apps/api/oxlint.config.ts` | API-specific: core preset only                                  |
-
-## Naming Conventions
-
-All file and folder names must be **kebab-case** (e.g. `user-profile.tsx`, `auth-service.ts`, `api-client/`). This applies to source files, test files, asset files, and directories across all apps and packages. The only exceptions are well-known config files that tools expect at fixed names (`package.json`, `tsconfig.json`, `vite.config.ts`, `oxlint.config.ts`, `oxfmt.config.ts`, `index.html`, etc.).
-
-### Code Standards
-
-- **Types:** Use explicit types when they improve clarity. Prefer `unknown` over `any`. Use `as const` for immutable values.
-- **Modern JS/TS:** Prefer `const`, destructuring, optional chaining, nullish coalescing, template literals, `for...of`, and concise arrow functions.
-- **Async:** Always `await` promises in async functions. Prefer `async/await` over promise chains. Remove `console.log`, `debugger`, and `alert` from production code.
-- **Organization:** Keep functions focused, prefer early returns, avoid `dangerouslySetInnerHTML` and `eval()`, prefer specific imports.
 
 ### Editor Integration
 

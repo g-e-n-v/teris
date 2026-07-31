@@ -16,10 +16,6 @@ App: `@teris/api` — located at `apps/api/`.
 - Keep route handlers focused. Extract business logic into separate modules when handlers grow.
 - Use Elysia's error system (`error()` helper) instead of throwing raw errors.
 
-## Naming Conventions
-
-All file and folder names must be **kebab-case** (e.g. `auth-service.ts`, `user-routes.ts`, `modules/`), including routes, services, plugins, utilities, and test files. The only exceptions are well-known config files that tools expect at fixed names (`package.json`, `tsconfig.json`, `oxlint.config.ts`, `main.ts`, etc.).
-
 ## Path Aliases
 
 The `#` alias maps to the app root (`apps/api/`):
