@@ -10,6 +10,7 @@ export default defineConfig({
   ignorePatterns: core.ignorePatterns,
   jsPlugins: ["oxlint-tailwindcss"],
   rules: {
+    curly: "allow",
     "tailwindcss/consistent-variant-order": "warn",
     "tailwindcss/enforce-canonical": "warn",
     "tailwindcss/enforce-consistent-important-position": "warn",

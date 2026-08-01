@@ -1,6 +1,8 @@
 interface TerisEnv {
   DATABASE_URL: string;
   NODE_ENV: string;
+  BETTER_AUTH_SECRET: string;
+  BETTER_AUTH_URL: string;
 }
 
 declare namespace NodeJS {
