@@ -7,13 +7,19 @@
     "build": "bun build main.ts --outdir dist",
     "dev": "bun --watch main.ts",
     "start": "bun main.ts",
-    "type:check": "tsc --noEmit"
+    "type:check": "tsc --noEmit",
+    "db:generate": "drizzle-kit generate --name",
+    "db:migrate": "drizzle-kit migrate",
+    "db:push": "drizzle-kit push",
+    "db:studio": "drizzle-kit studio"
   },
   "dependencies": {
+    "drizzle-orm": "^0.45.2",
     "elysia": "^1.3",
     "zod": "catalog:"
   },
   "devDependencies": {
-    "@types/bun": "^1.3.14"
+    "@types/bun": "^1.3.14",
+    "drizzle-kit": "^0.31.10"
   }
 }

@@ -7,6 +7,7 @@ App: `@teris/api` — located at `apps/api/`.
 - **Framework:** Elysia 1.3+
 - **Runtime:** Bun (native, not Node)
 - **Language:** TypeScript (strict)
+- **Database:** Drizzle ORM + PostgreSQL (see [database.md](database.md))
 
 ## Elysia Patterns
 
