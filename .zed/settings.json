@@ -2,6 +2,13 @@
   "format_on_save": "on",
   "formatter": "language_server",
   "languages": {
+    "CSS": {
+      "formatter": {
+        "language_server": {
+          "name": "oxfmt"
+        }
+      }
+    },
     "JavaScript": {
       "code_actions_on_format": {
         "source.fixAll.oxc": true,

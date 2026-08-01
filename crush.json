@@ -4,6 +4,15 @@
     "better-auth": {
       "type": "http",
       "url": "https://mcp.better-auth.com/mcp"
+    },
+    "shadcn": {
+      "type": "stdio",
+      "command": "bunx",
+      "args": ["shadcn@latest", "mcp"]
+    },
+    "figma-desktop": {
+      "type": "http",
+      "disabled": true
     }
   }
 }
