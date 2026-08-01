@@ -1,3 +1,5 @@
+// oxlint-disable typescript/no-explicit-any
+
 import type { Path } from "better-auth/plugins";
 
 import { betterAuth } from "./better-auth";
@@ -9,12 +11,12 @@ let _schema: Schema | undefined;
 const getSchema = async () => (_schema ??= await betterAuth.api.generateOpenAPISchema());
 
 export const BetterAuthOpenAPI = {
-  components: async () => {
+  components: async (): Promise<any> => {
     const { components } = await getSchema();
     return components;
   },
 
-  getPaths: async (prefix = "/api/auth"): Promise<Record<string, Path>> => {
+  getPaths: async (prefix = "/api/auth"): Promise<any> => {
     const { paths } = await getSchema();
 
     const reference: Record<string, Path> = {};

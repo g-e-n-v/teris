@@ -10,7 +10,7 @@ export const user = pgTable("user", {
   id: uuid().defaultRandom().primaryKey(),
   image: varchar("image", { length: 255 }),
   name: varchar("name", { length: 255 }),
-  role: varchar("role", { length: 255 }).notNull().default("user"),
+  role: varchar("role", { length: 255 }).notNull().default("USER"),
   updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
 });
 

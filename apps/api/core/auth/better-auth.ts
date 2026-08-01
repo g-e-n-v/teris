@@ -2,9 +2,9 @@ import * as schema from "#/core/db/schema";
 
 import { drizzleAdapter } from "@better-auth/drizzle-adapter";
 import { betterAuth as createBetterAuth } from "better-auth";
-import { admin as adminPlugin, organization, openAPI } from "better-auth/plugins";
+import { admin, organization, openAPI } from "better-auth/plugins";
 
-import { ac, superAdmin, admin, user } from "#/core/auth/permissions";
+import { ac, SUPER_ADMIN, ADMIN, USER } from "#/core/auth/permissions";
 import { db } from "#/core/db/client";
 
 export const betterAuth = createBetterAuth({
@@ -15,15 +15,15 @@ export const betterAuth = createBetterAuth({
   },
   database: drizzleAdapter(db, { provider: "pg", schema }),
   plugins: [
-    adminPlugin({
+    admin({
       ac,
-      adminRoles: ["superAdmin", "admin"],
-      defaultRole: "user",
-      roles: { admin, superAdmin, user },
+      adminRoles: ["SUPER_ADMIN", "ADMIN"],
+      defaultRole: "USER",
+      roles: { ADMIN, SUPER_ADMIN, USER },
     }),
     organization({
       ac,
-      allowUserToCreateOrganization: (u) => u.role === "superAdmin",
+      allowUserToCreateOrganization: (u) => u.role === "SUPER_ADMIN",
       dynamicAccessControl: { enabled: true },
     }),
     openAPI({ disableDefaultReference: true }),

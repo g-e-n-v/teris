@@ -11,12 +11,12 @@ const statement = {
 
 export const ac = createAccessControl(statement);
 
-export const superAdmin = ac.newRole({
+export const SUPER_ADMIN = ac.newRole({
   ...adminAc.statements,
 });
 
-export const admin = ac.newRole({
+export const ADMIN = ac.newRole({
   ...adminAc.statements,
 });
 
-export const user = ac.newRole({});
+export const USER = ac.newRole({});
