@@ -12,9 +12,15 @@ export default defineConfig({
         modifiers: ["named"],
         selector: "external",
       },
+      {
+        groupName: "namespace",
+        modifiers: ["wildcard"],
+        selector: "import",
+      },
     ],
     groups: [
       ["side_effect", "side_effect_style"],
+      "namespace",
       "type",
       "external",
       "named-external",

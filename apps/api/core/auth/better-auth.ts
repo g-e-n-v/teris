@@ -1,10 +1,11 @@
+import * as schema from "#/core/db/schema";
+
 import { drizzleAdapter } from "@better-auth/drizzle-adapter";
 import { betterAuth as createBetterAuth } from "better-auth";
-import { admin, organization } from "better-auth/plugins";
+import { admin as adminPlugin, organization } from "better-auth/plugins";
 
-import { ac, superAdmin, admin as adminRole, user } from "#/core/auth/permissions";
+import { ac, superAdmin, admin, user } from "#/core/auth/permissions";
 import { db } from "#/core/db/client";
-import * as schema from "#/core/db/schema";
 
 export const betterAuth = createBetterAuth({
   database: drizzleAdapter(db, {
@@ -12,11 +13,11 @@ export const betterAuth = createBetterAuth({
     schema,
   }),
   plugins: [
-    admin({
+    adminPlugin({
       ac,
       adminRoles: ["superAdmin", "admin"],
       defaultRole: "user",
-      roles: { admin: adminRole, superAdmin, user },
+      roles: { admin, superAdmin, user },
     }),
     organization({
       ac,

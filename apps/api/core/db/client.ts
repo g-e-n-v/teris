@@ -1,6 +1,6 @@
-import { drizzle } from "drizzle-orm/bun-sql";
-
 import * as schema from "./schema";
+
+import { drizzle } from "drizzle-orm/bun-sql";
 
 export const db = drizzle({
   connection: {
