@@ -8,6 +8,11 @@ import { ac, superAdmin, admin, user } from "#/core/auth/permissions";
 import { db } from "#/core/db/client";
 
 export const betterAuth = createBetterAuth({
+  advanced: {
+    database: {
+      generateId: "uuid",
+    },
+  },
   database: drizzleAdapter(db, {
     provider: "pg",
     schema,
