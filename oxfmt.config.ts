@@ -4,4 +4,7 @@ import ultracite from "ultracite/oxfmt";
 export default defineConfig({
   ...ultracite,
   printWidth: 100,
+  sortTailwindcss: {
+    stylesheet: "./apps/web/core/styles/main.css",
+  },
 });

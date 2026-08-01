@@ -1,3 +1,5 @@
+import path from "node:path";
+
 import { defineConfig } from "oxlint";
 import core from "ultracite/oxlint/core";
 import react from "ultracite/oxlint/react";
@@ -5,4 +7,22 @@ import react from "ultracite/oxlint/react";
 export default defineConfig({
   extends: [core, react],
   ignorePatterns: core.ignorePatterns,
+  jsPlugins: ["oxlint-tailwindcss"],
+  rules: {
+    "tailwindcss/consistent-variant-order": "warn",
+    "tailwindcss/enforce-canonical": "warn",
+    "tailwindcss/enforce-consistent-important-position": "warn",
+    "tailwindcss/enforce-sort-order": "warn",
+    "tailwindcss/no-conflicting-classes": "error",
+    "tailwindcss/no-deprecated-classes": "error",
+    "tailwindcss/no-duplicate-classes": "error",
+    "tailwindcss/no-unknown-classes": "error",
+    "tailwindcss/no-unnecessary-arbitrary-value": "warn",
+    "tailwindcss/no-unnecessary-whitespace": "error",
+  },
+  settings: {
+    tailwindcss: {
+      entryPoint: path.resolve(import.meta.dirname, "core/styles/main.css"),
+    },
+  },
 });
