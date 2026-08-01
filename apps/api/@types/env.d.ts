@@ -3,6 +3,7 @@ interface TerisEnv {
   NODE_ENV: string;
   BETTER_AUTH_SECRET: string;
   BETTER_AUTH_URL: string;
+  PORT: string;
 }
 
 declare namespace NodeJS {

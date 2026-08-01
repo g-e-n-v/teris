@@ -8,6 +8,7 @@
       "packages/*"
     ],
     "catalog": {
+      "@types/lodash-es": "^4.17.12",
       "lodash-es": "^4.17.21",
       "zod": "^3.25.76"
     }
