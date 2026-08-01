@@ -1,8 +1,9 @@
-import path from "node:path";
-
-import { defineConfig } from "oxlint";
 import core from "ultracite/oxlint/core";
 import react from "ultracite/oxlint/react";
+
+import { defineConfig } from "oxlint";
+
+import path from "node:path";
 
 export default defineConfig({
   extends: [core, react],

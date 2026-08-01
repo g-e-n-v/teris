@@ -1,4 +1,5 @@
 import "$/core/styles/main.css";
+
 import { createRoot } from "react-dom/client";
 
 // oxlint-disable-next-line typescript/no-non-null-assertion
