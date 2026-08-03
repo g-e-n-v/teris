@@ -75,6 +75,16 @@ function ButtonDemoPage() {
         </div>
       </section>
 
+      <div className="flex gap-4">
+        <Button>Primary</Button>
+        <Button variant="outline" color="neutral">
+          Secondary
+        </Button>
+        <Button variant="filled" color="neutral">
+          Tertiary
+        </Button>
+      </div>
+
       <Button
         onClick={() => {
           setLoading((prev) => !prev);
