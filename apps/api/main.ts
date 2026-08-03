@@ -2,9 +2,10 @@
 
 import { cors } from "@elysiajs/cors";
 import { openapi } from "@elysiajs/openapi";
-import { Elysia, t } from "elysia";
+import { Elysia } from "elysia";
 
-import { auth } from "#/core/auth";
+import auth from "#/core/auth";
+import system from "#/features/system";
 
 import { BetterAuthOpenAPI } from "./core/auth/openapi";
 
@@ -32,12 +33,7 @@ const app = new Elysia()
     })
   )
   .use(auth)
-  .group("/api", (group) =>
-    group.get("/health", () => ({ status: "OK" }), {
-      detail: { summary: "Health check", tags: ["System"] },
-      response: t.Object({ status: t.String() }),
-    })
-  )
+  .group("/api", (group) => group.use(system))
   .listen(Bun.env.PORT);
 
 console.log(`API listening on ${app.server?.url.origin}`);

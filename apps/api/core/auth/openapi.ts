@@ -2,13 +2,13 @@
 
 import type { Path } from "better-auth/plugins";
 
-import { betterAuth } from "./better-auth";
+import { auth } from "./better-auth";
 
-type Schema = Awaited<ReturnType<typeof betterAuth.api.generateOpenAPISchema>>;
+type Schema = Awaited<ReturnType<typeof auth.api.generateOpenAPISchema>>;
 
 let _schema: Schema | undefined;
 
-const getSchema = async () => (_schema ??= await betterAuth.api.generateOpenAPISchema());
+const getSchema = async () => (_schema ??= await auth.api.generateOpenAPISchema());
 
 export const BetterAuthOpenAPI = {
   components: async (): Promise<any> => {

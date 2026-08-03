@@ -1,11 +1,11 @@
 import Elysia from "elysia";
 
-import { betterAuth } from "./better-auth";
+import { auth } from "./better-auth";
 
-export const auth = new Elysia({ name: "better-auth" }).mount(betterAuth.handler).macro({
+export default new Elysia({ name: "better-auth" }).mount(auth.handler).macro({
   auth: {
     resolve: async ({ status, request: { headers } }) => {
-      const session = await betterAuth.api.getSession({ headers });
+      const session = await auth.api.getSession({ headers });
 
       if (!session) return status(401);
 
