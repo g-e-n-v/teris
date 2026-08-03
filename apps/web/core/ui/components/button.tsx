@@ -29,7 +29,7 @@ const variants = tv({
       variant: "outline",
     },
     {
-      class: "bg-neutral-600 hover:bg-neutral-700 active:bg-neutral-800",
+      class: "bg-neutral-500 text-white hover:bg-neutral-600 active:bg-neutral-700",
       color: "neutral",
       variant: "solid",
     },
@@ -49,7 +49,7 @@ const variants = tv({
       variant: "outline",
     },
     {
-      class: "bg-brand-600 hover:bg-brand-700 active:bg-brand-800",
+      class: "bg-brand-500 text-white hover:bg-brand-600 active:bg-brand-700",
       color: "brand",
       variant: "solid",
     },
@@ -69,7 +69,7 @@ const variants = tv({
       variant: "outline",
     },
     {
-      class: "bg-accent-600 hover:bg-accent-700 active:bg-accent-800",
+      class: "bg-accent-500 text-white hover:bg-accent-600 active:bg-accent-700",
       color: "accent",
       variant: "solid",
     },
@@ -89,7 +89,7 @@ const variants = tv({
       variant: "outline",
     },
     {
-      class: "bg-success-600 hover:bg-success-700 active:bg-success-800",
+      class: "bg-success-500 text-white hover:bg-success-600 active:bg-success-700",
       color: "success",
       variant: "solid",
     },
@@ -109,7 +109,7 @@ const variants = tv({
       variant: "outline",
     },
     {
-      class: "bg-warning-600 hover:bg-warning-700 active:bg-warning-800",
+      class: "bg-warning-500 text-white hover:bg-warning-600 active:bg-warning-700",
       color: "warning",
       variant: "solid",
     },
@@ -129,7 +129,7 @@ const variants = tv({
       variant: "outline",
     },
     {
-      class: "bg-error-600 hover:bg-error-700 active:bg-error-800",
+      class: "bg-error-500 text-white hover:bg-error-600 active:bg-error-700",
       color: "error",
       variant: "solid",
     },
@@ -157,7 +157,7 @@ const variants = tv({
       filled: "",
       ghost: "bg-transparent",
       outline: "border bg-transparent",
-      solid: "text-white",
+      solid: "",
     },
   },
 });
