@@ -1,2 +1,4 @@
 # generated files
-core/router/route-tree.gen.ts
+**/*.gen.ts
+
+.tanstack/

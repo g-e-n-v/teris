@@ -6,10 +6,15 @@ import { tv, cn } from "tailwind-variants";
 import { Spinner } from "./spinner";
 
 const variants = tv({
-  base: "relative inline-flex cursor-pointer items-center justify-center gap-2 rounded-lg font-medium transition-all focus-visible:outline-2 focus-visible:outline-offset-2 active:scale-95 disabled:pointer-events-none disabled:opacity-50",
+  base: [
+    "relative inline-flex cursor-pointer items-center justify-center gap-2 rounded-lg font-medium transition-all",
+    "active:scale-95",
+    "focus-visible:outline-2 focus-visible:outline-offset-2",
+    "disabled:pointer-events-none disabled:opacity-50",
+  ],
   compoundVariants: [
     {
-      class: "bg-neutral-500 hover:bg-neutral-600 active:bg-neutral-700",
+      class: "bg-neutral-50 text-neutral-600 hover:bg-neutral-100 active:bg-neutral-200",
       color: "neutral",
       variant: "filled",
     },
@@ -29,7 +34,7 @@ const variants = tv({
       variant: "solid",
     },
     {
-      class: "bg-brand-500 hover:bg-brand-600 active:bg-brand-700",
+      class: "bg-brand-50 text-brand-600 hover:bg-brand-100 active:bg-brand-200",
       color: "brand",
       variant: "filled",
     },
@@ -49,7 +54,7 @@ const variants = tv({
       variant: "solid",
     },
     {
-      class: "bg-accent-500 hover:bg-accent-600 active:bg-accent-700",
+      class: "bg-accent-50 text-accent-600 hover:bg-accent-100 active:bg-accent-200",
       color: "accent",
       variant: "filled",
     },
@@ -69,7 +74,7 @@ const variants = tv({
       variant: "solid",
     },
     {
-      class: "bg-success-500 hover:bg-success-600 active:bg-success-700",
+      class: "bg-success-50 text-success-600 hover:bg-success-100 active:bg-success-200",
       color: "success",
       variant: "filled",
     },
@@ -89,7 +94,7 @@ const variants = tv({
       variant: "solid",
     },
     {
-      class: "bg-warning-500 hover:bg-warning-600 active:bg-warning-700",
+      class: "bg-warning-50 text-warning-600 hover:bg-warning-100 active:bg-warning-200",
       color: "warning",
       variant: "filled",
     },
@@ -109,7 +114,7 @@ const variants = tv({
       variant: "solid",
     },
     {
-      class: "bg-error-500 hover:bg-error-600 active:bg-error-700",
+      class: "bg-error-50 text-error-600 hover:bg-error-100 active:bg-error-200",
       color: "error",
       variant: "filled",
     },
@@ -149,9 +154,9 @@ const variants = tv({
       sm: "h-8 px-3 text-xs",
     },
     variant: {
-      filled: "text-white",
+      filled: "",
       ghost: "bg-transparent",
-      outline: "bg-transparent",
+      outline: "border bg-transparent",
       solid: "text-white",
     },
   },
@@ -173,11 +178,7 @@ export function Button({
     <BaseButton className={variants({ className, color, size, variant })} {...props}>
       <div className={cn("contents", loading && "invisible")}>{children}</div>
 
-      {loading && (
-        <div className="absolute inset-0 flex items-center justify-center">
-          <Spinner className="size-5" />
-        </div>
-      )}
+      {loading && <Spinner className={cn("size-5", loading && "absolute inset-0 m-auto")} />}
     </BaseButton>
   );
 }

@@ -14,7 +14,7 @@ export default defineConfig(({ mode }) => {
         autoCodeSplitting: true,
         generatedRouteTree: "./core/router/route-tree.gen.ts",
         indexToken: "page",
-        routeToken: "layout",
+        routeToken: "_layout",
         routesDirectory: "./routes",
       }),
       react(),

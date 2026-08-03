@@ -20,6 +20,7 @@ export default defineConfig({
   rules: {
     curly: "allow",
     "func-style": "allow",
+    "react/function-component-definition": ["error", { namedComponents: "function-declaration" }],
     "tailwindcss/consistent-variant-order": "warn",
     "tailwindcss/enforce-canonical": "warn",
     "tailwindcss/enforce-consistent-important-position": "warn",
@@ -30,6 +31,7 @@ export default defineConfig({
     "tailwindcss/no-unknown-classes": "warn",
     "tailwindcss/no-unnecessary-arbitrary-value": "warn",
     "tailwindcss/no-unnecessary-whitespace": "error",
+    "typescript/consistent-type-definitions": ["error", "type"],
   },
   settings: {
     tailwindcss: {
