@@ -9,6 +9,14 @@ export default defineConfig({
   extends: [core, react],
   ignorePatterns: core.ignorePatterns,
   jsPlugins: ["oxlint-tailwindcss"],
+  overrides: [
+    {
+      files: ["routes/**"],
+      rules: {
+        "no-use-before-define": "off",
+      },
+    },
+  ],
   rules: {
     curly: "allow",
     "func-style": "allow",
