@@ -97,6 +97,11 @@
           }
         }
       }
+    },
+    "tailwindcss-language-server": {
+      "settings": {
+        "classFunctions": ["useResolveClassNames", "tv", "cn"]
+      }
     }
   }
 }

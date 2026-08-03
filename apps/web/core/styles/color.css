@@ -1,0 +1,85 @@
+:root {
+  /* Neutral */
+  --neutral-25: hsl(220 60% 99%);
+  --neutral-50: hsl(213 60% 97%);
+  --neutral-100: hsl(215 61% 94%);
+  --neutral-200: hsl(216 53% 90%);
+  --neutral-300: hsl(215 38% 84%);
+  --neutral-400: hsl(216 19% 64%);
+  --neutral-500: hsl(215 16% 47%);
+  --neutral-600: hsl(215 17% 42%);
+  --neutral-700: hsl(214 19% 36%);
+  --neutral-800: hsl(215 23% 28%);
+  --neutral-900: hsl(216 29% 22%);
+  --neutral-950: hsl(215 40% 15%);
+
+  /* Brand (deep ocean blue) */
+  --brand-25: hsl(220 60% 99%);
+  --brand-50: hsl(220 60% 97%);
+  --brand-100: hsl(218 61% 94%);
+  --brand-200: hsl(219 73% 90%);
+  --brand-300: hsl(219 80% 84%);
+  --brand-400: hsl(219 91% 66%);
+  --brand-500: hsl(219 100% 52%);
+  --brand-600: hsl(219 96% 45%);
+  --brand-700: hsl(219 92% 36%);
+  --brand-800: hsl(219 87% 28%);
+  --brand-900: hsl(219 82% 22%);
+  --brand-950: hsl(219 82% 15%);
+
+  /* Accent (cyan, complementary to brand) */
+  --accent-25: hsl(200 60% 99%);
+  --accent-50: hsl(193 60% 97%);
+  --accent-100: hsl(189 61% 94%);
+  --accent-200: hsl(190 73% 90%);
+  --accent-300: hsl(189 80% 84%);
+  --accent-400: hsl(189 91% 61%);
+  --accent-500: hsl(189 94% 43%);
+  --accent-600: hsl(189 96% 40%);
+  --accent-700: hsl(189 92% 36%);
+  --accent-800: hsl(189 87% 28%);
+  --accent-900: hsl(189 82% 22%);
+  --accent-950: hsl(189 82% 15%);
+
+  /* Feedback: error */
+  --error-25: hsl(0 60% 99%);
+  --error-50: hsl(0 60% 97%);
+  --error-100: hsl(0 61% 94%);
+  --error-200: hsl(0 73% 90%);
+  --error-300: hsl(0 80% 84%);
+  --error-400: hsl(0 91% 71%);
+  --error-500: hsl(0 84% 60%);
+  --error-600: hsl(0 66% 49%);
+  --error-700: hsl(0 85% 36%);
+  --error-800: hsl(0 87% 28%);
+  --error-900: hsl(0 82% 22%);
+  --error-950: hsl(0 82% 15%);
+
+  /* Feedback: warning */
+  --warning-25: hsl(40 60% 99%);
+  --warning-50: hsl(40 60% 97%);
+  --warning-100: hsl(38 61% 94%);
+  --warning-200: hsl(37 73% 90%);
+  --warning-300: hsl(38 80% 84%);
+  --warning-400: hsl(38 91% 65%);
+  --warning-500: hsl(38 92% 50%);
+  --warning-600: hsl(38 96% 44%);
+  --warning-700: hsl(38 92% 36%);
+  --warning-800: hsl(38 87% 28%);
+  --warning-900: hsl(38 82% 22%);
+  --warning-950: hsl(39 82% 15%);
+
+  /* Feedback: success */
+  --success-25: hsl(160 60% 99%);
+  --success-50: hsl(160 60% 97%);
+  --success-100: hsl(161 61% 94%);
+  --success-200: hsl(161 73% 90%);
+  --success-300: hsl(160 80% 84%);
+  --success-400: hsl(160 72% 59%);
+  --success-500: hsl(160 84% 39%);
+  --success-600: hsl(160 83% 38%);
+  --success-700: hsl(160 83% 36%);
+  --success-800: hsl(160 87% 28%);
+  --success-900: hsl(160 82% 22%);
+  --success-950: hsl(161 82% 15%);
+}

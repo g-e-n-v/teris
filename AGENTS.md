@@ -48,6 +48,7 @@ Read these only when working in the relevant area:
 | Monorepo | [docs/technical/monorepo.md](docs/technical/monorepo.md) | Workspaces, Turborepo pipeline, shared TS config, linting |
 | Web app conventions | [docs/technical/web/conventions.md](docs/technical/web/conventions.md) | React 19 patterns, React Compiler, path aliases, TS config |
 | Web app tooling | [docs/technical/web/tooling.md](docs/technical/web/tooling.md) | Vite config, scripts, entry point, build output |
+| Web color system | [docs/technical/web/color-system.md](docs/technical/web/color-system.md) | Palette groups, shade usage, accessibility, adding colors |
 | API app conventions | [docs/technical/api/conventions.md](docs/technical/api/conventions.md) | Elysia patterns, Bun runtime, path aliases, TS config |
 | API app tooling | [docs/technical/api/tooling.md](docs/technical/api/tooling.md) | Build/run scripts, entry point, build output |
 | API database | [docs/technical/api/database.md](docs/technical/api/database.md) | Drizzle ORM, schema workflow, migrations, production deployment |

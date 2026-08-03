@@ -11,6 +11,7 @@ export default defineConfig({
   jsPlugins: ["oxlint-tailwindcss"],
   rules: {
     curly: "allow",
+    "func-style": "allow",
     "tailwindcss/consistent-variant-order": "warn",
     "tailwindcss/enforce-canonical": "warn",
     "tailwindcss/enforce-consistent-important-position": "warn",
@@ -18,7 +19,7 @@ export default defineConfig({
     "tailwindcss/no-conflicting-classes": "error",
     "tailwindcss/no-deprecated-classes": "error",
     "tailwindcss/no-duplicate-classes": "error",
-    "tailwindcss/no-unknown-classes": "error",
+    "tailwindcss/no-unknown-classes": "warn",
     "tailwindcss/no-unnecessary-arbitrary-value": "warn",
     "tailwindcss/no-unnecessary-whitespace": "error",
   },

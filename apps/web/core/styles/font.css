@@ -1,0 +1,10 @@
+:root {
+  --font-sans: "Quicksand Variable", sans-serif;
+  --font-heading: var(--font-sans);
+}
+
+@theme inline {
+  --font-sans: var(--font-sans);
+  --font-heading: var(--font-sans);
+  --font-mono: var(--font-mono);
+}
