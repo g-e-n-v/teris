@@ -11,7 +11,10 @@ export const Route = createFileRoute("/demo")({
   component: DemoLayout,
 });
 
-const SIDEBAR_ITEMS: SidebarItem[] = [{ label: "Button", to: "/demo/button" }];
+const SIDEBAR_ITEMS: SidebarItem[] = [
+  { label: "Button", to: "/demo/button" },
+  { label: "Spinner", to: "/demo/spinner" },
+];
 
 function DemoLayout() {
   return (
