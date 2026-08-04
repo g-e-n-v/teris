@@ -5,7 +5,7 @@ import { tv, cn } from "tailwind-variants";
 
 import { Spinner } from "./spinner";
 
-const variants = tv({
+export const variants = tv({
   base: [
     // Local variables
     "[--btn-edge:0_1px_oklch(0_0_0/4%)]",
@@ -27,6 +27,7 @@ const variants = tv({
       lg: "h-10 px-3.5",
       md: "h-9 px-3",
       sm: "h-8 gap-1.5 px-2.5",
+      xs: "h-7 gap-1.5 px-2 text-sm",
     },
     variant: {
       danger:

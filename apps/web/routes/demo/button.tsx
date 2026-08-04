@@ -17,7 +17,7 @@ const VARIANTS = [
   "ghost",
   "link",
 ] as const;
-const SIZES = ["sm", "md", "lg"] as const;
+const SIZES = ["xs", "sm", "md", "lg"] as const;
 
 function ButtonDemoPage() {
   const [loading, setLoading] = useState(false);

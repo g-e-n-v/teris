@@ -14,6 +14,7 @@ export const Route = createFileRoute("/demo")({
 const SIDEBAR_ITEMS: SidebarItem[] = [
   { label: "Button", to: "/demo/button" },
   { label: "Spinner", to: "/demo/spinner" },
+  { label: "Toast", to: "/demo/toast" },
 ];
 
 function DemoLayout() {
