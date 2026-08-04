@@ -98,6 +98,10 @@ const variants = tv({
     title: "font-medium",
   },
   variants: {
+    pulse: {
+      even: { root: "animate-pulse-toast-even" },
+      odd: { root: "animate-pulse-toast-odd" },
+    },
     type: {
       error: { icon: "text-error-500" },
       info: { icon: "text-brand-500" },
@@ -113,6 +117,15 @@ function isValidType(type?: string): type is ToastType {
   return type !== undefined && type in TOAST_ICONS;
 }
 
+// Alternate animation names so repeated updates restart the pulse.
+// New toasts start with `updateKey: 0`, so the first add skips the pulse.
+function getPulse(updateKey?: number): "even" | "odd" | undefined {
+  if (updateKey === undefined || updateKey === 0) {
+    return undefined;
+  }
+  return updateKey % 2 === 0 ? "even" : "odd";
+}
+
 //  Toasts
 function Toasts() {
   const { toasts } = BaseToast.useToastManager();
@@ -125,11 +138,12 @@ function Toasts() {
         {toasts.map((toast) => {
           const type = isValidType(toast.type) ? toast.type : undefined;
           const icon = type ? TOAST_ICONS[type] : undefined;
+          const pulse = getPulse(toast.updateKey);
 
           return (
             <BaseToast.Root
               key={toast.id}
-              className={v.root()}
+              className={v.root({ pulse })}
               swipeDirection={["right", "down"]}
               toast={toast}
             >
@@ -159,10 +173,6 @@ function Toasts() {
                       {toast.actionProps.children}
                     </BaseToast.Action>
                   )}
-
-                  {/*<BaseToast.Close className={v.close()}>
-                    <span className="sr-only">Dismiss</span>
-                  </BaseToast.Close>*/}
                 </div>
               </BaseToast.Content>
             </BaseToast.Root>

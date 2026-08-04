@@ -1,0 +1,11 @@
+@keyframes pulse-toast-even {
+  50% {
+    scale: 1.04;
+  }
+}
+
+@keyframes pulse-toast-odd {
+  50% {
+    scale: 1.04;
+  }
+}

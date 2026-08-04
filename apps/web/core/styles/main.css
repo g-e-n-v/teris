@@ -2,8 +2,12 @@
 
 @import "./color.css";
 @import "./font.css";
+@import "./animation.css";
 
 @theme {
+  --animate-pulse-toast-even: pulse-toast-even 0.28s ease;
+  --animate-pulse-toast-odd: pulse-toast-odd 0.28s ease;
+
   --color-white: var(--white);
   --color-black: var(--black);
   --color-snow: var(--snow);

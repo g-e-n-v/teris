@@ -53,7 +53,7 @@ function ToastDemoPage() {
           onClick={() => {
             toast.add({
               description: "Repeated clicks update this toast instead of stacking another.",
-              id: "coss-demo-dedup-toast",
+              id: "demo-dedup-toast",
               title: "Saved",
               type: "success",
             });
