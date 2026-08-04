@@ -8,8 +8,7 @@ export const Route = createFileRoute("/demo/button")({
   component: ButtonDemoPage,
 });
 
-const COLORS = ["brand", "accent", "neutral", "success", "warning", "error"] as const;
-const VARIANTS = ["solid", "filled", "outline", "ghost"] as const;
+const VARIANTS = ["primary", "secondary", "tertiary", "danger", "danger-soft", "link"] as const;
 const SIZES = ["sm", "md", "lg"] as const;
 
 function ButtonDemoPage() {
@@ -18,19 +17,12 @@ function ButtonDemoPage() {
   return (
     <div className="space-y-12">
       <section>
-        <h2 className="mb-4 text-lg font-semibold text-neutral-900">Colors & Variants</h2>
-        <div className="space-y-4">
+        <h2 className="mb-4 text-lg font-semibold text-neutral-900">Variants</h2>
+        <div className="flex flex-wrap gap-3">
           {VARIANTS.map((variant) => (
-            <div key={variant} className="space-y-2">
-              <h3 className="text-sm font-medium text-neutral-500 capitalize">{variant}</h3>
-              <div className="flex flex-wrap gap-3">
-                {COLORS.map((color) => (
-                  <Button key={`${color}-${variant}`} color={color} variant={variant}>
-                    {color}
-                  </Button>
-                ))}
-              </div>
-            </div>
+            <Button key={variant} variant={variant}>
+              {variant}
+            </Button>
           ))}
         </div>
       </section>
@@ -38,7 +30,7 @@ function ButtonDemoPage() {
       <section>
         <h2 className="mb-4 text-lg font-semibold text-neutral-900">Sizes</h2>
         <div className="space-y-2">
-          <h3 className="text-sm font-medium text-neutral-500 capitalize">solid / brand</h3>
+          <h3 className="text-sm font-medium text-neutral-500 capitalize">primary</h3>
           <div className="flex flex-wrap items-center gap-3">
             {SIZES.map((size) => (
               <Button key={size} size={size}>
@@ -56,7 +48,7 @@ function ButtonDemoPage() {
             <h3 className="text-sm font-medium text-neutral-500">Disabled</h3>
             <div className="flex flex-wrap gap-3">
               {VARIANTS.map((variant) => (
-                <Button key={variant} color="brand" variant={variant} disabled>
+                <Button key={variant} variant={variant} disabled>
                   {variant}
                 </Button>
               ))}
@@ -66,7 +58,7 @@ function ButtonDemoPage() {
             <h3 className="text-sm font-medium text-neutral-500">Loading</h3>
             <div className="flex flex-wrap gap-3">
               {VARIANTS.map((variant) => (
-                <Button key={variant} color="brand" variant={variant} loading>
+                <Button key={variant} variant={variant} loading>
                   {variant}
                 </Button>
               ))}
@@ -75,14 +67,10 @@ function ButtonDemoPage() {
         </div>
       </section>
 
-      <div className="flex gap-4">
+      <div className="flex flex-wrap gap-4">
         <Button>Primary</Button>
-        <Button variant="outline" color="neutral">
-          Secondary
-        </Button>
-        <Button variant="filled" color="neutral">
-          Tertiary
-        </Button>
+        <Button variant="secondary">Secondary</Button>
+        <Button variant="tertiary">Tertiary</Button>
       </div>
 
       <Button
@@ -90,7 +78,7 @@ function ButtonDemoPage() {
           setLoading((prev) => !prev);
         }}
         loading={loading}
-        variant="filled"
+        variant="tertiary"
       >
         <Icon icon="solar:augmented-reality-linear" className="size-5" />
         Test button with loading
