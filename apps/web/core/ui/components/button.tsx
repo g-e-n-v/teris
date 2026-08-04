@@ -33,6 +33,8 @@ const variants = tv({
         "border-error-500 bg-error-500 text-white shadow-xs shadow-error-500/24 not-disabled:inset-shadow-(--btn-highlight) hover:bg-error-500 active:bg-error-700 active:shadow-none active:inset-shadow-(--btn-press)",
       "danger-soft":
         "border-neutral-200 bg-transparent text-error-500 shadow-xs/5 not-active:before:shadow-(--btn-edge) hover:bg-neutral-50 active:bg-neutral-100 active:shadow-none",
+      ghost:
+        "border-transparent bg-transparent text-neutral-900 hover:bg-neutral-50 active:bg-neutral-100",
       link: "border-transparent bg-transparent text-neutral-900 hover:underline",
       primary:
         "border-brand-500 bg-brand-500 text-white shadow-xs shadow-brand-500/24 not-disabled:inset-shadow-(--btn-highlight) hover:bg-brand-500 active:bg-brand-700 active:shadow-none active:inset-shadow-(--btn-press)",

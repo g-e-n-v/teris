@@ -8,7 +8,15 @@ export const Route = createFileRoute("/demo/button")({
   component: ButtonDemoPage,
 });
 
-const VARIANTS = ["primary", "secondary", "tertiary", "danger", "danger-soft", "link"] as const;
+const VARIANTS = [
+  "primary",
+  "secondary",
+  "tertiary",
+  "danger",
+  "danger-soft",
+  "ghost",
+  "link",
+] as const;
 const SIZES = ["sm", "md", "lg"] as const;
 
 function ButtonDemoPage() {
@@ -43,6 +51,7 @@ function ButtonDemoPage() {
 
       <section>
         <h2 className="mb-4 text-lg font-semibold text-neutral-900">States</h2>
+
         <div className="space-y-4">
           <div className="space-y-2">
             <h3 className="text-sm font-medium text-neutral-500">Disabled</h3>
@@ -54,6 +63,7 @@ function ButtonDemoPage() {
               ))}
             </div>
           </div>
+
           <div className="space-y-2">
             <h3 className="text-sm font-medium text-neutral-500">Loading</h3>
             <div className="flex flex-wrap gap-3">
@@ -64,24 +74,28 @@ function ButtonDemoPage() {
               ))}
             </div>
           </div>
+
+          <div className="space-y-2">
+            <h3 className="text-sm font-medium text-neutral-500">Loading x Disabled</h3>
+            <div className="flex flex-wrap gap-3">
+              {VARIANTS.map((variant) => (
+                <Button key={variant} variant={variant} loading disabled>
+                  {variant}
+                </Button>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
-
-      <div className="flex flex-wrap gap-4">
-        <Button>Primary</Button>
-        <Button variant="secondary">Secondary</Button>
-        <Button variant="tertiary">Tertiary</Button>
-      </div>
 
       <Button
         onClick={() => {
           setLoading((prev) => !prev);
         }}
         loading={loading}
-        variant="tertiary"
       >
-        <Icon icon="solar:augmented-reality-linear" className="size-5" />
-        Test button with loading
+        <Icon icon="solar:download-minimalistic-bold" className="size-5" />
+        Download
       </Button>
     </div>
   );
