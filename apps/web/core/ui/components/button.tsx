@@ -13,7 +13,7 @@ const variants = tv({
     "[--btn-press:0_1px_oklch(0_0_0/8%)]",
 
     "relative inline-flex cursor-pointer items-center justify-center gap-2 rounded-lg border font-medium transition-all",
-    "active:scale-95",
+    "active:scale-98",
     "before:pointer-events-none before:absolute before:inset-0 before:rounded-[calc(var(--radius-lg)-1px)] before:content-['']",
     "focus-visible:ring-2 focus-visible:ring-brand-500/60 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-25 focus-visible:outline-none",
     "disabled:pointer-events-none disabled:opacity-50",
