@@ -8,7 +8,7 @@ The web app uses a 12-shade color scale system (25 → 950) following the Tailwi
 
 ## How it works
 
-1. **`color.css` (`:root`)** holds raw HSL values: `--brand-500: hsl(219 100% 52%);`
+1. **`color.css` (`:root`)** holds raw OKLCH values: `--brand-500: oklch(0.3564 0.0391 248.97);`
 2. **`main.css` (`@theme`)** maps those to Tailwind tokens: `--color-brand-500: var(--brand-500);`
 3. Tailwind v4 reads `@theme` and generates utilities: `bg-brand-500`, `text-brand-500`, `border-brand-500`, etc.
 
@@ -18,12 +18,12 @@ This two-layer split lets you override colors in a dark theme or variant by rede
 
 | Group | CSS prefix | Tailwind prefix | 500 value | Purpose |
 | --- | --- | --- | --- | --- |
-| Neutral | `--neutral-*` | `neutral-*` | `hsl(215 16% 47%)` | Text, backgrounds, borders, dividers. The most-used scale. |
-| Brand | `--brand-*` | `brand-*` | `hsl(219 100% 52%)` | Primary interactive elements: buttons, links, inputs. Deep ocean blue. |
-| Accent | `--accent-*` | `accent-*` | `hsl(189 94% 43%)` | Secondary/supporting: badges, labels, highlights. Cyan. |
-| Error | `--error-*` | `error-*` | `hsl(0 84% 60%)` | Destructive actions and error states. |
-| Warning | `--warning-*` | `warning-*` | `hsl(38 92% 50%)` | Potentially destructive or "on-hold" states. |
-| Success | `--success-*` | `success-*` | `hsl(160 84% 39%)` | Positive actions, confirmations, trends. |
+| Neutral | `--neutral-*` | `neutral-*` | `oklch(0.54 0.03 246)` | Text, backgrounds, borders, dividers. The most-used scale. Cool gray aligned to the brand hue. |
+| Brand | `--brand-*` | `brand-*` | `oklch(0.66 0.169 246)` | Primary interactive elements: buttons, links, inputs. Bright ocean blue. |
+| Accent | `--accent-*` | `accent-*` | `oklch(0.68 0.14 35)` | Secondary/supporting: badges, labels, highlights. Warm coral. |
+| Error | `--error-*` | `error-*` | `oklch(0.63 0.21 25)` | Destructive actions and error states. |
+| Warning | `--warning-*` | `warning-*` | `oklch(0.75 0.17 70)` | Potentially destructive or "on-hold" states. |
+| Success | `--success-*` | `success-*` | `oklch(0.68 0.17 145)` | Positive actions, confirmations, trends. |
 
 ## The 12-shade scale
 
@@ -110,4 +110,4 @@ For inline styles or non-Tailwind contexts, reference the CSS variable:
 - Do not use raw hex codes in components. Always use Tailwind tokens or CSS variables.
 - Do not invent new shade numbers. Use the existing 25–950 scale.
 - Do not use the same shade for different roles inconsistently (e.g. `neutral-300` for borders in one component, `neutral-200` in another). Pick one and stick to it.
-- Do not put `hsl()` wrappers in `:root` values if you want opacity modifiers to work. Use `hsl(...)` so Tailwind can apply `/opacity`.
+- Do not put `oklch()` wrappers in `:root` values if you want opacity modifiers to work. Use `oklch(...)` so Tailwind can apply `/opacity`.

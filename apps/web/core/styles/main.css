@@ -4,6 +4,11 @@
 @import "./font.css";
 
 @theme {
+  --color-white: var(--white);
+  --color-black: var(--black);
+  --color-snow: var(--snow);
+  --color-eclipse: var(--eclipse);
+
   /* Neutral */
   --color-neutral-25: var(--neutral-25);
   --color-neutral-50: var(--neutral-50);
