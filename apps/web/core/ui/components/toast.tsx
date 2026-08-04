@@ -67,21 +67,29 @@ const variants = tv({
       "absolute right-0 bottom-0 z-[calc(9999-var(--toast-index))] w-full select-none",
       "h-(--toast-calc-height)",
       "rounded-lg border border-neutral-200 bg-white text-neutral-900 shadow-lg/5",
-      "transition-[transform,opacity,height] duration-300 ease-out",
+      "[transition:transform_.5s_cubic-bezier(.22,1,.36,1),opacity_.5s,height_.15s]",
+
+      // Local offset-y variable used by expanded and swipe-dismissal transforms
+      "[--toast-calc-offset-y:calc(var(--toast-offset-y)*-1+var(--toast-index)*var(--toast-gap)*-1+var(--toast-swipe-movement-y))]",
 
       // Collapsed stack transform
       "transform-[translateX(var(--toast-swipe-movement-x))_translateY(calc(var(--toast-swipe-movement-y)-(var(--toast-index)*var(--toast-peek))-(var(--toast-shrink)*var(--toast-calc-height))))_scale(var(--toast-scale))]",
 
+      // Disable transition while actively swiping so the toast tracks the pointer
+      "data-swiping:transition-none",
+
       // Expanded (hover) state
       "data-expanded:h-(--toast-height)",
-      "data-expanded:transform-[translateX(var(--toast-swipe-movement-x))_translateY(calc(var(--toast-offset-y)*-1+var(--toast-index)*var(--toast-gap)*-1+var(--toast-swipe-movement-y)))]",
+      "data-expanded:transform-[translateX(var(--toast-swipe-movement-x))_translateY(var(--toast-calc-offset-y))]",
 
       // Enter/exit animations
       "data-starting-style:transform-[translateY(calc(100%+var(--toast-inset)))]",
       "data-ending-style:opacity-0",
-      "data-ending-style:not-data-limited:not-data-swiping:transform-[translateY(calc(100%+var(--toast-inset)))]",
-      "data-ending-style:data-[swipe-direction=right]:transform-[translateX(calc(var(--toast-swipe-movement-x)+100%+var(--toast-inset)))]",
+      "data-ending-style:not-data-limited:not-data-swipe-direction:transform-[translateY(calc(100%+var(--toast-inset)))]",
+      "data-ending-style:data-[swipe-direction=right]:transform-[translateX(calc(var(--toast-swipe-movement-x)+100%+var(--toast-inset)))_translateY(var(--toast-calc-offset-y))]",
       "data-ending-style:data-[swipe-direction=down]:transform-[translateY(calc(var(--toast-swipe-movement-y)+100%+var(--toast-inset)))]",
+      "data-expanded:data-ending-style:data-[swipe-direction=right]:transform-[translateX(calc(var(--toast-swipe-movement-x)+100%+var(--toast-inset)))_translateY(var(--toast-calc-offset-y))]",
+      "data-expanded:data-ending-style:data-[swipe-direction=down]:transform-[translateY(calc(var(--toast-swipe-movement-y)+100%+var(--toast-inset)))]",
       "data-limited:opacity-0",
 
       // Gap fill so hovering between stacked toasts keeps the stack expanded
@@ -127,15 +135,17 @@ function Toasts() {
             >
               <BaseToast.Content className={v.content()}>
                 <div className="flex min-w-0 gap-2.5">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="1em"
-                    height="1em"
-                    viewBox="0 0 24 24"
-                    className={v.icon({ type })}
-                  >
-                    {icon}
-                  </svg>
+                  {icon && (
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="1em"
+                      height="1em"
+                      viewBox="0 0 24 24"
+                      className={v.icon({ type })}
+                    >
+                      {icon}
+                    </svg>
+                  )}
 
                   <div className={v.body()}>
                     <BaseToast.Title className={v.title()} />
