@@ -8,6 +8,10 @@
     "figma-desktop": {
       "type": "http",
       "disabled": true
+    },
+    "tailwind-variants": {
+      "type": "http",
+      "url": "https://www.tailwind-variants.org/api/mcp"
     }
   }
 }
