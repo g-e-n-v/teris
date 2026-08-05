@@ -16,6 +16,7 @@ export const Route = createFileRoute("/demo")({
 const SIDEBAR_ITEMS: SidebarItem[] = [
   { icon: "solar:cursor-outline", label: "Button", to: "/demo/button" },
   { icon: "solar:text-field-outline", label: "Input", to: "/demo/input" },
+  { icon: "solar:list-outline", label: "Scroll Area", to: "/demo/scroll-area" },
   { icon: "solar:refresh-circle-outline", label: "Spinner", to: "/demo/spinner" },
   { icon: "solar:bell-outline", label: "Toast", to: "/demo/toast" },
 ];
