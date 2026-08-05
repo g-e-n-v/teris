@@ -15,10 +15,7 @@ function InputDemoPage() {
         <h2 className="mb-4 text-lg font-semibold text-neutral-900">Sizes</h2>
         <div className="space-y-3">
           {SIZES.map((size) => (
-            <div key={size} className="grid grid-cols-[3rem_1fr] items-center gap-3">
-              <span className="text-sm font-medium text-neutral-500 uppercase">{size}</span>
-              <Input size={size} placeholder={`${size.toUpperCase()} input`} />
-            </div>
+            <Input key={size} size={size} placeholder={`${size} input`} />
           ))}
         </div>
       </section>
@@ -65,9 +62,7 @@ function InputDemoPage() {
 
       <section>
         <h2 className="mb-4 text-lg font-semibold text-neutral-900">Unstyled</h2>
-        <div className="rounded-xl bg-neutral-100 p-3">
-          <Input unstyled prefix="solar:link-linear" placeholder="Paste a link" />
-        </div>
+        <Input unstyled prefix="solar:link-linear" placeholder="Paste a link" />
       </section>
     </div>
   );
