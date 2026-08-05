@@ -4,7 +4,7 @@ import type { VariantProps } from "tailwind-variants";
 import { Input as BaseInput } from "@base-ui/react/input";
 import { Icon } from "@iconify/react";
 import { isString } from "lodash-es";
-import { tv } from "tailwind-variants";
+import { cn, tv } from "tailwind-variants";
 
 export const variants = tv({
   defaultVariants: {
@@ -60,13 +60,16 @@ type InputProps = Omit<BaseInput.Props, "className" | "size"> &
     suffix?: string | ReactElement;
   };
 
-export function Input({ className, size, unstyled, prefix, suffix, ...props }: InputProps) {
+export function Input({ className, size, unstyled, prefix, suffix, type, ...props }: InputProps) {
   const v = variants({ size, unstyled });
 
   return (
-    <div className={v.root({ className })} data-size={size}>
+    <div
+      className={v.root({ className: cn(className, type === "file" && "text-neutral-500") })}
+      data-size={size}
+    >
       {isString(prefix) ? <Icon className={v.icon()} icon={prefix} /> : prefix}
-      <BaseInput className={v.input()} {...props} />
+      <BaseInput className={v.input()} type={type} {...props} />
       {isString(suffix) ? <Icon className={v.icon()} icon={suffix} /> : suffix}
     </div>
   );

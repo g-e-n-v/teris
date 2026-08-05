@@ -25,3 +25,5 @@ build/
 
 # lefthook local overrides
 lefthook-local.yml
+
+.playwright-mcp

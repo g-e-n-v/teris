@@ -24,10 +24,10 @@ export const variants = tv({
   },
   variants: {
     size: {
-      lg: "h-10 px-3.5",
-      md: "h-9 px-3",
-      sm: "h-8 gap-1.5 px-2.5",
-      xs: "h-7 gap-1.5 px-2 text-sm",
+      lg: "h-9 px-3.5",
+      md: "h-8 px-3",
+      sm: "h-7 gap-1.5 px-2.5",
+      xs: "h-6 gap-1.5 px-2 text-sm",
     },
     variant: {
       danger:
