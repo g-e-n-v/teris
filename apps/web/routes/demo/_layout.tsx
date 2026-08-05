@@ -22,7 +22,7 @@ const SIDEBAR_ITEMS: SidebarItem[] = [
 
 function DemoLayout() {
   return (
-    <div className="flex h-screen bg-neutral-25">
+    <div className="flex h-screen bg-white">
       <aside className="flex w-60 flex-col border-r border-neutral-200 bg-white">
         <div className="flex h-15 items-center border-b border-neutral-200 px-4">
           <div className="flex items-center gap-2 text-lg font-semibold text-neutral-900">

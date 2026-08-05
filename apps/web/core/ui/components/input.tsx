@@ -29,7 +29,7 @@ export const variants = tv({
       "has-autofill:bg-(--input-autofill-bg)",
 
       // Focus: colored border + soft ring
-      "has-focus-visible:border-brand-500 has-focus-visible:ring-2 has-focus-visible:ring-brand-500/24",
+      "has-focus-visible:border-brand-400 has-focus-visible:ring-2 has-focus-visible:ring-brand-500/24",
 
       // Invalid: solid error border, error ring on focus
       "has-aria-invalid:border-error-400",

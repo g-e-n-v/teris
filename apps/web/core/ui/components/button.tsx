@@ -40,7 +40,7 @@ export const variants = tv({
       primary:
         "border-brand-500 bg-brand-500 text-white shadow-xs shadow-brand-500/24 not-disabled:inset-shadow-(--btn-highlight) hover:bg-brand-500 active:bg-brand-700 active:shadow-none active:inset-shadow-(--btn-press)",
       secondary:
-        "border-neutral-200 bg-transparent text-neutral-900 shadow-xs/5 not-active:before:shadow-(--btn-edge) hover:bg-neutral-50 active:bg-neutral-100 active:shadow-none",
+        "border-neutral-200 bg-white text-neutral-900 shadow-xs/5 not-active:before:shadow-(--btn-edge) hover:bg-neutral-25 active:bg-neutral-50 active:shadow-none",
       tertiary:
         "border-transparent bg-neutral-50 text-neutral-900 hover:bg-neutral-100 active:bg-neutral-200",
     },

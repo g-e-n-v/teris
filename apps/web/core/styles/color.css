@@ -5,46 +5,46 @@
   --eclipse: oklch(0.2103 0.0059 285.89);
 
   /* Neutral */
-  --neutral-25: oklch(0.991 0.003 264.5);
-  --neutral-50: oklch(0.973 0.009 264.5);
-  --neutral-100: oklch(0.942 0.019 266);
-  --neutral-200: oklch(0.91 0.021 268.4);
-  --neutral-300: oklch(0.862 0.024 264.4);
-  --neutral-400: oklch(0.689 0.031 266.3);
-  --neutral-500: oklch(0.544 0.035 265.1);
-  --neutral-600: oklch(0.509 0.034 264.2);
-  --neutral-700: oklch(0.456 0.033 265.1);
-  --neutral-800: oklch(0.38 0.034 267);
-  --neutral-900: oklch(0.322 0.034 265.9);
-  --neutral-950: oklch(0.252 0.033 263.7);
+  --neutral-25: oklch(0.991 0 0);
+  --neutral-50: oklch(0.973 0 0);
+  --neutral-100: oklch(0.942 0 0);
+  --neutral-200: oklch(0.9 0 0);
+  --neutral-300: oklch(0.78 0 0);
+  --neutral-400: oklch(0.65 0 0);
+  --neutral-500: oklch(0.52 0 0);
+  --neutral-600: oklch(0.387 0 0);
+  --neutral-700: oklch(0.321 0 0);
+  --neutral-800: oklch(0.252 0 0);
+  --neutral-900: oklch(0.178 0 0);
+  --neutral-950: oklch(0 0 0);
 
-  /* Brand (primary blue) */
-  --brand-25: oklch(0.993 0.003 228.8);
-  --brand-50: oklch(0.976 0.008 241.7);
-  --brand-100: oklch(0.954 0.016 233);
-  --brand-200: oklch(0.924 0.031 234.4);
-  --brand-300: oklch(0.88 0.055 235);
-  --brand-400: oklch(0.746 0.132 239.4);
-  --brand-500: oklch(0.66 0.169 246);
-  --brand-600: oklch(0.602 0.155 246.4);
-  --brand-700: oklch(0.527 0.13 244.9);
-  --brand-800: oklch(0.437 0.104 244.1);
-  --brand-900: oklch(0.368 0.083 243);
-  --brand-950: oklch(0.285 0.06 241.8);
+  /* Brand */
+  --brand-25: oklch(0.991 0 0);
+  --brand-50: oklch(0.973 0 0);
+  --brand-100: oklch(0.942 0 0);
+  --brand-200: oklch(0.9 0 0);
+  --brand-300: oklch(0.78 0 0);
+  --brand-400: oklch(0.52 0 0);
+  --brand-500: oklch(0.252 0 0);
+  --brand-600: oklch(0.178 0 0);
+  --brand-700: oklch(0.13 0 0);
+  --brand-800: oklch(0.09 0 0);
+  --brand-900: oklch(0.045 0 0);
+  --brand-950: oklch(0 0 0);
 
-  /* Accent (cyan, complementary to brand) */
-  --accent-25: oklch(0.995 0.003 197.1);
-  --accent-50: oklch(0.982 0.009 205.9);
-  --accent-100: oklch(0.964 0.018 205.3);
-  --accent-200: oklch(0.945 0.035 205.5);
-  --accent-300: oklch(0.917 0.06 205.3);
-  --accent-400: oklch(0.838 0.13 208.1);
-  --accent-500: oklch(0.729 0.126 210.8);
-  --accent-600: oklch(0.686 0.118 210.7);
-  --accent-700: oklch(0.638 0.109 210);
-  --accent-800: oklch(0.522 0.089 210.4);
-  --accent-900: oklch(0.436 0.072 209.4);
-  --accent-950: oklch(0.334 0.054 208.2);
+  /* Accent */
+  --accent-25: oklch(0.991 0 0);
+  --accent-50: oklch(0.973 0 0);
+  --accent-100: oklch(0.942 0 0);
+  --accent-200: oklch(0.9 0 0);
+  --accent-300: oklch(0.78 0 0);
+  --accent-400: oklch(0.52 0 0);
+  --accent-500: oklch(0.387 0 0);
+  --accent-600: oklch(0.321 0 0);
+  --accent-700: oklch(0.252 0 0);
+  --accent-800: oklch(0.178 0 0);
+  --accent-900: oklch(0.09 0 0);
+  --accent-950: oklch(0 0 0);
 
   /* Feedback: error */
   --error-25: oklch(0.99 0.003 17.2);

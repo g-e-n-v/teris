@@ -13,6 +13,10 @@
   --text-base: 14px;
   --text-lg: 16px;
   --text-xl: 18px;
+  --text-2xl: 20px;
+  --text-3xl: 24px;
+  --text-4xl: 28px;
+  --text-5xl: 32px;
 
   --color-white: var(--white);
   --color-black: var(--black);
