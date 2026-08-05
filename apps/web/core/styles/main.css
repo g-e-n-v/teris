@@ -8,6 +8,12 @@
   --animate-pulse-toast-even: pulse-toast-even 0.28s ease;
   --animate-pulse-toast-odd: pulse-toast-odd 0.28s ease;
 
+  --text-xs: 10px;
+  --text-sm: 12px;
+  --text-base: 14px;
+  --text-lg: 16px;
+  --text-xl: 18px;
+
   --color-white: var(--white);
   --color-black: var(--black);
   --color-snow: var(--snow);
@@ -100,6 +106,6 @@
 
 @layer base {
   body {
-    @apply text-neutral-900;
+    @apply font-medium text-neutral-900;
   }
 }

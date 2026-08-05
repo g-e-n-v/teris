@@ -13,6 +13,7 @@ export const Route = createFileRoute("/demo")({
 
 const SIDEBAR_ITEMS: SidebarItem[] = [
   { label: "Button", to: "/demo/button" },
+  { label: "Input", to: "/demo/input" },
   { label: "Spinner", to: "/demo/spinner" },
   { label: "Toast", to: "/demo/toast" },
 ];
