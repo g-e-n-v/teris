@@ -1,79 +1,51 @@
-# Monorepo & Workspaces
+# Monorepo And Workspaces
 
 ## Workspaces
 
-This is a Bun-managed monorepo. Workspaces are defined in the root `package.json` under `apps/*` and `packages/*`. Each app/package has its own `package.json`, `tsconfig.json`, and `oxlint.config.ts`.
+Bun manages workspaces under `apps/*` and `packages/*`. The repository currently contains `@teris/web` and `@teris/api`; the `packages/*` pattern is reserved for future shared libraries.
 
-- Root `package.json` holds shared dev dependencies (Oxlint, Oxfmt, Ultracite, Turbo).
-- App-level `package.json` files hold app-specific runtime and dev dependencies.
-- There is no `packages/*` directory yet, but the workspace pattern is ready for shared libraries.
+- Keep repository tooling in the root `package.json`.
+- Keep app runtime and build dependencies in each app's `package.json`.
+- Import another workspace through its package export, never by reaching into its files.
 
 ## Turborepo
 
-Task pipeline is defined in `turbo.json`:
+The root scripts delegate app work to Turborepo. `turbo.json` defines this pipeline:
 
-| Task         | Depends on    | Cached | Notes                              |
-| ------------ | ------------- | ------ | ---------------------------------- |
-| `build`      | `^build`      | Yes    | Outputs `dist/**`                  |
-| `dev`        | `^dev`        | No     | Persistent, long-running           |
-| `start`      | `build`       | No     | Persistent, runs production server |
-| `lint:check` | —             | Yes    | No outputs                         |
-| `lint:fix`   | —             | No     | No outputs                         |
-| `type:check` | `^type:check` | Yes    | No outputs                         |
+| Task         | Dependency    | Cache | Output or behavior               |
+| ------------ | ------------- | ----- | -------------------------------- |
+| `build`      | `^build`      | Yes   | `dist/**`                        |
+| `dev`        | `^dev`        | No    | Persistent development servers   |
+| `start`      | Local `build` | No    | Persistent preview/API processes |
+| `type:check` | `^type:check` | Yes   | No file output                   |
 
-The `^` prefix means "run the task in upstream workspace dependencies first." Since no shared packages exist yet, this is a no-op but ready for future use.
+Linting is repository-wide rather than an app task. Run `bun run lint:check` or `bun run lint:fix` from the root. The app packages do not define local lint scripts.
 
-Run tasks for a single app with Turbo's `--filter` flag:
+Filter delegated tasks from the root:
 
 ```bash
 bun run dev --filter=@teris/web
 bun run build --filter=@teris/api
+bun run type:check --filter=@teris/web
 ```
 
-## Shared TypeScript Config
+## TypeScript
 
-Root `tsconfig.json` provides the base configuration extended by all apps:
+The root `tsconfig.json` enables strict, no-emit TypeScript with ESNext modules, bundler resolution, JSON modules, and verbatim module syntax. Each app extends it with runtime libraries and a local path alias.
 
-- `target`/`module`: `ESNext`
-- `moduleResolution`: `bundler`
-- `strict`: `true`
-- `noEmit`: `true` (type-checking only; builds are handled by Vite/Bun)
-- `verbatimModuleSyntax`: `true` (requires `import type` for type-only imports)
-- `resolveJsonModule`: `true`
+Use `import type` for type-only imports. Vite and Bun perform builds; TypeScript only checks types.
 
-Each app extends this and adds its own `lib`, `paths`, and app-specific flags.
+## Linting And Formatting
 
-## Linting & Formatting
+Ultracite runs on the Oxlint and Oxfmt backends with type-aware linting.
 
-This project uses [Ultracite](https://ultracite.ai) with the Oxlint + Oxfmt backend. Type-aware linting is enabled via `oxlint-tsgolint`.
+| File                        | Responsibility                                                 |
+| --------------------------- | -------------------------------------------------------------- |
+| `oxlint.config.ts`          | Shared Ultracite core rules                                    |
+| `oxfmt.config.ts`           | 100-column formatting, import grouping, Tailwind class sorting |
+| `apps/web/oxlint.config.ts` | React, component, route, and Tailwind rules                    |
+| `apps/api/oxlint.config.ts` | API core rules                                                 |
 
-### Commands
+Oxfmt groups side-effect, type, external, internal, and relative imports with blank lines between groups. Tailwind sorting uses `apps/web/core/styles/main.css` as its stylesheet and recognizes classes passed through `cn`.
 
-| Task                  | Command              |
-| --------------------- | -------------------- |
-| Check all packages    | `bun run lint:check` |
-| Auto-fix all packages | `bun run lint:fix`   |
-
-Target a single app:
-
-```bash
-cd apps/web && bun run lint:check
-cd apps/api && bun run lint:fix
-```
-
-### Config Files
-
-| File                        | Purpose                                                         |
-| --------------------------- | --------------------------------------------------------------- |
-| `oxlint.config.ts` (root)   | Base oxlint config with the `ultracite/oxlint/core` preset      |
-| `oxfmt.config.ts` (root)    | Formatter config extending `ultracite/oxfmt`, `printWidth: 100` |
-| `apps/web/oxlint.config.ts` | Web-specific: core + React preset                               |
-| `apps/api/oxlint.config.ts` | API-specific: core preset only                                  |
-
-### Editor Integration
-
-The `.zed/settings.json` file configures:
-
-- Format on save via `oxfmt` language server
-- Lint on type via `oxlint` with type-aware mode and `unusedDisableDirectives: "deny"`
-- Auto-fix and import organization on save for JS/TS/TSX
+Lefthook runs `bun run lint:check` and `bun run type:check` in parallel before commits and pushes. No automated test runner is configured yet.

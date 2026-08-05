@@ -1,459 +1,143 @@
 # RFC-001: Multi-Tenant Architecture
 
-**Status:** Accepted **Date:** 2026-01-08 **Author:** Teris Team
+**Status:** Accepted, partially implemented  
+**Decision date:** 2026-01-08  
+**Last implementation review:** 2026-08-05
 
 ## TL;DR
 
-We're building Teris as a multi-tenant SaaS where one user can belong to multiple organizations. Each organization has its own members, roles, and permissions. A super-admin role manages everything globally. We use Better Auth's organization plugin for tenant isolation, the admin plugin for global user management, and dynamic access control for future per-organization custom roles. All data lives in a single PostgreSQL schema with an `organizationId` column on every domain table.
+Teris uses a shared PostgreSQL schema for multi-tenant data. A user has one global Better Auth role and may belong to many organizations with a separate role in each organization. Future tenant-owned tables must carry an `organizationId` UUID and every query must enforce that tenant boundary.
 
-## Problem & Context
+Better Auth provides identity, global administration, organizations, and dynamic organization roles. The authentication and organization schema exists; domain tables and tenant query enforcement do not.
 
-Teris needs to support:
+## Goals
 
-1. **Multiple organizations** (workspaces) with similar data schemas
-2. **One user in many organizations** - a single identity across tenants
-3. **Super-admin role** - manages all organizations and users from the top
-4. **Per-organization permission system** - flexible, customizable roles within each org (implemented later)
+- Support users who belong to multiple organizations.
+- Keep global administration separate from organization membership.
+- Use one typed schema and one migration sequence for every tenant.
+- Support custom organization roles without redesigning the auth schema.
+- Make tenant isolation explicit in every future domain query.
 
-We need to pick a multi-tenant database strategy and an auth/permission framework before building any domain features. The decisions are hard to reverse later, so getting them right now saves significant rework.
+Client auth UI, social providers, the super-admin dashboard, and domain-specific permissions remain outside this RFC.
 
-## Goals & Non-Goals
+## Permission Model
 
-### Goals
+Permissions have two independent layers:
 
-- Choose a multi-tenant data isolation strategy
-- Define the database schema layout for auth, organization, and domain tables
-- Define the permission model (global + per-organization)
-- Map every requirement to a concrete Better Auth feature or plugin
-- Leave the door open for per-organization custom roles without designing that system now
+| Layer        | Storage       | Current roles                             | Scope              |
+| ------------ | ------------- | ----------------------------------------- | ------------------ |
+| Global       | `user.role`   | `SUPER_ADMIN`, `ADMIN`, `USER`            | Entire application |
+| Organization | `member.role` | `owner`, `admin`, `member`, dynamic roles | One organization   |
 
-### Non-Goals
+`SUPER_ADMIN` and `ADMIN` currently receive Better Auth's full admin statement set. `USER` is the default and receives no global admin statements. Only `SUPER_ADMIN` may create organizations through the configured organization callback.
 
-- Implementing the client-side auth UI (covered in a future RFC)
-- Designing the per-organization permission system itself (deferred - we're just making sure the architecture supports it)
-- Implementing OAuth/social login providers (can be added incrementally later)
-- Building the super-admin dashboard UI
+Organization membership is not required for global administration. Server-side Better Auth APIs may perform approved global operations without adding administrative users to every organization's member list.
 
-## Architecture
+Dynamic organization access control is enabled. `organizationRole` stores custom role permissions, but no application domain resources are present in the access-control statement yet.
 
-### Auth Framework: Better Auth
+## Data Model
 
-Better Auth is a framework-agnostic TypeScript auth library with a plugin system. It has first-class Elysia support and a Drizzle ORM adapter. Three components map directly to our requirements:
+All tables share one PostgreSQL schema and use PostgreSQL-generated UUID primary keys. Better Auth is configured with `advanced.database.generateId: "uuid"`.
 
-| Requirement                   | Better Auth Component                                   |
-| ----------------------------- | ------------------------------------------------------- |
-| Multi-tenant organizations    | `organization` plugin                                   |
-| Super-admin user management   | `admin` plugin                                          |
-| Per-org custom roles (future) | `dynamicAccessControl` addon on the organization plugin |
-| Elysia integration            | `auth.handler` mount + macro pattern                    |
-| Drizzle ORM + PostgreSQL      | `drizzleAdapter(db, { provider: "pg" })`                |
+| Group          | Current tables                                             |
+| -------------- | ---------------------------------------------------------- |
+| Authentication | `user`, `session`, `account`, `verification`               |
+| Organizations  | `organization`, `member`, `invitation`, `organizationRole` |
+| Domain         | None yet                                                   |
 
-### Two-Layer Permission Model
+Organization, member, invitation, and organization-role references use UUID foreign keys. `session.activeOrganizationId` and `session.impersonatedBy` are nullable UUID values without database foreign-key constraints, matching the generated Better Auth schema.
 
-The permission system has two independent layers that compose cleanly:
+Every future tenant-owned domain table must include an `organizationId` UUID foreign key. A resource ID alone is never sufficient authorization; reads and mutations must also verify membership and scope by `organizationId`.
 
-```
-Layer 1: Global (Admin Plugin)          Layer 2: Per-Organization (Org Plugin)
-┌─────────────────────────────┐         ┌─────────────────────────────────┐
-│ Stored on: user.role        │         │ Stored on: member.role           │
-│ Scope: entire application   │         │ Scope: single organization       │
-│                             │         │                                  │
-│ Roles:                      │         │ Roles:                           │
-│   super-admin  (manages all)│         │   owner   (full org control)     │
-│   admin        (manages users)│       │   admin   (member mgmt, no delete)│
-│   user         (default)    │         │   member  (basic access)         │
-│                             │         │   <custom> (runtime-created)     │
-│ Permissions:                │         │                                  │
-│   user:create, list, ban,  │         │ Permissions:                     │
-│   impersonate, delete,      │         │   organization:update, delete    │
-│   set-role, set-password    │         │   member:create, update, delete  │
-│   session:list, revoke      │         │   invitation:create, cancel      │
-└─────────────────────────────┘         └─────────────────────────────────┘
-```
+## Repository Layout
 
-**How they interact:**
-
-A user has one global role (`super-admin`, `admin`, or `user`) that determines what they can do at the application level. Separately, for each organization they belong to, they have a member role (`owner`, `admin`, `member`, or a custom role) that determines what they can do within that organization.
-
-A super-admin who needs to manage organizations without joining them uses server-side API calls (`auth.api.createOrganization`, `auth.api.addMember`) which can operate without session headers for admin operations.
-
-### Database Strategy: Shared Schema
-
-All tables live in a single PostgreSQL schema. Every domain table carries an `organizationId` foreign key column for tenant isolation. This is the standard SaaS multi-tenant pattern used by Linear, Vercel, Notion, and others.
-
-```mermaid
-erDiagram
-    user {
-        integer id PK
-        varchar name
-        varchar email UK
-        boolean emailVerified
-        varchar image
-        varchar role "super-admin | admin | user"
-        boolean banned
-        varchar banReason
-        timestamp banExpires
-        timestamp createdAt
-        timestamp updatedAt
-    }
-
-    session {
-        integer id PK
-        integer userId FK
-        varchar token UK
-        timestamp expiresAt
-        integer activeOrganizationId FK
-        integer impersonatedBy FK
-        timestamp createdAt
-        timestamp updatedAt
-    }
-
-    account {
-        integer id PK
-        integer userId FK
-        varchar accountId
-        varchar providerId
-        varchar password
-        timestamp createdAt
-        timestamp updatedAt
-    }
-
-    verification {
-        integer id PK
-        varchar identifier
-        varchar value
-        timestamp expiresAt
-        timestamp createdAt
-    }
-
-    organization {
-        integer id PK
-        varchar name
-        varchar slug UK
-        varchar logo
-        jsonb metadata
-        timestamp createdAt
-    }
-
-    member {
-        integer id PK
-        integer userId FK
-        integer organizationId FK
-        varchar role "owner | admin | member | custom"
-        timestamp createdAt
-    }
-
-    invitation {
-        integer id PK
-        varchar email
-        integer inviterId FK
-        integer organizationId FK
-        varchar role
-        varchar status
-        timestamp createdAt
-        timestamp expiresAt
-    }
-
-    organization_role {
-        integer id PK
-        integer organizationId FK
-        varchar role "runtime-created role name"
-        jsonb permission "resource -> actions mapping"
-        timestamp createdAt
-        timestamp updatedAt
-    }
-
-    domain_table {
-        integer id PK
-        integer organizationId FK "tenant isolation column"
-        varchar data
-        timestamp createdAt
-        timestamp updatedAt
-    }
-
-    user ||--o{ session : "has"
-    user ||--o{ account : "has"
-    user ||--o{ member : "joins"
-    organization ||--o{ member : "has members"
-    organization ||--o{ invitation : "sends"
-    organization ||--o{ organization_role : "defines custom roles"
-    user ||--o{ invitation : "invites"
-    organization ||--o{ domain_table : "owns"
-```
-
-### Table Groups
-
-The database has three logical groups of tables, all in one schema:
-
-| Group | Tables | Source |
-| --- | --- | --- |
-| **Auth core** | `user`, `session`, `account`, `verification` | Better Auth core |
-| **Organization + Admin** | `organization`, `member`, `invitation`, `organizationRole` | Organization plugin + Admin plugin (adds fields to `user`) |
-| **Domain** | `project`, `task`, etc. | Your application tables (all carry `organizationId`) |
-
-### ID Strategy
-
-All tables use `integer` primary keys with `generatedAlwaysAsIdentity()`. Better Auth is configured with `advanced.database.generateId: "serial"` so it generates numeric IDs consistently with the existing schema. Better Auth will infer these as strings in TypeScript, which is normal behavior with the serial ID mode.
-
-### File Structure
-
-```
+```text
 apps/api/
 ├── core/
-│   ├── db/
-│   │   ├── client.ts          # Drizzle client (bun-sql)
-│   │   ├── migrations/        # Generated SQL files (never hand-edited)
-│   │   └── schema/
-│   │       ├── index.ts       # Barrel export: export * from "./auth" | "./organization" | "./domain"
-│   │       ├── auth.ts        # Better Auth core tables (user, session, account, verification)
-│   │       ├── organization.ts # Org plugin tables (organization, member, invitation, organizationRole)
-│   │       └── domain.ts      # Application-specific tables (all carry organizationId)
-│   └── auth/
-│       ├── auth.ts            # Better Auth server config
-│       └── permissions.ts     # Shared access control + role definitions
-├── main.ts                    # Elysia app + auth handler mount
-└── drizzle.config.ts
+│   ├── auth/
+│   │   ├── better-auth.ts   # Better Auth server configuration
+│   │   ├── index.ts         # Elysia handler and session macro
+│   │   ├── openapi.ts       # Generated auth OpenAPI integration
+│   │   └── permissions.ts   # Shared statements and global roles
+│   └── db/
+│       ├── client.ts
+│       ├── migrations/      # Generated Drizzle artifacts
+│       └── schema/
+│           ├── auth.ts
+│           ├── organization.ts
+│           ├── domain.ts    # Placeholder for tenant-owned tables
+│           └── index.ts
+├── features/                # Elysia feature plugins
+├── drizzle.config.ts
+└── main.ts
 ```
 
-All cross-cutting concerns (database, auth, permissions) live under `core/`. The `#` path alias maps to `apps/api/`, so imports look like `import { auth } from "#/core/auth/auth"` and `import { db } from "#/core/db/client"`. Schema imports use `import * as schema from "#/core/db/schema"` (resolves to `core/db/schema/index.ts`). The Better Auth CLI (`bun x auth generate`) outputs a single `auth-schema.ts` file. You split its contents into `core/db/schema/auth.ts` and `core/db/schema/organization.ts`, then add domain tables in `core/db/schema/domain.ts`.
+Cross-cutting authentication and persistence stay in `core/`. Application HTTP routes belong in `features/`. Import through `#/core/...` from the API root.
 
-## Key Decisions
+## Decisions
 
-### 1. Shared Schema vs. Schema-per-Tenant
+### Shared Schema
 
-| Approach | Pros | Cons | Decision |
-| --- | --- | --- | --- |
-| **Shared schema + `organizationId`** | One migration per change. Full Drizzle type safety. Cross-tenant queries are trivial. Standard SaaS pattern. | Logical isolation only (app must filter by org). All tenants share one schema. | **Yes** |
-| **Schema per tenant** | Physical data isolation. Per-tenant backup possible. | N migrations per change. Drizzle can't handle dynamic schemas (loses type safety). Cross-schema FKs are fragile. No real benefit for "similar schemas." | No |
-| **Database per tenant** | Full isolation. Per-tenant backup and scaling. | Connection management overhead. Per-DB migrations. Overkill for similar schemas. | No |
+Use one schema with `organizationId` on tenant-owned data. This preserves one migration sequence, Drizzle type safety, and simple global reporting. It provides logical rather than physical isolation, so application query discipline is security-critical.
 
-**Decision: Shared schema with `organizationId` column.**
+Schema-per-tenant and database-per-tenant approaches add connection, migration, and typing complexity that the current product does not need. Physical isolation can be reconsidered for compliance or data-residency requirements.
 
-We chose this because our organizations have similar schemas (not different table structures), so per-tenant schemas would add massive complexity for zero benefit. The shared schema keeps one migration per change, full Drizzle type safety, and straightforward cross-tenant queries for the super-admin dashboard. If we ever need physical isolation for compliance or data residency, we can migrate from shared to per-tenant later by writing a data copy script. The reverse is much harder.
+### Organization Terminology
 
-### 2. Terminology: "organization" (not "workspace")
+Use `organization` in code and persistence to match Better Auth. Product copy may present a different label, but it must not introduce a second technical model.
 
-We use the term **organization** throughout the codebase to stay consistent with Better Auth's naming. The organization plugin's tables, API methods, and types all use `organization`. Renaming to `workspace` would require mapping every table name, field, and API call, creating a maintenance burden and making it harder to follow Better Auth docs. The database table stays `organization`, the TypeScript types use `organization`, and the user-facing UI can display whatever label we want ("Workspace" in the UI, `organization` in the code).
+### UUID Identifiers
 
-### 3. Super-Admin Does Not Join Every Organization
+Use UUIDs for all current auth and organization tables and for future domain tables. This matches Better Auth's configured ID generation and avoids exposing sequential identifiers. UUIDs do not replace tenant authorization checks.
 
-Instead of making the super-admin a `member` of every organization, they manage organizations through server-side API calls that don't require session membership. This keeps the `member` table clean (no phantom admin memberships polluting org rosters) and avoids triggering member lifecycle hooks for admin actions.
+### Dynamic Roles
 
-The super-admin uses `auth.api.createOrganization({ body: { name, slug, userId } })` (server-side, no session headers) to create organizations, `auth.api.addMember()` to add users to orgs, and `auth.api.listUsers()` / `auth.api.banUser()` for global user management.
+Keep dynamic organization access control enabled from the initial schema. Add domain resources to the shared permission statement before dynamic roles may grant them.
 
-### 4. Dynamic Access Control Enabled from Day One
+### Bun SQL And Drizzle
 
-We enable `dynamicAccessControl: { enabled: true }` on the organization plugin even though the per-org permission system comes later. This creates the `organizationRole` table upfront, avoiding a migration when we build that feature. The access control statement (the `ac` object) is shared between the admin and organization plugins, and all domain resources must be defined in it from the start because dynamic roles can only grant permissions that already exist in the statement.
+Use `drizzle-orm/bun-sql` with the Better Auth Drizzle adapter's PostgreSQL provider. The adapter works at the Drizzle layer while Bun owns the connection driver.
 
-### 5. Drizzle Adapter with bun-sql Driver
+## Implemented
 
-The project uses `drizzle-orm/bun-sql` (Bun's built-in PostgreSQL driver). Better Auth's Drizzle adapter operates at the ORM layer, so `provider: "pg"` works regardless of the underlying driver. The `db` instance from `apps/api/core/db/client.ts` is passed directly to `drizzleAdapter(db, { provider: "pg", schema })`.
+- Better Auth email/password configuration
+- Admin, organization, dynamic access-control, and OpenAPI plugins
+- Uppercase global roles and UUID ID generation
+- Eight auth and organization tables with generated migrations
+- Better Auth handler at `/api/auth/*`
+- Session-resolving Elysia auth macro
+- Scalar/OpenAPI documentation at `/docs`
+- Public health endpoint at `/api/health`
+- Credentialed localhost CORS and trusted auth origins
 
-## Implementation Plan
+## Remaining Work
 
-### Phase 1: Dependencies and Config
+- Define tenant-owned domain tables and export them from the schema barrel.
+- Add domain resources and actions to the shared access-control statement.
+- Centralize organization membership checks and tenant-scoped query helpers.
+- Apply those checks to every domain read and mutation.
+- Add automated tests for cross-tenant access denial and role boundaries.
+- Define an audited super-admin bootstrap and recovery process.
+- Replace localhost origin patterns with deployment-specific origins.
+- Add production auth hardening, including rate limiting and audit logging.
 
-1. **Install in `apps/api`:**
-   - `better-auth` (core auth library)
-   - `@better-auth/drizzle-adapter` (Drizzle adapter for Better Auth)
-   - `@elysiajs/cors` (CORS for the web app)
+## Risks
 
-2. **Environment variables** (in `apps/api/.env`):
+| Risk | Mitigation |
+| --- | --- |
+| A query omits `organizationId` | Central tenant-scoped data access and cross-tenant tests before domain launch |
+| Global and organization roles are confused | Keep uppercase global roles separate from organization member roles |
+| Dynamic roles grant undeclared resources | Add resources to the shared statement before exposing role management |
+| Production accepts development origins | Configure explicit deployment origins before release |
+| First global admin is promoted informally | Use an explicit, logged operational bootstrap procedure |
 
-   ```
-   DATABASE_URL=postgresql://username:password@localhost:5432/teris_api
-   BETTER_AUTH_SECRET=<generate with: openssl rand -base64 32>
-   BETTER_AUTH_URL=http://localhost:3000
-   ```
+## Success Criteria
 
-3. **Create `apps/api/core/auth/permissions.ts`:**
+- Email/password sign-up and sessions work through `/api/auth/*`.
+- A `SUPER_ADMIN` can create and administer organizations.
+- Organization roles limit actions to their organization.
+- Every tenant-owned query scopes by membership and `organizationId`.
+- Cross-tenant access tests fail closed.
+- Generated migrations, type checks, and lint checks pass.
 
-   Define the shared access control. The `ac` object is the single source of truth for all permission statements. Both the admin and organization plugins receive it.
-
-   ```ts
-   import { createAccessControl } from "better-auth/plugins/access";
-   import { defaultStatements as adminStatements, adminAc } from "better-auth/plugins/admin/access";
-   import { defaultStatements as orgStatements } from "better-auth/plugins/organization/access";
-
-   const statement = {
-     ...adminStatements,
-     ...orgStatements,
-     // Domain resources added here as features are built:
-     // project: ["create", "read", "update", "delete"],
-   } as const;
-
-   export const ac = createAccessControl(statement);
-
-   export const superAdmin = ac.newRole({
-     ...adminAc.statements,
-     // super-admin gets all admin permissions
-   });
-
-   export const admin = ac.newRole({
-     ...adminAc.statements,
-   });
-
-   export const user = ac.newRole({});
-   ```
-
-4. **Create `apps/api/core/auth/auth.ts`:**
-
-   ```ts
-   import { betterAuth } from "better-auth";
-   import { drizzleAdapter } from "@better-auth/drizzle-adapter";
-   import { organization } from "better-auth/plugins";
-   import { admin } from "better-auth/plugins";
-   import { db } from "#/core/db/client";
-   import * as schema from "#/core/db/schema"; // resolves to core/db/schema/index.ts
-   import { ac, superAdmin, admin as adminRole, user } from "#/core/auth/permissions";
-
-   export const auth = betterAuth({
-     database: drizzleAdapter(db, {
-       provider: "pg",
-       schema,
-     }),
-     advanced: {
-       database: { generateId: "serial" },
-     },
-     trustedOrigins: ["http://localhost:5173"],
-     emailAndPassword: { enabled: true },
-     plugins: [
-       admin({
-         ac,
-         roles: { superAdmin, admin: adminRole, user },
-         adminRoles: ["superAdmin", "admin"],
-         defaultRole: "user",
-       }),
-       organization({
-         allowUserToCreateOrganization: async (user) => user.role === "superAdmin",
-         ac,
-         dynamicAccessControl: { enabled: true },
-       }),
-     ],
-   });
-
-   export type Session = typeof auth.$Infer.Session;
-   ```
-
-5. **Update `apps/api/@types/env.d.ts`:**
-
-   ```ts
-   interface TerisEnv {
-     DATABASE_URL: string;
-     NODE_ENV: string;
-     BETTER_AUTH_SECRET: string;
-     BETTER_AUTH_URL: string;
-   }
-   // ... rest stays the same
-   ```
-
-### Phase 2: Database Schema
-
-6. **Generate Better Auth schema:**
-
-   ```bash
-   cd apps/api
-   bun x auth generate --output core/db/auth-schema.ts
-   ```
-
-   This produces Drizzle table definitions for: `user`, `session`, `account`, `verification`, `organization`, `member`, `invitation`, `organizationRole`, plus admin plugin fields on `user` (`role`, `banned`, `banReason`, `banExpires`) and organization fields on `session` (`activeOrganizationId`).
-
-7. **Split into schema files:**
-
-   - Move auth core tables (`user`, `session`, `account`, `verification`) into `core/db/schema/auth.ts`
-   - Move organization tables (`organization`, `member`, `invitation`, `organizationRole`) into `core/db/schema/organization.ts`
-   - Create `core/db/schema/domain.ts` for application tables (all with `organizationId` FK)
-   - Update `core/db/schema/index.ts` to barrel export from all three files
-
-8. **Generate and apply migration:**
-
-   ```bash
-   bun run db:generate -- init_auth
-   bun run db:migrate
-   ```
-
-### Phase 3: Elysia Integration
-
-9. **Update `apps/api/main.ts`:**
-
-   ```ts
-   import { Elysia } from "elysia";
-   import { cors } from "@elysiajs/cors";
-   import { auth } from "#/core/auth/auth";
-
-   const betterAuth = new Elysia({ name: "better-auth" }).mount(auth.handler).macro({
-     auth: {
-       async resolve({ status, request: { headers } }) {
-         const session = await auth.api.getSession({ headers });
-         if (!session) return status(401);
-         return {
-           user: session.user,
-           session: session.session,
-         };
-       },
-     },
-   });
-
-   const app = new Elysia()
-     .use(
-       cors({
-         origin: "http://localhost:5173",
-         credentials: true,
-         allowedHeaders: ["Content-Type", "Authorization"],
-       })
-     )
-     .use(betterAuth)
-     .get("/", () => "Hello from API")
-     .get("/me", ({ user }) => user, { auth: true })
-     .listen(3000);
-
-   console.log(`API listening on ${app.server?.url.origin}`);
-   ```
-
-### Phase 4: Super-Admin Bootstrap
-
-10. **Bootstrap the first super-admin:**
-
-    Add the user's ID to `adminUserIds` in the admin plugin config to grant admin access via ID rather than role. This avoids hardcoding credentials in a seed script. Sign up normally via the API, then add the returned user ID to the config.
-
-## Tradeoffs & Risks
-
-| Tradeoff | What We Gain | What We Accept |
-| --- | --- | --- |
-| Shared schema (no per-tenant schemas) | Simple migrations, full type safety, cross-tenant queries | App must filter by `organizationId`. No physical data isolation. |
-| "organization" terminology (not "workspace") | Zero mapping layer with Better Auth docs and APIs | User-facing UI must map "organization" to whatever label we choose |
-| Dynamic AC enabled now (no per-org roles yet) | `organizationRole` table exists upfront, no future migration | Extra table that's unused initially |
-| Super-admin not a member of orgs | Clean member table, no phantom memberships | Super-admin uses server-side API calls for org management (no client-side org switching) |
-| Serial integer IDs (not UUIDs) | Consistent with existing schema, compact, fast | IDs are sequential (no obfuscation). Cross-tenant ID guessing mitigated by `organizationId` filtering. |
-| bun-sql driver with Drizzle adapter | No extra driver package, Bun-native | The adapter is tested against `pg` and `postgres.js`. If issues arise, fallback is `pg.Pool` (minor change in `client.ts`). |
-
-### Risk: bun-sql + Drizzle Adapter Compatibility
-
-Better Auth's Drizzle adapter is documented with `pg.Pool` and `postgres.js`. The `bun-sql` driver (`drizzle-orm/bun-sql`) is a PostgreSQL driver that speaks the Postgres wire protocol. Since the Drizzle adapter operates at the ORM layer (not the driver layer), `provider: "pg"` should work. If we hit issues, the fallback is swapping `drizzle-orm/bun-sql` for `drizzle-orm/node-postgres` in `core/db/client.ts` and installing `pg`. This is a one-file change.
-
-### Risk: Serial IDs and Cross-Tenant Enumeration
-
-With sequential integer IDs, an attacker who knows resource ID `42` exists might guess that `43` exists in another organization. This is mitigated because every domain query filters by `organizationId`, and a user can only access resources in organizations they're a member of. For additional defense, we can add PostgreSQL Row-Level Security (RLS) policies later without changing application code:
-
-```sql
-ALTER TABLE projects ENABLE ROW LEVEL SECURITY;
-
-CREATE POLICY tenant_isolation ON projects
-  USING (
-    organization_id IN (
-      SELECT organization_id FROM member
-      WHERE user_id = current_setting('app.current_user_id')::int
-    )
-  );
-```
-
-## Success Metrics
-
-- [ ] Better Auth endpoints respond at `/api/auth/*` (verify with `GET /api/auth/ok` returning `{ status: "ok" }`)
-- [ ] User can sign up with email/password and receive a session
-- [ ] Super-admin can create an organization via server-side API
-- [ ] Super-admin can add a member to an organization
-- [ ] User can switch active organization (sets `activeOrganizationId` on session)
-- [ ] Domain tables filter correctly by `organizationId` (no cross-tenant data leaks)
-- [ ] `organizationRole` table exists and is ready for dynamic role creation
-- [ ] `bun run lint:check` and `bun run type:check` pass
+See [API authentication](../technical/api/authentication.md) and [API database](../technical/api/database.md) for current implementation details.

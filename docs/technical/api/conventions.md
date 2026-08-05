@@ -1,44 +1,45 @@
 # API App Conventions
 
-App: `@teris/api` — located at `apps/api/`.
+App: `@teris/api`, located at `apps/api/`.
 
 ## Stack
 
-- **Framework:** Elysia 1.3+
-- **Runtime:** Bun (native, not Node)
-- **Language:** TypeScript (strict)
-- **Database:** Drizzle ORM + PostgreSQL (see [database.md](database.md))
+- Elysia on the Bun runtime
+- TypeScript in strict, no-emit mode
+- Better Auth with admin, organization, and OpenAPI plugins
+- Drizzle ORM 0.45.x with Bun SQL and PostgreSQL
+- Elysia CORS and OpenAPI/Scalar documentation
 
-## Elysia Patterns
+## Structure
 
-- Define the app instance with `new Elysia()` and chain routes.
-- Use Elysia's built-in type inference for request/response types — avoid manual `any` casts.
-- Leverage Elysia plugins and hooks (`onRequest`, `onError`, `.derive()`, `.state()`) for cross-cutting concerns.
-- Keep route handlers focused. Extract business logic into separate modules when handlers grow.
-- Use Elysia's error system (`error()` helper) instead of throwing raw errors.
+Cross-cutting infrastructure lives under `core/`:
 
-## Path Aliases
+- `core/auth/` configures Better Auth, permissions, Elysia integration, and OpenAPI generation.
+- `core/db/` owns the shared Drizzle client, schemas, and generated migrations.
 
-The `#` alias maps to the app root (`apps/api/`):
+Application routes live under `features/`. Each feature exports an Elysia plugin, and `main.ts` composes plugins and server-level middleware. Keep route handlers focused and move reusable business logic out of the entry point.
+
+## Elysia
+
+- Build named plugin instances and compose them with `.use()`.
+- Chain configuration and routes so Elysia preserves inferred context types.
+- Register hooks, macros, and models before routes that consume them.
+- Use Elysia's status helper for expected HTTP failures rather than throwing raw errors.
+- Declare request and response schemas for application endpoints so OpenAPI remains accurate.
+- Use the auth macro from `core/auth/index.ts` for endpoints that require a Better Auth session.
+
+## Path Alias
+
+The `#/*` alias maps to the API app root:
 
 ```ts
-import { foo } from "#/modules/auth-service";
+import { db } from "#/core/db/client";
 ```
 
-Configured in `tsconfig.json` (`paths`).
+The alias is defined in `tsconfig.json`. The API adds Bun types and the ESNext library without DOM types.
 
-## TypeScript Config
+## Runtime
 
-The API app extends the root `tsconfig.json` and adds:
+Use Bun-native APIs where they fit the existing stack. Environment variables are typed in `@types/env.d.ts` and available through `Bun.env` or `process.env`. Do not log secrets or connection strings.
 
-- `lib`: `ESNext` (no DOM — server-only)
-- `types`: `["bun"]` (Bun global types)
-- `paths`: `#/*` -> `./*`
-
-Type-checking is done via `tsc --noEmit`.
-
-## Bun Runtime Notes
-
-- The API runs on the Bun runtime, not Node. Use Bun-native APIs when available (`Bun.serve`, `Bun.file`, etc.).
-- Elysia is designed for the Bun runtime and leverages Bun's performance characteristics.
-- Environment variables are available via `Bun.env` or standard `process.env`.
+See [authentication.md](authentication.md), [database.md](database.md), and [tooling.md](tooling.md) before changing API infrastructure.

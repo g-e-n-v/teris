@@ -1,50 +1,43 @@
 # Web App Conventions
 
-App: `@teris/web` — located at `apps/web/`.
+App: `@teris/web`, located at `apps/web/`.
 
 ## Stack
 
-- **Framework:** React 19
-- **Build tool:** Vite 8
-- **Compiler:** React Compiler (via `@rolldown/plugin-babel` with `reactCompilerPreset`)
-- **Language:** TypeScript (strict)
+- React 19 with the automatic JSX runtime
+- Vite 8 with React Fast Refresh and the React Compiler
+- TypeScript in strict, no-emit mode
+- TanStack Router with file-based, automatically code-split routes
+- Tailwind CSS 4, Base UI primitives, Tailwind Variants, and Iconify
 
-## React 19 Patterns
+## React
 
-- Use function components only. No class components.
-- React 19 allows ref as a prop and forwardRef is no longer needed. Prefer passing `ref` directly as a prop.
-- The React Compiler is enabled, so manual `useMemo`/`useCallback`/`useMemo` optimizations are generally unnecessary. Write idiomatic, direct code and let the compiler handle memoization.
-- Keep hooks at the top level of the component — no nested component definitions inside other components.
-- Use semantic HTML elements.
+- Use function declarations for named components. The web lint configuration enforces this pattern.
+- Pass refs as regular props when needed; React 19 does not require `forwardRef` for new components.
+- Let the React Compiler handle routine memoization. Add `useMemo`, `useCallback`, or `memo` only when behavior or a measured integration requires it.
+- Keep hooks at the top level, avoid nested component definitions, and use semantic HTML.
+- Prefer type aliases over interfaces.
 
-## Path Aliases
+## App Structure
 
-The `$` alias maps to the app root (`apps/web/`):
+Cross-cutting implementation lives in `core/`:
+
+- `core/router/` creates the application router and contains its generated route tree.
+- `core/styles/` owns global CSS, color, font, and animation tokens.
+- `core/ui/` contains reusable UI primitives and its public barrel export.
+
+Route modules live in `routes/`. Import reusable UI components from `$/core/ui` rather than their implementation files.
+
+## Path Alias
+
+The `$/*` alias maps to the app root:
 
 ```ts
-import { foo } from "$/components/user-profile";
+import { Button } from "$/core/ui";
 ```
 
-Configured in both `vite.config.ts` (Vite resolve alias) and `tsconfig.json` (`paths`).
+`tsconfig.json` is the source of the alias, and Vite enables `resolve.tsconfigPaths` so it uses the same mapping.
 
-## TypeScript Config
+## TypeScript
 
-The web app extends the root `tsconfig.json` and adds:
-
-- `lib`: `ESNext`, `DOM`, `DOM.Iterable`
-- `jsx`: `react-jsx` (automatic JSX runtime — no need to import React)
-- `noUnusedLocals`: `true`
-- `noUnusedParameters`: `true`
-- `noFallthroughCasesInSwitch`: `true`
-- `paths`: `$/*` -> `./*`
-
-Type-checking is done via `tsc --noEmit` (no emit — Vite handles bundling).
-
-## React Compiler Notes
-
-The React Compiler runs as a Babel preset through Vite. This means:
-
-- You do not need to manually memoize with `useMemo`, `useCallback`, or `React.memo`.
-- The compiler optimizes render and re-render behavior automatically.
-- Follow the Rules of Hooks strictly — the compiler enforces them more aggressively.
-- Avoid patterns that break compiler assumptions (mutating state objects, conditional hook calls).
+The web app adds DOM libraries, the automatic JSX runtime, unused symbol checks, switch fallthrough checks, and the `$/*` path mapping to the root configuration. Run `bun run type:check --filter=@teris/web` from the repository root.

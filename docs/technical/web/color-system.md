@@ -1,123 +1,67 @@
 # Color System
 
-App: `@teris/web` — located at `apps/web/`.
+App: `@teris/web`, located at `apps/web/`.
 
 ## Overview
 
-The web app uses a 12-shade color scale system (25 → 950) following the Tailwind CSS / Material Design naming convention. Colors are defined as CSS custom properties in OKLCH format and registered with Tailwind v4 `@theme` for automatic utility class generation.
+The web app defines OKLCH color variables in `core/styles/color.css` and maps them into Tailwind CSS 4 theme tokens in `core/styles/main.css`. Components use generated utilities such as `bg-brand-500` and `text-neutral-900`.
 
-## How it works
+`color.css` is the source of raw palette values. `main.css` only maps those values into the theme, alongside typography and animation tokens.
 
-1. **`color.css` (`:root`)** defines the raw palette as CSS custom properties: `--brand-500: oklch(0.66 0.169 246);`
-2. **`main.css` (`@theme`)** maps those variables to Tailwind theme tokens: `--color-brand-500: var(--brand-500);`
-3. Tailwind v4 reads `@theme` and generates utilities: `bg-brand-500`, `text-brand-500`, `border-brand-500`, etc.
+## Palettes
 
-`color.css` is the single source of truth for the raw palette. `main.css` only references those variables, so changing a color means editing one place (`color.css`).
+Every scale uses shades `25`, `50`, `100`, `200`, `300`, `400`, `500`, `600`, `700`, `800`, `900`, and `950`.
 
-## Palette groups
+| Group   | Current 500 value          | Purpose                               |
+| ------- | -------------------------- | ------------------------------------- |
+| Neutral | `oklch(0.52 0 0)`          | Text, surfaces, borders, and dividers |
+| Brand   | `oklch(0.252 0 0)`         | Primary interactive emphasis          |
+| Accent  | `oklch(0.387 0 0)`         | Secondary interactive emphasis        |
+| Error   | `oklch(0.637 0.21 28.5)`   | Errors and destructive actions        |
+| Warning | `oklch(0.747 0.17 62.1)`   | Warnings and attention states         |
+| Success | `oklch(0.686 0.167 154.9)` | Success and confirmation states       |
 
-| Group | CSS prefix | Tailwind prefix | 500 value | Purpose |
-| --- | --- | --- | --- | --- |
-| Neutral | `--neutral-*` | `neutral-*` | `oklch(0.544 0.035 265.1)` | Text, backgrounds, borders, dividers. The most-used scale. Cool gray aligned to the brand hue. |
-| Brand | `--brand-*` | `brand-*` | `oklch(0.66 0.169 246)` | Primary interactive elements: buttons, links, inputs. Bright ocean blue. |
-| Accent | `--accent-*` | `accent-*` | `oklch(0.729 0.126 210.8)` | Secondary/supporting: badges, labels, highlights. Cyan, complementary to brand. |
-| Error | `--error-*` | `error-*` | `oklch(0.637 0.21 28.5)` | Destructive actions and error states. |
-| Warning | `--warning-*` | `warning-*` | `oklch(0.747 0.17 62.1)` | Potentially destructive or "on-hold" states. |
-| Success | `--success-*` | `success-*` | `oklch(0.686 0.167 154.9)` | Positive actions, confirmations, trends. |
+Neutral, Brand, and Accent are intentionally achromatic. Their separate names encode semantic roles even when some shades overlap. Feedback scales remain chromatic.
 
-## Named color tokens
+Standalone tokens provide `white`, `black`, `snow`, and `eclipse` surfaces.
 
-In addition to the 12-shade scales, four standalone tokens are defined:
+## Usage
 
-| Token | Value | Tailwind utility | Purpose |
-| --- | --- | --- | --- |
-| `--white` | `oklch(100% 0 0)` | `bg-white`, `text-white`, ... | Pure white |
-| `--black` | `oklch(0% 0 0)` | `bg-black`, `text-black`, ... | Pure black |
-| `--snow` | `oklch(0.9911 0 0)` | `bg-snow`, `text-snow`, ... | Near-white surface |
-| `--eclipse` | `oklch(0.2103 0.0059 285.89)` | `bg-eclipse`, `text-eclipse`, ... | Near-black surface |
+Use semantic groups before choosing a shade:
 
-## The 12-shade scale
+| Role               | Typical token                                |
+| ------------------ | -------------------------------------------- |
+| Page surface       | `bg-neutral-25` or `bg-snow`                 |
+| Default text       | `text-neutral-900`                           |
+| Secondary text     | `text-neutral-500`                           |
+| Subtle border      | `border-neutral-200` or `border-neutral-300` |
+| Primary action     | Brand scale through the component variant    |
+| Destructive action | Error scale through the component variant    |
+| Positive status    | Success scale                                |
+| Warning status     | Warning scale                                |
 
-Every color has 12 shades:
-
-```
-25, 50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950
-```
-
-- **25 is lightest**, **950 is darkest**.
-- **500 is the base/brand color** — the "true" color.
-- Lighter shades (25–400) are derived by increasing lightness.
-- Darker shades (600–950) are derived by decreasing lightness.
-
-## Shade usage guide
-
-Use shades consistently and intentionally. Pick a shade for a role and stick to it across the app.
-
-| Shade range | Typical use                                      |
-| ----------- | ------------------------------------------------ |
-| 25–100      | Backgrounds, subtle fills, page-level surfaces   |
-| 200–300     | Borders, dividers, disabled states               |
-| 400         | Hover states for light backgrounds               |
-| 500         | Primary actions (buttons, links, brand elements) |
-| 600–700     | Hover/active states for primary actions          |
-| 800–950     | High-contrast text, dark backgrounds             |
-
-### Common pairings
-
-| Element                        | Token pattern                                    |
-| ------------------------------ | ------------------------------------------------ |
-| Page background                | `bg-neutral-25`                                  |
-| Card surface                   | `bg-neutral-50`                                  |
-| Default text                   | `text-neutral-900`                               |
-| Secondary text                 | `text-neutral-500`                               |
-| Input border                   | `border-neutral-300`                             |
-| Divider                        | `bg-neutral-200`                                 |
-| Primary button                 | `bg-brand-500 text-white hover:bg-brand-600`     |
-| Primary button text (on brand) | `text-white` (shades 500–950 support white text) |
-| Destructive button             | `bg-error-500 text-white hover:bg-error-600`     |
-| Success badge                  | `bg-success-100 text-success-700`                |
-| Warning badge                  | `bg-warning-100 text-warning-700`                |
-
-## Accessibility (WCAG 2.1)
-
-Aim for **AA (≥ 4.5:1 contrast)** for all text and crucial UI elements.
-
-| Level | Ratio   | Use                              |
-| ----- | ------- | -------------------------------- |
-| A     | < 4.5:1 | Decorative elements only         |
-| AA    | ≥ 4.5:1 | Minimum for text, buttons, forms |
-| AAA   | ≥ 7:1   | Nice-to-have where possible      |
-
-Rules of thumb:
-
-- Dark text (`neutral-900`/`950`) on shades 25–200 usually passes.
-- White text on shades 600–950 usually passes.
-- Always verify critical pairs with a contrast checker.
-- Never use `neutral-400` or lighter for body text.
-
-## Using colors in components
-
-In TypeScript/JSX, use Tailwind utility classes directly — no need to import CSS variables:
+Prefer reusable component variants over repeating long color class sets. For custom UI, use Tailwind utilities rather than raw values:
 
 ```tsx
-<button className="bg-brand-500 text-white hover:bg-brand-600">Click me</button>
+<div className="border-neutral-200 bg-snow text-neutral-900" />
 ```
 
-For inline styles or non-Tailwind contexts, reference the raw CSS variable:
+Use CSS variables only outside Tailwind contexts:
 
 ```tsx
 <div style={{ backgroundColor: "var(--brand-500)" }} />
 ```
 
-## Adding a new color
+## Accessibility
 
-1. Generate a 12-shade scale from a base hex color using the palette generator skill.
-2. Add the raw OKLCH values to `:root` in `core/styles/color.css` (e.g. `--newcolor-500: oklch(...);`).
-3. Map them to Tailwind tokens in `@theme` in `core/styles/main.css` (e.g. `--color-newcolor-500: var(--newcolor-500);`).
-4. Verify the scale by eye. HSL math doesn't account for perceptual differences between hues. Pay attention to 400/600 and the dark end (700–950).
+Target WCAG AA contrast, at least 4.5:1 for normal text. Verify actual foreground/background pairs rather than assuming a shade number passes. Avoid light midtones for body text, and use the darker feedback shades when text must sit on a light feedback surface.
 
-## Do not
+## Changing A Palette
 
-- Do not use raw hex codes in components. Always use Tailwind tokens or CSS variables.
-- Do not invent new shade numbers. Use the existing 25–950 scale.
-- Do not use the same shade for different roles inconsistently (e.g. `neutral-300` for borders in one component, `neutral-200` in another). Pick one and stick to it.
+1. Update the complete 12-shade raw scale in `core/styles/color.css`.
+2. Add a matching mapping in `core/styles/main.css` only when introducing a new semantic group.
+3. Check affected component variants and demo routes visually.
+4. Verify critical text and control contrast.
+5. Run `bun run lint:check` so Tailwind classes and formatting stay canonical.
+
+Do not add raw hex values to components, invent shade numbers outside the existing scale, or edit theme mappings when only a raw color value changes.

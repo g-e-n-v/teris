@@ -1,48 +1,56 @@
 # API App Tooling
 
-App: `@teris/api` — located at `apps/api/`.
+App: `@teris/api`, located at `apps/api/`.
 
-## Build & Run
+## Build And Run
 
-The API uses Bun's native build and runtime — no external bundler needed.
+The API uses Bun for development, bundling, and execution.
 
-| Task       | Command              | Description                                           |
-| ---------- | -------------------- | ----------------------------------------------------- |
-| Dev        | `bun run dev`        | `bun --watch main.ts` — hot-reloading dev server      |
-| Build      | `bun run build`      | `bun build main.ts --outdir dist` — production bundle |
-| Start      | `bun run start`      | `bun main.ts` — run the production server             |
-| Type-check | `bun run type:check` | `tsc --noEmit`                                        |
+| Task        | Command              | Behavior                                              |
+| ----------- | -------------------- | ----------------------------------------------------- |
+| Development | `bun run dev`        | Watches and runs `main.ts`                            |
+| Build       | `bun run build`      | Bundles `main.ts` into `dist/`                        |
+| Start       | `bun run start`      | Runs source `main.ts`; Turbo builds first at the root |
+| Type-check  | `bun run type:check` | `tsc --noEmit`                                        |
 
-To run from the repo root with Turbo:
+The current start script does not execute the bundle in `dist/`. Treat `dist/` as the cached build artifact, not the runtime entry.
 
-```bash
-bun run dev --filter=@teris/api
-bun run build --filter=@teris/api
-```
+From the repository root, filter delegated tasks with `--filter=@teris/api`. Run repository-wide lint commands from the root because the app has no local lint script.
 
-## Linting
+## Application Entry
 
-The API app has its own `oxlint.config.ts` that extends only the core Ultracite preset (no React rules):
+`main.ts` composes:
 
-```ts
-extends: [core]
-```
+1. OpenAPI with Scalar at `/docs`
+2. Better Auth's generated OpenAPI schema and handler at `/api/auth/*`
+3. Credentialed CORS for `http://localhost:*`
+4. Feature plugins, currently the system health endpoint
 
-## Entry Point
+The public health check is `GET /api/health` and returns `{ "status": "OK" }`. The server listens on `Bun.env.PORT` rather than a fixed port.
 
-`main.ts` is the single entry point. It creates the Elysia instance, defines routes, and calls `.listen(3000)`.
+## Environment
 
-## Build Output
+The API expects these typed variables in `apps/api/.env` or its deployment environment:
 
-Bun outputs to `dist/` (matched by Turbo's `outputs: ["dist/**"]`).
+| Variable             | Purpose                                                           |
+| -------------------- | ----------------------------------------------------------------- |
+| `DATABASE_URL`       | PostgreSQL connection string                                      |
+| `BETTER_AUTH_SECRET` | Better Auth signing/encryption secret                             |
+| `BETTER_AUTH_URL`    | Public base URL for Better Auth                                   |
+| `PORT`               | Elysia listen port                                                |
+| `NODE_ENV`           | Enables production behavior; database logging is development-only |
 
-## Database
+Keep `apps/api/.env` untracked. Never put real credentials in documentation or committed examples.
 
-The API uses Drizzle ORM with PostgreSQL. For database commands, schema workflow, and production deployment details, see [database.md](database.md). Quick reference:
+## Database Commands
 
-| Task | Command | Description |
-| --- | --- | --- |
-| Generate a migration | `bun run db:generate -- <descriptive_name>` | Creates a named SQL migration from schema changes |
-| Apply migrations | `bun run db:migrate` | Applies pending migrations to the database |
-| Push schema directly | `bun run db:push` | Syncs schema without migration files (prototyping) |
-| Open Drizzle Studio | `bun run db:studio` | Web-based database browser |
+Run these from `apps/api/`:
+
+| Task                        | Command                                     |
+| --------------------------- | ------------------------------------------- |
+| Generate a named migration  | `bun run db:generate -- <descriptive_name>` |
+| Apply pending migrations    | `bun run db:migrate`                        |
+| Push schema for prototyping | `bun run db:push`                           |
+| Open Drizzle Studio         | `bun run db:studio`                         |
+
+See [database.md](database.md) for the schema and migration workflow.
