@@ -1,0 +1,20 @@
+import { createAccessControl } from "better-auth/plugins/access";
+import { defaultStatements as adminStatements, adminAc } from "better-auth/plugins/admin/access";
+import { defaultStatements as orgStatements } from "better-auth/plugins/organization/access";
+
+const statement = {
+  ...adminStatements,
+  ...orgStatements,
+} as const;
+
+export const ac = createAccessControl(statement);
+
+export const SUPER_ADMIN = ac.newRole({
+  ...adminAc.statements,
+});
+
+export const ADMIN = ac.newRole({
+  ...adminAc.statements,
+});
+
+export const USER = ac.newRole({});
