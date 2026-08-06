@@ -2,5 +2,7 @@ export { Button } from "./components/button";
 export { Input } from "./components/input";
 export { Kbd, KbdGroup } from "./components/kbd";
 export { ScrollArea, ScrollBar } from "./components/scroll-area";
+export { Separator } from "./components/separator";
 export { Spinner } from "./components/spinner";
+export { Text } from "./components/text";
 export { ToastProvider, toast } from "./components/toast";

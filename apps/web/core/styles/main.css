@@ -5,19 +5,6 @@
 @import "./animation.css";
 
 @theme {
-  --animate-pulse-toast-even: pulse-toast-even 0.28s ease;
-  --animate-pulse-toast-odd: pulse-toast-odd 0.28s ease;
-
-  --text-xs: 10px;
-  --text-sm: 12px;
-  --text-base: 14px;
-  --text-lg: 16px;
-  --text-xl: 18px;
-  --text-2xl: 20px;
-  --text-3xl: 24px;
-  --text-4xl: 28px;
-  --text-5xl: 32px;
-
   --color-white: var(--white);
   --color-black: var(--black);
   --color-snow: var(--snow);
