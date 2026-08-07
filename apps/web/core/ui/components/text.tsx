@@ -1,5 +1,4 @@
-import * as React from "react";
-
+import type { ComponentPropsWithoutRef, ElementType } from "react";
 import type { VariantProps } from "tailwind-variants";
 
 import { tv } from "tailwind-variants";
@@ -29,7 +28,7 @@ export const variants = tv({
 
 type TextElement = "a" | "em" | "label" | "p" | "span" | "strong";
 
-type TextProps<T extends TextElement = "span"> = React.ComponentPropsWithoutRef<T> &
+type TextProps<T extends TextElement = "span"> = ComponentPropsWithoutRef<T> &
   VariantProps<typeof variants> & {
     as?: T;
     className?: string;
@@ -42,7 +41,7 @@ export function Text<T extends TextElement = "span">({
   className,
   ...props
 }: TextProps<T>) {
-  const Component = (as ?? "span") as React.ElementType;
+  const Component = (as ?? "span") as ElementType;
 
   return <Component className={variants({ className, variant, weight })} {...props} />;
 }

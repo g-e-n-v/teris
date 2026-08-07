@@ -1,3 +1,4 @@
+import type { ComponentProps } from "react";
 import type { VariantProps } from "tailwind-variants";
 
 import { Checkbox as BaseCheckbox } from "@base-ui/react";
@@ -62,7 +63,7 @@ function MinusIcon() {
   );
 }
 
-function renderIndicator(props: React.ComponentProps<"span">, state: BaseCheckbox.Indicator.State) {
+function renderIndicator(props: ComponentProps<"span">, state: BaseCheckbox.Indicator.State) {
   return <span {...props}>{state.indeterminate ? <MinusIcon /> : <CheckIcon />}</span>;
 }
 
