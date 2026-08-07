@@ -24,6 +24,11 @@ const VARIANTS = [
 function TextDemoPage() {
   return (
     <div className="space-y-12">
+      <header className="space-y-2">
+        <h1 className="text-2xl font-semibold text-neutral-900">Text</h1>
+        <p className="text-neutral-600">The typographic hierarchy and semantic element options.</p>
+      </header>
+
       <section>
         <h2 className="mb-4 text-lg font-semibold text-neutral-900">Variants</h2>
         <div className="flex flex-col gap-6">
@@ -42,8 +47,13 @@ function TextDemoPage() {
       <section>
         <h2 className="mb-4 text-lg font-semibold text-neutral-900">Polymorphic usage</h2>
         <div className="flex flex-col gap-3">
-          <Text as="a" href="#" variant="label" className="text-brand-500 hover:underline">
-            Rendered as an anchor
+          <Text
+            as="button"
+            type="button"
+            variant="label"
+            className="w-fit cursor-pointer text-brand-500 hover:underline"
+          >
+            Rendered as a button
           </Text>
           <Text as="span" variant="body">
             Rendered as a span inside a paragraph of{" "}

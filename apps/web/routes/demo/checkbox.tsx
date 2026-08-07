@@ -16,6 +16,11 @@ function CheckboxDemoPage() {
 
   return (
     <div className="max-w-2xl space-y-12">
+      <header className="space-y-2">
+        <h1 className="text-2xl font-semibold text-neutral-900">Checkbox</h1>
+        <p className="text-neutral-600">Single and grouped selections with controlled states.</p>
+      </header>
+
       <section>
         <h2 className="mb-4 text-lg font-semibold text-neutral-900">States</h2>
         <div className="flex flex-wrap gap-6">
@@ -41,10 +46,19 @@ function CheckboxDemoPage() {
             <Checkbox disabled id="state-disabled-unchecked" />
             Disabled unchecked
           </label>
-          <label className="flex items-center gap-2 text-neutral-700" htmlFor="state-invalid">
-            <Checkbox aria-invalid="true" id="state-invalid" />
-            Invalid
-          </label>
+          <div className="space-y-2">
+            <label className="flex items-center gap-2 text-neutral-700" htmlFor="state-invalid">
+              <Checkbox
+                aria-describedby="state-invalid-error"
+                aria-invalid="true"
+                id="state-invalid"
+              />
+              Invalid
+            </label>
+            <p className="text-error-500" id="state-invalid-error">
+              Accept the terms before continuing.
+            </p>
+          </div>
         </div>
       </section>
 
@@ -66,7 +80,7 @@ function CheckboxDemoPage() {
 
       <section>
         <h2 className="mb-4 text-lg font-semibold text-neutral-900">Indeterminate</h2>
-        <div className="flex items-center gap-4">
+        <div className="flex flex-wrap items-center gap-4">
           <label className="flex items-center gap-2 text-neutral-700" htmlFor="indeterminate">
             <Checkbox
               checked={indeterminateChecked}

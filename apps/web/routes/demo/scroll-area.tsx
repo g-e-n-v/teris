@@ -23,6 +23,13 @@ const BOARD_COLUMNS = ["Backlog", "In progress", "Review", "Ready to ship"] as c
 function ScrollAreaDemoPage() {
   return (
     <div className="max-w-5xl space-y-12">
+      <header className="space-y-2">
+        <h1 className="text-2xl font-semibold text-neutral-900">Scroll area</h1>
+        <p className="text-neutral-600">
+          Custom overflow for compact vertical and horizontal surfaces.
+        </p>
+      </header>
+
       <section>
         <h2 className="mb-4 text-lg font-semibold text-neutral-900">Vertical</h2>
         <ScrollArea className="h-72 w-full max-w-lg rounded-xl border border-neutral-200 bg-white shadow-xs/5">

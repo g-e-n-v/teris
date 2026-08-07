@@ -8,16 +8,16 @@ export const variants = tv({
   slots: {
     content: "",
     corner: "bg-transparent",
-    root: "relative size-full min-h-0",
+    root: "size-full min-h-0",
     scrollbar: [
-      "m-1 flex touch-none opacity-0 transition-opacity delay-300 select-none",
+      "m-1 flex opacity-0 transition-opacity delay-300 motion-reduce:transition-none",
       "data-[orientation=horizontal]:h-1.5 data-[orientation=horizontal]:flex-col data-[orientation=vertical]:w-1.5",
       "data-hovering:opacity-100 data-scrolling:opacity-100",
       "data-hovering:delay-0 data-hovering:duration-100 data-scrolling:delay-0 data-scrolling:duration-100",
     ],
-    thumb: "relative flex-1 rounded-full bg-neutral-400/70 transition-colors hover:bg-neutral-500",
+    thumb: "relative flex-1 rounded-full bg-neutral-950/20",
     viewport: [
-      "size-full rounded-[inherit] transition-shadow outline-none",
+      "h-full rounded-[inherit] transition-shadow outline-none",
       "focus-visible:ring-2 focus-visible:ring-brand-500/24 focus-visible:ring-offset-1 focus-visible:ring-offset-white",
     ],
   },

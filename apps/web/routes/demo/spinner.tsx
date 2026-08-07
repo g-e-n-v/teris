@@ -9,6 +9,11 @@ export const Route = createFileRoute("/demo/spinner")({
 function SpinnerDemoPage() {
   return (
     <div className="space-y-12">
+      <header className="space-y-2">
+        <h1 className="text-2xl font-semibold text-neutral-900">Spinner</h1>
+        <p className="text-neutral-600">Progress indicators across sizes and semantic colors.</p>
+      </header>
+
       <section>
         <h2 className="mb-4 text-lg font-semibold text-neutral-900">Sizes</h2>
         <div className="flex flex-wrap items-center gap-4">

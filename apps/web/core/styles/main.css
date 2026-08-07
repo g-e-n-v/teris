@@ -111,6 +111,8 @@
 
 @layer base {
   html {
-    @apply text-base;
+    @apply font-sans text-base antialiased;
+    font-optical-sizing: auto;
+    font-synthesis: none;
   }
 }

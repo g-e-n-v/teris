@@ -24,6 +24,11 @@ function ButtonDemoPage() {
 
   return (
     <div className="max-w-2xl space-y-12">
+      <header className="space-y-2">
+        <h1 className="text-2xl font-semibold text-neutral-900">Button</h1>
+        <p className="text-neutral-600">Actions across variants, sizes, and interaction states.</p>
+      </header>
+
       <section>
         <h2 className="mb-4 text-lg font-semibold text-neutral-900">Variants</h2>
         <div className="flex flex-wrap gap-3">
@@ -43,7 +48,12 @@ function ButtonDemoPage() {
               <h3 className="text-sm font-medium text-neutral-500 capitalize">{variant}</h3>
               <div className="flex flex-wrap items-center gap-3">
                 {SIZES.map((size) => (
-                  <Button key={size} size={size} variant={variant}>
+                  <Button
+                    key={size}
+                    aria-label={size === "icon" ? `${variant} settings` : undefined}
+                    size={size}
+                    variant={variant}
+                  >
                     {size === "icon" ? (
                       <Icon icon="solar:settings-linear" className="size-4" />
                     ) : (

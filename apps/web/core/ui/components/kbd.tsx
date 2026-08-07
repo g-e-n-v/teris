@@ -19,8 +19,8 @@ export const kbdGroupVariants = tv({
   base: "inline-flex items-center gap-1",
 });
 
-type KbdGroupProps = ComponentProps<"kbd">;
+type KbdGroupProps = ComponentProps<"span">;
 
 export function KbdGroup({ className, ...props }: KbdGroupProps) {
-  return <kbd className={kbdGroupVariants({ className })} data-slot="kbd-group" {...props} />;
+  return <span className={kbdGroupVariants({ className })} data-slot="kbd-group" {...props} />;
 }

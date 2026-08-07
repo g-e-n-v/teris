@@ -1,15 +1,25 @@
+@font-face {
+  font-family: "Cal Sans";
+  src: url("./fonts/cal-sans-vf.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+}
+
 :root {
-  --font-sans: "Quicksand Variable", sans-serif;
+  --font-sans: "Cal Sans", ui-sans-serif, sans-serif;
   --font-heading: var(--font-sans);
+  --font-mono: ui-monospace, "SFMono-Regular", Consolas, "Liberation Mono", monospace;
 }
 
 @theme inline {
   --font-sans: var(--font-sans);
-  --font-heading: var(--font-sans);
+  --font-heading: var(--font-heading);
+  --font-display: var(--font-display);
   --font-mono: var(--font-mono);
 
-  --text-xs: 10px;
-  --text-sm: 12px;
+  --text-xs: 12px;
+  --text-sm: 13px;
   --text-base: 14px;
   --text-lg: 16px;
   --text-xl: 18px;

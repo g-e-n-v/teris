@@ -32,6 +32,13 @@ function ToastDemoPage() {
 
   return (
     <div className="space-y-12">
+      <header className="space-y-2">
+        <h1 className="text-2xl font-semibold text-neutral-900">Toast</h1>
+        <p className="text-neutral-600">
+          Transient feedback with statuses, actions, and async updates.
+        </p>
+      </header>
+
       <section>
         <h2 className="mb-4 text-lg font-semibold text-neutral-900">Default</h2>
         <Button
@@ -151,7 +158,7 @@ function ToastDemoPage() {
                 },
               },
               description: "You can undo this action.",
-              timeout: 1_000_000,
+              timeout: 10_000,
               title: "Action performed",
               type: "success",
             });

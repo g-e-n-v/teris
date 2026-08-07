@@ -7,11 +7,13 @@ type SpinnerProps = Omit<IconProps, "icon">;
 
 export function Spinner({ className, ...props }: SpinnerProps) {
   return (
-    <Icon
-      icon="uil:spin"
-      aria-label="Loading"
-      className={cn("size-5 animate-spin", className)}
-      {...props}
-    />
+    <output aria-label="Loading">
+      <Icon
+        aria-hidden="true"
+        className={cn("size-5 animate-spin motion-reduce:animate-none", className)}
+        icon="uil:spin"
+        {...props}
+      />
+    </output>
   );
 }

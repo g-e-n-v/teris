@@ -1,4 +1,3 @@
-import "@fontsource-variable/quicksand/wght.css";
 import "$/core/styles/main.css";
 
 import { RouterProvider } from "@tanstack/react-router";

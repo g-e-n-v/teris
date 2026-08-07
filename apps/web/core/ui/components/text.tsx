@@ -4,18 +4,20 @@ import type { VariantProps } from "tailwind-variants";
 import { tv } from "tailwind-variants";
 
 export const variants = tv({
-  base: "text-neutral-900",
   defaultVariants: {
     variant: "body",
   },
   variants: {
     variant: {
-      body: "text-base leading-6 font-medium",
-      caption: "text-xs leading-4 font-medium",
-      display: "text-4xl leading-10 font-bold",
-      headline: "text-2xl leading-8 font-bold",
-      label: "text-sm leading-5 font-semibold",
-      title: "text-xl leading-7 font-semibold",
+      body: "font-sans text-base leading-6 font-normal text-neutral-800",
+      caption: "font-sans text-sm leading-4 font-normal text-neutral-500",
+      display:
+        "font-display text-4xl leading-10 font-bold text-neutral-800 [font-variation-settings:'GEOM'_50]",
+      headline:
+        "font-heading text-2xl leading-8 font-semibold text-neutral-800 [font-variation-settings:'GEOM'_50]",
+      label: "font-sans text-sm leading-5 font-medium text-neutral-700",
+      title:
+        "font-heading text-xl leading-7 font-semibold text-neutral-800 [font-variation-settings:'GEOM'_35]",
     },
     weight: {
       bold: "font-bold",
@@ -26,7 +28,20 @@ export const variants = tv({
   },
 });
 
-type TextElement = "a" | "em" | "label" | "p" | "span" | "strong";
+type TextElement =
+  | "a"
+  | "button"
+  | "em"
+  | "h1"
+  | "h2"
+  | "h3"
+  | "h4"
+  | "h5"
+  | "h6"
+  | "label"
+  | "p"
+  | "span"
+  | "strong";
 
 type TextProps<T extends TextElement = "span"> = ComponentPropsWithoutRef<T> &
   VariantProps<typeof variants> & {

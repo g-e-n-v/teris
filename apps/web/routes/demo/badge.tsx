@@ -22,6 +22,11 @@ const SIZES = ["sm", "md", "lg"] as const;
 function BadgeDemoPage() {
   return (
     <div className="max-w-2xl space-y-12">
+      <header className="space-y-2">
+        <h1 className="text-2xl font-semibold text-neutral-900">Badge</h1>
+        <p className="text-neutral-600">Compact labels for status, category, and metadata.</p>
+      </header>
+
       <section>
         <h2 className="mb-4 text-lg font-semibold text-neutral-900">Variants</h2>
         <div className="flex flex-wrap gap-3">

@@ -28,20 +28,46 @@ const SIDEBAR_ITEMS: SidebarItem[] = [
 
 function DemoLayout() {
   return (
-    <div className="flex h-screen bg-white">
-      <aside className="flex w-60 flex-col border-r border-neutral-200 bg-white">
+    <div className="flex min-h-dvh flex-col bg-white md:h-dvh md:flex-row">
+      <header className="sticky top-0 z-10 border-b border-neutral-200 bg-white md:hidden">
+        <div className="flex h-14 items-center gap-2 px-4 text-lg font-semibold text-neutral-900">
+          <Icon className="size-5 text-brand-500" icon="solar:box-bold-duotone" />
+          Demo
+        </div>
+        <nav aria-label="Component demos" className="flex gap-1 overflow-x-auto px-2 pb-2">
+          {SIDEBAR_ITEMS.map((item) => (
+            <Link
+              key={item.label}
+              to={item.to}
+              activeProps={{
+                className: "bg-brand-50 text-brand-700",
+              }}
+              className="flex h-8 shrink-0 items-center gap-2 rounded-lg px-3 text-neutral-600 hover:bg-neutral-50 hover:text-neutral-900"
+            >
+              <Icon aria-hidden="true" className="size-4" icon={item.icon} />
+              {item.label}
+            </Link>
+          ))}
+        </nav>
+      </header>
+
+      <aside className="hidden w-60 shrink-0 flex-col border-r border-neutral-200 bg-white md:flex">
         <div className="flex h-15 items-center border-b border-neutral-200 px-4">
           <div className="flex items-center gap-2 text-lg font-semibold text-neutral-900">
-            <Icon className="size-5 text-brand-500" icon="solar:box-bold-duotone" />
+            <Icon
+              aria-hidden="true"
+              className="size-5 text-brand-500"
+              icon="solar:box-bold-duotone"
+            />
             Demo
           </div>
         </div>
 
         <div className="flex-1 overflow-y-auto py-4">
-          <div className="mb-2 px-3 font-semibold tracking-wider text-neutral-400 uppercase">
+          <div className="mb-2 px-3 font-semibold tracking-wider text-neutral-500 uppercase">
             Components
           </div>
-          <nav className="space-y-1">
+          <nav aria-label="Component demos" className="space-y-1">
             {SIDEBAR_ITEMS.map((item) => (
               <Link
                 key={item.label}
@@ -50,9 +76,9 @@ function DemoLayout() {
                   className:
                     "bg-brand-50 text-brand-700 before:absolute before:left-0 before:top-1/2 before:-translate-y-1/2 before:h-5 before:w-1 before:rounded-r-full before:bg-brand-500",
                 }}
-                className="relative flex h-9 items-center gap-3 rounded-lg px-3 font-medium text-neutral-600 transition-all hover:bg-neutral-50 hover:text-neutral-900"
+                className="relative flex h-9 items-center gap-3 rounded-lg px-3 text-neutral-600 transition-colors hover:bg-neutral-50 hover:text-neutral-900"
               >
-                <Icon className="size-4" icon={item.icon} />
+                <Icon aria-hidden="true" className="size-4" icon={item.icon} />
                 {item.label}
               </Link>
             ))}
@@ -60,7 +86,7 @@ function DemoLayout() {
         </div>
       </aside>
 
-      <main className="flex-1 overflow-y-auto p-8">
+      <main className="min-w-0 flex-1 p-4 sm:p-6 md:overflow-y-auto md:p-8">
         <Outlet />
       </main>
     </div>

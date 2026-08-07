@@ -8,38 +8,63 @@ import { Button } from "./button";
 const TOAST_ICONS = {
   error: (
     <g fill="none">
-      <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.5" />
-      <path stroke="currentColor" stroke-linecap="round" stroke-width="1.5" d="M12 7v6" />
+      <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="1.5" />
+      <path stroke="currentColor" strokeLinecap="round" strokeWidth="1.5" d="M12 7v6" />
       <circle cx="12" cy="16" r="1" fill="currentColor" />
     </g>
   ),
   info: (
     <g fill="none">
-      <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.5" />
-      <path stroke="currentColor" stroke-linecap="round" stroke-width="1.5" d="M12 17v-6" />
+      <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="1.5" />
+      <path stroke="currentColor" strokeLinecap="round" strokeWidth="1.5" d="M12 17v-6" />
       <circle cx="1" cy="1" r="1" fill="currentColor" transform="matrix(1 0 0 -1 11 9)" />
     </g>
   ),
   loading: (
-    <path
-      fill="currentColor"
-      d="M12 3.5a8.5 8.5 0 1 0 8.5 8.5a.75.75 0 0 1 1.5 0c0 5.523-4.477 10-10 10S2 17.523 2 12S6.477 2 12 2a.75.75 0 0 1 0 1.5"
-    />
+    <g stroke="currentColor">
+      <circle cx="12" cy="12" r="9.5" fill="none" strokeLinecap="round" strokeWidth="3">
+        <animate
+          attributeName="stroke-dasharray"
+          calcMode="spline"
+          dur="1.5s"
+          keySplines="0.42,0,0.58,1;0.42,0,0.58,1;0.42,0,0.58,1"
+          keyTimes="0;0.475;0.95;1"
+          repeatCount="indefinite"
+          values="0 150;42 150;42 150;42 150"
+        />
+        <animate
+          attributeName="stroke-dashoffset"
+          calcMode="spline"
+          dur="1.5s"
+          keySplines="0.42,0,0.58,1;0.42,0,0.58,1;0.42,0,0.58,1"
+          keyTimes="0;0.475;0.95;1"
+          repeatCount="indefinite"
+          values="0;-16;-59;-59"
+        />
+      </circle>
+      <animateTransform
+        attributeName="transform"
+        dur="2s"
+        repeatCount="indefinite"
+        type="rotate"
+        values="0 12 12;360 12 12"
+      />
+    </g>
   ),
   success: (
-    <g fill="none" stroke="currentColor" stroke-width="1.5">
+    <g fill="none" stroke="currentColor" strokeWidth="1.5">
       <circle cx="12" cy="12" r="10" />
-      <path stroke-linecap="round" stroke-linejoin="round" d="m8.5 12.5l2 2l5-5" />
+      <path strokeLinecap="round" strokeLinejoin="round" d="m8.5 12.5l2 2l5-5" />
     </g>
   ),
   warning: (
     <g fill="none">
       <path
         stroke="currentColor"
-        stroke-width="1.5"
+        strokeWidth="1.5"
         d="M5.312 10.762C8.23 5.587 9.689 3 12 3s3.77 2.587 6.688 7.762l.364.644c2.425 4.3 3.638 6.45 2.542 8.022S17.786 21 12.364 21h-.728c-5.422 0-8.134 0-9.23-1.572s.117-3.722 2.542-8.022z"
       />
-      <path stroke="currentColor" stroke-linecap="round" stroke-width="1.5" d="M12 8v5" />
+      <path stroke="currentColor" strokeLinecap="round" strokeWidth="1.5" d="M12 8v5" />
       <circle cx="12" cy="16" r="1" fill="currentColor" />
     </g>
   ),
@@ -64,7 +89,7 @@ const variants = tv({
       "[--toast-shrink:calc(1-var(--toast-scale))]",
       "[--toast-calc-height:var(--toast-frontmost-height,var(--toast-height))]",
 
-      "absolute right-0 bottom-0 z-[calc(9999-var(--toast-index))] w-full select-none",
+      "absolute right-0 bottom-0 z-[calc(9999-var(--toast-index))] w-full select-none motion-reduce:transition-none",
       "h-(--toast-calc-height)",
       "rounded-lg border border-neutral-200 bg-white text-neutral-900 shadow-lg/5",
       "[transition:transform_.5s_cubic-bezier(.22,1,.36,1),opacity_.5s,height_.15s]",
@@ -105,7 +130,7 @@ const variants = tv({
     type: {
       error: { icon: "text-error-500" },
       info: { icon: "text-brand-500" },
-      loading: { icon: "animate-spin text-neutral-400" },
+      loading: { icon: "animate-spin text-neutral-400 motion-reduce:animate-none" },
       success: { icon: "text-success-500" },
       warning: { icon: "text-warning-500" },
     },
@@ -151,6 +176,7 @@ function Toasts() {
                 <div className="flex min-w-0 gap-2.5">
                   {icon && (
                     <svg
+                      aria-hidden="true"
                       xmlns="http://www.w3.org/2000/svg"
                       width="1em"
                       height="1em"
@@ -173,6 +199,16 @@ function Toasts() {
                       {toast.actionProps.children}
                     </BaseToast.Action>
                   )}
+                  <BaseToast.Close aria-label="Dismiss notification" className={v.close()}>
+                    <svg aria-hidden="true" className="size-4" fill="none" viewBox="0 0 24 24">
+                      <path
+                        d="m7 7 10 10M17 7 7 17"
+                        stroke="currentColor"
+                        strokeLinecap="round"
+                        strokeWidth="2"
+                      />
+                    </svg>
+                  </BaseToast.Close>
                 </div>
               </BaseToast.Content>
             </BaseToast.Root>

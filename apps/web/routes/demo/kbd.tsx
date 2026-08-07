@@ -9,6 +9,11 @@ export const Route = createFileRoute("/demo/kbd")({
 function KbdDemoPage() {
   return (
     <div className="space-y-12">
+      <header className="space-y-2">
+        <h1 className="text-2xl font-semibold text-neutral-900">Keyboard key</h1>
+        <p className="text-neutral-600">Keyboard shortcuts and key combinations in context.</p>
+      </header>
+
       <section>
         <h2 className="mb-4 text-lg font-semibold text-neutral-900">Single keys</h2>
         <div className="flex flex-wrap items-center gap-3">

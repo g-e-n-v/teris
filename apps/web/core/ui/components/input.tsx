@@ -47,7 +47,7 @@ export const variants = tv({
     unstyled: {
       false: {},
       true: {
-        root: "border-transparent bg-transparent shadow-none has-focus-visible:border-transparent has-focus-visible:ring-0 has-aria-invalid:border-transparent has-aria-invalid:has-focus-visible:border-transparent",
+        root: "border-transparent bg-transparent shadow-none has-focus-visible:border-brand-400 has-focus-visible:ring-2 has-focus-visible:ring-brand-500/24 has-aria-invalid:border-error-400 has-aria-invalid:has-focus-visible:border-error-500",
       },
     },
   },
