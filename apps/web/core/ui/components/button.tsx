@@ -24,6 +24,7 @@ export const variants = tv({
   },
   variants: {
     size: {
+      icon: "size-8 p-1.5",
       lg: "h-9 px-3.5",
       md: "h-8 px-3",
       sm: "h-7 gap-1.5 px-2.5",

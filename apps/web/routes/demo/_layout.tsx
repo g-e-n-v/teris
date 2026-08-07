@@ -14,6 +14,8 @@ export const Route = createFileRoute("/demo")({
 });
 
 const SIDEBAR_ITEMS: SidebarItem[] = [
+  { icon: "solar:user-linear", label: "Avatar", to: "/demo/avatar" },
+  { icon: "solar:tag-horizontal-linear", label: "Badge", to: "/demo/badge" },
   { icon: "solar:cursor-outline", label: "Button", to: "/demo/button" },
   { icon: "solar:check-square-linear", label: "Checkbox", to: "/demo/checkbox" },
   { icon: "solar:text-field-outline", label: "Input", to: "/demo/input" },
@@ -48,7 +50,7 @@ function DemoLayout() {
                   className:
                     "bg-brand-50 text-brand-700 before:absolute before:left-0 before:top-1/2 before:-translate-y-1/2 before:h-5 before:w-1 before:rounded-r-full before:bg-brand-500",
                 }}
-                className="relative flex h-9 items-center gap-3 rounded-lg px-3 text-sm font-medium text-neutral-600 transition-all hover:bg-neutral-50 hover:text-neutral-900"
+                className="relative flex h-9 items-center gap-3 rounded-lg px-3 font-medium text-neutral-600 transition-all hover:bg-neutral-50 hover:text-neutral-900"
               >
                 <Icon className="size-4" icon={item.icon} />
                 {item.label}

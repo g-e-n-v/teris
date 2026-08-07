@@ -15,7 +15,6 @@ export const variants = tv({
       "focus-visible:ring-2 focus-visible:ring-brand-500/60 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-25",
       "aria-invalid:border-error-500/36 focus-visible:aria-invalid:border-error-500/64 focus-visible:aria-invalid:ring-error-500/48",
       "data-checked:border-brand-500 data-disabled:cursor-not-allowed data-disabled:opacity-50",
-      "sm:size-4",
     ],
   },
 });
@@ -27,7 +26,7 @@ function CheckIcon() {
   return (
     <svg
       aria-hidden="true"
-      className="size-3.5 sm:size-3"
+      className="size-3.5"
       fill="none"
       height="24"
       stroke="currentColor"
@@ -47,7 +46,7 @@ function MinusIcon() {
   return (
     <svg
       aria-hidden="true"
-      className="size-3.5 sm:size-3"
+      className="size-3.5"
       fill="none"
       height="24"
       stroke="currentColor"

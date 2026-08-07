@@ -17,13 +17,13 @@ const VARIANTS = [
   "ghost",
   "link",
 ] as const;
-const SIZES = ["xs", "sm", "md", "lg"] as const;
+const SIZES = ["xs", "sm", "md", "lg", "icon"] as const;
 
 function ButtonDemoPage() {
   const [loading, setLoading] = useState(false);
 
   return (
-    <div className="space-y-12">
+    <div className="max-w-2xl space-y-12">
       <section>
         <h2 className="mb-4 text-lg font-semibold text-neutral-900">Variants</h2>
         <div className="flex flex-wrap gap-3">
@@ -37,15 +37,23 @@ function ButtonDemoPage() {
 
       <section>
         <h2 className="mb-4 text-lg font-semibold text-neutral-900">Sizes</h2>
-        <div className="space-y-2">
-          <h3 className="text-sm font-medium text-neutral-500 capitalize">primary</h3>
-          <div className="flex flex-wrap items-center gap-3">
-            {SIZES.map((size) => (
-              <Button key={size} size={size}>
-                {size}
-              </Button>
-            ))}
-          </div>
+        <div className="space-y-4">
+          {VARIANTS.slice(0, 3).map((variant) => (
+            <div key={variant} className="space-y-2">
+              <h3 className="text-sm font-medium text-neutral-500 capitalize">{variant}</h3>
+              <div className="flex flex-wrap items-center gap-3">
+                {SIZES.map((size) => (
+                  <Button key={size} size={size} variant={variant}>
+                    {size === "icon" ? (
+                      <Icon icon="solar:settings-linear" className="size-4" />
+                    ) : (
+                      size
+                    )}
+                  </Button>
+                ))}
+              </div>
+            </div>
+          ))}
         </div>
       </section>
 
@@ -88,15 +96,40 @@ function ButtonDemoPage() {
         </div>
       </section>
 
-      <Button
-        onClick={() => {
-          setLoading((prev) => !prev);
-        }}
-        loading={loading}
-      >
-        <Icon icon="solar:download-minimalistic-bold" className="size-5" />
-        Download
-      </Button>
+      <section>
+        <h2 className="mb-4 text-lg font-semibold text-neutral-900">With icon</h2>
+        <div className="flex flex-wrap gap-3">
+          <Button>
+            <Icon icon="solar:settings-linear" className="size-4" />
+            Settings
+          </Button>
+          <Button variant="secondary">
+            <Icon icon="solar:download-minimalistic-bold" className="size-4" />
+            Download
+          </Button>
+          <Button variant="danger">
+            <Icon icon="solar:trash-bin-trash-bold" className="size-4" />
+            Delete
+          </Button>
+          <Button variant="tertiary">
+            <Icon icon="solar:add-circle-linear" className="size-4" />
+            New item
+          </Button>
+        </div>
+      </section>
+
+      <section>
+        <h2 className="mb-4 text-lg font-semibold text-neutral-900">Toggle loading</h2>
+        <Button
+          onClick={() => {
+            setLoading((prev) => !prev);
+          }}
+          loading={loading}
+        >
+          <Icon icon="solar:download-minimalistic-bold" className="size-5" />
+          Download
+        </Button>
+      </section>
     </div>
   );
 }
