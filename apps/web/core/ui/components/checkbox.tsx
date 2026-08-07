@@ -2,6 +2,7 @@ import type { ComponentProps } from "react";
 import type { VariantProps } from "tailwind-variants";
 
 import { Checkbox as BaseCheckbox } from "@base-ui/react";
+import { Icon } from "@iconify/react";
 import { tv } from "tailwind-variants";
 
 export const variants = tv({
@@ -22,48 +23,12 @@ export const variants = tv({
 type CheckboxProps = Omit<BaseCheckbox.Root.Props, "className"> &
   VariantProps<typeof variants> & { className?: string };
 
-function CheckIcon() {
-  return (
-    <svg
-      aria-hidden="true"
-      className="size-3.5"
-      fill="none"
-      height="24"
-      stroke="currentColor"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth="3"
-      viewBox="0 0 24 24"
-      width="24"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path d="M5.252 12.7 10.2 18.63 18.748 5.37" />
-    </svg>
-  );
-}
-
-function MinusIcon() {
-  return (
-    <svg
-      aria-hidden="true"
-      className="size-3.5"
-      fill="none"
-      height="24"
-      stroke="currentColor"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth="3"
-      viewBox="0 0 24 24"
-      width="24"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path d="M5.252 12h13.496" />
-    </svg>
-  );
-}
-
 function renderIndicator(props: ComponentProps<"span">, state: BaseCheckbox.Indicator.State) {
-  return <span {...props}>{state.indeterminate ? <MinusIcon /> : <CheckIcon />}</span>;
+  return (
+    <span {...props}>
+      {state.indeterminate ? <Icon icon="tabler:minus" /> : <Icon icon="tabler:check-filled" />}
+    </span>
+  );
 }
 
 export function Checkbox({ className, ...props }: CheckboxProps) {
