@@ -1,4 +1,3 @@
-import type { ReactElement } from "react";
 import type { VariantProps } from "tailwind-variants";
 
 import { ScrollArea as BaseScrollArea } from "@base-ui/react";
@@ -60,11 +59,7 @@ type ScrollBarProps = Omit<BaseScrollArea.Scrollbar.Props, "className"> & {
   className?: string;
 };
 
-export function ScrollBar({
-  className,
-  orientation = "vertical",
-  ...props
-}: ScrollBarProps): ReactElement {
+export function ScrollBar({ className, orientation = "vertical", ...props }: ScrollBarProps) {
   const v = variants();
 
   return (
@@ -88,7 +83,7 @@ export function ScrollArea({
   scrollFade = false,
   scrollbarGutter = false,
   ...props
-}: ScrollAreaProps): ReactElement {
+}: ScrollAreaProps) {
   const v = variants({ fill, overscrollContain, scrollFade, scrollbarGutter });
 
   return (

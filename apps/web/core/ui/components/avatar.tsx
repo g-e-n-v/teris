@@ -1,4 +1,3 @@
-import type { ReactElement } from "react";
 import type { VariantProps } from "tailwind-variants";
 
 import { Avatar as BaseAvatar } from "@base-ui/react";
@@ -23,13 +22,13 @@ type AvatarFallbackProps = Omit<BaseAvatar.Fallback.Props, "className"> & {
   className?: string;
 };
 
-export function Avatar({ className, ...props }: AvatarProps): ReactElement {
+export function Avatar({ className, ...props }: AvatarProps) {
   const v = variants();
 
   return <BaseAvatar.Root className={v.root({ className })} data-slot="avatar" {...props} />;
 }
 
-export function AvatarImage({ className, ...props }: AvatarImageProps): ReactElement {
+export function AvatarImage({ className, ...props }: AvatarImageProps) {
   const v = variants();
 
   return (
@@ -37,7 +36,7 @@ export function AvatarImage({ className, ...props }: AvatarImageProps): ReactEle
   );
 }
 
-export function AvatarFallback({ className, ...props }: AvatarFallbackProps): ReactElement {
+export function AvatarFallback({ className, ...props }: AvatarFallbackProps) {
   const v = variants();
 
   return (

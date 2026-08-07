@@ -18,8 +18,8 @@
   --font-display: var(--font-display);
   --font-mono: var(--font-mono);
 
-  --text-xs: 12px;
-  --text-sm: 13px;
+  --text-xs: 10px;
+  --text-sm: 12px;
   --text-base: 14px;
   --text-lg: 16px;
   --text-xl: 18px;
