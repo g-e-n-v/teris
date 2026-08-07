@@ -4,7 +4,7 @@ import { tv } from "tailwind-variants";
 
 export const kbdVariants = tv({
   base: [
-    "pointer-events-none inline-flex h-5 min-w-5 items-center justify-center gap-1 rounded bg-neutral-100 px-1 font-sans text-xs font-medium text-neutral-600 select-none",
+    "pointer-events-none inline-flex h-5 min-w-5 items-center justify-center gap-1 rounded bg-neutral-100 px-1 font-sans text-sm font-medium text-neutral-500 select-none",
     "[&_svg:not([class*='size-'])]:size-3",
   ],
 });

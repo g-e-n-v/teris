@@ -97,6 +97,6 @@
 
 @layer base {
   body {
-    @apply font-medium text-neutral-900;
+    @apply text-base font-medium text-neutral-900;
   }
 }

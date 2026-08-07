@@ -1,8 +1,6 @@
 import { CheckboxGroup as BaseCheckboxGroup } from "@base-ui/react";
 import { cn } from "tailwind-variants";
 
-export { CheckboxGroup as CheckboxGroupPrimitive } from "@base-ui/react";
-
 type CheckboxGroupProps = Omit<BaseCheckboxGroup.Props, "className"> & {
   className?: string;
 };

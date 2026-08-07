@@ -1,6 +1,7 @@
+export { Avatar, AvatarFallback, AvatarImage } from "./components/avatar";
 export { Button } from "./components/button";
 export { Checkbox } from "./components/checkbox";
-export { CheckboxGroup, CheckboxGroupPrimitive } from "./components/checkbox-group";
+export { CheckboxGroup } from "./components/checkbox-group";
 export { Input } from "./components/input";
 export { Kbd, KbdGroup } from "./components/kbd";
 export { ScrollArea, ScrollBar } from "./components/scroll-area";
