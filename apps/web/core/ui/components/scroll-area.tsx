@@ -59,7 +59,7 @@ type ScrollBarProps = Omit<BaseScrollArea.Scrollbar.Props, "className"> & {
   className?: string;
 };
 
-export function ScrollBar({ className, orientation = "vertical", ...props }: ScrollBarProps) {
+function ScrollBar({ className, orientation = "vertical", ...props }: ScrollBarProps) {
   const v = variants();
 
   return (

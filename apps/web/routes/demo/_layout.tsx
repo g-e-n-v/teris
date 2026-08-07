@@ -22,7 +22,7 @@ const SIDEBAR_ITEMS: SidebarItem[] = [
   { icon: "solar:keyboard-outline", label: "Kbd", to: "/demo/kbd" },
   { icon: "solar:posts-carousel-vertical-linear", label: "Scroll Area", to: "/demo/scroll-area" },
   { icon: "solar:refresh-circle-outline", label: "Spinner", to: "/demo/spinner" },
-  { icon: "solar:text-bold-duotone", label: "Text", to: "/demo/text" },
+  { icon: "solar:text-linear", label: "Text", to: "/demo/text" },
   { icon: "solar:bell-outline", label: "Toast", to: "/demo/toast" },
 ];
 

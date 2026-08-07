@@ -2,25 +2,30 @@ import type { ComponentProps } from "react";
 
 import { tv } from "tailwind-variants";
 
-export const kbdVariants = tv({
-  base: [
-    "pointer-events-none inline-flex h-5 min-w-5 items-center justify-center gap-1 rounded bg-neutral-100 px-1 font-sans text-sm font-medium text-neutral-500 select-none",
-    "[&_svg:not([class*='size-'])]:size-3",
-  ],
+export const variants = tv({
+  slots: {
+    group: "inline-flex items-center gap-1",
+    kbd: [
+      "pointer-events-none inline-flex h-5 min-w-5 items-center justify-center gap-1 rounded-sm bg-neutral-100 px-1 font-sans text-xs font-medium text-neutral-600 select-none",
+      "[&_svg:not([class*='size-'])]:size-3",
+    ],
+  },
 });
 
 type KbdProps = ComponentProps<"kbd">;
 
 export function Kbd({ className, ...props }: KbdProps) {
-  return <kbd className={kbdVariants({ className })} data-slot="kbd" {...props} />;
-}
+  const v = variants();
 
-export const kbdGroupVariants = tv({
-  base: "inline-flex items-center gap-1",
-});
+  return <kbd className={v.kbd({ className })} data-slot="kbd" {...props} />;
+}
 
 type KbdGroupProps = ComponentProps<"span">;
 
-export function KbdGroup({ className, ...props }: KbdGroupProps) {
-  return <span className={kbdGroupVariants({ className })} data-slot="kbd-group" {...props} />;
+function KbdGroup({ className, ...props }: KbdGroupProps) {
+  const v = variants();
+
+  return <span className={v.group({ className })} data-slot="kbd-group" {...props} />;
 }
+
+Kbd.Group = KbdGroup;

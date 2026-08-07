@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 
-import { Kbd, KbdGroup } from "$/core/ui";
+import { Kbd } from "$/core/ui";
 
 export const Route = createFileRoute("/demo/kbd")({
   component: KbdDemoPage,
@@ -29,19 +29,19 @@ function KbdDemoPage() {
       <section>
         <h2 className="mb-4 text-lg font-semibold text-neutral-900">Key combinations</h2>
         <div className="flex flex-col gap-3">
-          <KbdGroup>
+          <Kbd.Group>
             <Kbd>⌘</Kbd>
             <Kbd>K</Kbd>
-          </KbdGroup>
-          <KbdGroup>
+          </Kbd.Group>
+          <Kbd.Group>
             <Kbd>Ctrl</Kbd>
             <Kbd>Shift</Kbd>
             <Kbd>S</Kbd>
-          </KbdGroup>
-          <KbdGroup>
+          </Kbd.Group>
+          <Kbd.Group>
             <Kbd>Alt</Kbd>
             <Kbd>F4</Kbd>
-          </KbdGroup>
+          </Kbd.Group>
         </div>
       </section>
 

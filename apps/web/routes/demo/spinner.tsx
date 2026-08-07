@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 
-import { Spinner } from "$/core/ui";
+import { Spinner, Tooltip } from "$/core/ui";
 
 export const Route = createFileRoute("/demo/spinner")({
   component: SpinnerDemoPage,
@@ -34,6 +34,8 @@ function SpinnerDemoPage() {
           <Spinner className="size-8 text-neutral-900" />
         </div>
       </section>
+
+      <Tooltip trigger={<span>Hihi</span>} popup={<span>Loading...</span>} />
     </div>
   );
 }
