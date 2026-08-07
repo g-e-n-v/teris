@@ -15,6 +15,7 @@ export const Route = createFileRoute("/demo")({
 
 const SIDEBAR_ITEMS: SidebarItem[] = [
   { icon: "solar:cursor-outline", label: "Button", to: "/demo/button" },
+  { icon: "solar:check-square-linear", label: "Checkbox", to: "/demo/checkbox" },
   { icon: "solar:text-field-outline", label: "Input", to: "/demo/input" },
   { icon: "solar:keyboard-outline", label: "Kbd", to: "/demo/kbd" },
   { icon: "solar:list-outline", label: "Scroll Area", to: "/demo/scroll-area" },
@@ -35,7 +36,7 @@ function DemoLayout() {
         </div>
 
         <div className="flex-1 overflow-y-auto py-4">
-          <div className="mb-2 px-3 text-xs font-semibold tracking-wider text-neutral-400 uppercase">
+          <div className="mb-2 px-3 font-semibold tracking-wider text-neutral-400 uppercase">
             Components
           </div>
           <nav className="space-y-1">

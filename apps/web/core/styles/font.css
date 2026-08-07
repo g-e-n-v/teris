@@ -8,7 +8,7 @@
   --font-heading: var(--font-sans);
   --font-mono: var(--font-mono);
 
-  --text-xs: 10px;
+  /*--text-xs: 10px;
   --text-sm: 12px;
   --text-base: 14px;
   --text-lg: 16px;
@@ -16,5 +16,5 @@
   --text-2xl: 20px;
   --text-3xl: 24px;
   --text-4xl: 28px;
-  --text-5xl: 32px;
+  --text-5xl: 32px;*/
 }

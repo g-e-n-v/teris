@@ -30,7 +30,8 @@ function TextDemoPage() {
           {VARIANTS.map(({ variant, description }) => (
             <div key={variant} className="flex flex-col gap-1 border-b border-neutral-100 pb-4">
               <Text variant={variant}>The quick brown fox jumps over the lazy dog.</Text>
-              <Text variant="caption">
+
+              <Text variant="caption" className="text-neutral-400">
                 {variant} - {description}
               </Text>
             </div>
