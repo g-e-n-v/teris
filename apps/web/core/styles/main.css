@@ -9,6 +9,7 @@
   --color-black: var(--black);
   --color-snow: var(--snow);
   --color-eclipse: var(--eclipse);
+  --color-muted: oklch(0 0 0 / 0.04);
 
   /* Neutral */
   --color-neutral-25: var(--neutral-25);

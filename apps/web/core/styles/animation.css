@@ -10,7 +10,14 @@
   }
 }
 
+@keyframes skeleton {
+  100% {
+    background-position: -200% 0;
+  }
+}
+
 @theme inline {
   --animate-pulse-toast-even: pulse-toast-even 0.28s ease;
   --animate-pulse-toast-odd: pulse-toast-odd 0.28s ease;
+  --animate-skeleton: skeleton 2s -1s infinite linear;
 }

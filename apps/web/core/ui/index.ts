@@ -7,6 +7,7 @@ export { Input } from "./components/input";
 export { Kbd } from "./components/kbd";
 export { ScrollArea } from "./components/scroll-area";
 export { Separator } from "./components/separator";
+export { Skeleton } from "./components/skeleton";
 export { Spinner } from "./components/spinner";
 export { Text } from "./components/text";
 export { ToastProvider, toast } from "./components/toast";
