@@ -1,6 +1,6 @@
 import type { VariantProps } from "tailwind-variants";
 
-import { Checkbox as BaseCheckbox } from "@base-ui/react/checkbox";
+import { Checkbox as BaseCheckbox } from "@base-ui/react";
 import { tv } from "tailwind-variants";
 
 export const variants = tv({

@@ -1,6 +1,6 @@
 import type { ComponentProps } from "react";
 
-import { Toast as BaseToast } from "@base-ui/react/toast";
+import { Toast as BaseToast } from "@base-ui/react";
 import { tv } from "tailwind-variants";
 
 import { Button } from "./button";

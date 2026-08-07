@@ -1,7 +1,7 @@
 import type { ReactElement } from "react";
 import type { VariantProps } from "tailwind-variants";
 
-import { Input as BaseInput } from "@base-ui/react/input";
+import { Input as BaseInput } from "@base-ui/react";
 import { Icon } from "@iconify/react";
 import { isString } from "lodash-es";
 import { cn, tv } from "tailwind-variants";

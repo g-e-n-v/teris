@@ -1,6 +1,6 @@
 import type { VariantProps } from "tailwind-variants";
 
-import { Separator as BaseSeparator } from "@base-ui/react/separator";
+import { Separator as BaseSeparator } from "@base-ui/react";
 import { tv } from "tailwind-variants";
 
 export const variants = tv({

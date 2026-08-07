@@ -1,7 +1,7 @@
 import type { ReactElement } from "react";
 import type { VariantProps } from "tailwind-variants";
 
-import { ScrollArea as BaseScrollArea } from "@base-ui/react/scroll-area";
+import { ScrollArea as BaseScrollArea } from "@base-ui/react";
 import { tv } from "tailwind-variants";
 
 export const variants = tv({
