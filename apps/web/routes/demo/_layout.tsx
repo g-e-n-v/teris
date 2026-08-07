@@ -14,13 +14,13 @@ export const Route = createFileRoute("/demo")({
 });
 
 const SIDEBAR_ITEMS: SidebarItem[] = [
-  { icon: "solar:user-linear", label: "Avatar", to: "/demo/avatar" },
+  { icon: "solar:user-circle-outline", label: "Avatar", to: "/demo/avatar" },
   { icon: "solar:tag-horizontal-linear", label: "Badge", to: "/demo/badge" },
   { icon: "solar:cursor-outline", label: "Button", to: "/demo/button" },
   { icon: "solar:check-square-linear", label: "Checkbox", to: "/demo/checkbox" },
   { icon: "solar:text-field-outline", label: "Input", to: "/demo/input" },
   { icon: "solar:keyboard-outline", label: "Kbd", to: "/demo/kbd" },
-  { icon: "solar:list-outline", label: "Scroll Area", to: "/demo/scroll-area" },
+  { icon: "solar:posts-carousel-vertical-linear", label: "Scroll Area", to: "/demo/scroll-area" },
   { icon: "solar:refresh-circle-outline", label: "Spinner", to: "/demo/spinner" },
   { icon: "solar:text-bold-duotone", label: "Text", to: "/demo/text" },
   { icon: "solar:bell-outline", label: "Toast", to: "/demo/toast" },

@@ -11,9 +11,6 @@ export const variants = tv({
   },
 });
 
-type AvatarProps = Omit<BaseAvatar.Root.Props, "className"> &
-  VariantProps<typeof variants> & { className?: string };
-
 type AvatarImageProps = Omit<BaseAvatar.Image.Props, "className"> & {
   className?: string;
 };
@@ -22,28 +19,28 @@ type AvatarFallbackProps = Omit<BaseAvatar.Fallback.Props, "className"> & {
   className?: string;
 };
 
-export function Avatar({ className, ...props }: AvatarProps) {
-  const v = variants();
+type AvatarProps = Omit<BaseAvatar.Root.Props, "className" | "children"> &
+  VariantProps<typeof variants> & {
+    className?: string;
+    image?: AvatarImageProps;
+    fallback?: AvatarFallbackProps;
+  };
 
-  return <BaseAvatar.Root className={v.root({ className })} data-slot="avatar" {...props} />;
-}
-
-export function AvatarImage({ className, ...props }: AvatarImageProps) {
-  const v = variants();
-
-  return (
-    <BaseAvatar.Image className={v.image({ className })} data-slot="avatar-image" {...props} />
-  );
-}
-
-export function AvatarFallback({ className, ...props }: AvatarFallbackProps) {
+export function Avatar({ className, image, fallback, ...props }: AvatarProps) {
   const v = variants();
 
   return (
-    <BaseAvatar.Fallback
-      className={v.fallback({ className })}
-      data-slot="avatar-fallback"
-      {...props}
-    />
+    <BaseAvatar.Root className={v.root({ className })} data-slot="avatar" {...props}>
+      <BaseAvatar.Image
+        data-slot="avatar-image"
+        {...image}
+        className={v.image({ className: image?.className })}
+      />
+      <BaseAvatar.Fallback
+        data-slot="avatar-fallback"
+        {...fallback}
+        className={v.fallback({ className: fallback?.className })}
+      />
+    </BaseAvatar.Root>
   );
 }
