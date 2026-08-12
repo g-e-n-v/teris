@@ -2,7 +2,7 @@
 
 ## Workspaces
 
-Bun manages workspaces under `apps/*` and `packages/*`. The repository currently contains `@teris/web` and `@teris/api`; the `packages/*` pattern is reserved for future shared libraries.
+Bun manages workspaces under `apps/*` and `packages/*`. The repository contains `@teris/web`, `@teris/api`, and the shared `@teris/auth` library under `packages/auth/`.
 
 - Keep repository tooling in the root `package.json`.
 - Keep app runtime and build dependencies in each app's `package.json`.

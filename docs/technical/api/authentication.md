@@ -1,10 +1,10 @@
 # API Authentication
 
-App: `@teris/api`, with authentication infrastructure under `apps/api/core/auth/`.
+App: `@teris/api`, with authentication infrastructure shared via the `@teris/auth` package and app-level wiring under `apps/api/core/auth/`.
 
 ## Better Auth Configuration
 
-`better-auth.ts` configures Better Auth with the shared Drizzle client and schema. It enables:
+`better-auth.ts` instantiates the Better Auth server via the shared `createAuthServer` factory from `@teris/auth`, passing the app's Drizzle client and schema. The factory (and the plugin configuration it applies) lives in `packages/auth/src/server.ts` and enables:
 
 - Email and password authentication
 - UUID generation
@@ -19,15 +19,15 @@ The Elysia plugin in `index.ts` mounts Better Auth at its default `/api/auth/*` 
 
 Global role values are uppercase and persisted on `user.role`:
 
-| Role          | Scope                                                |
-| ------------- | ---------------------------------------------------- |
-| `SUPER_ADMIN` | Full global administration and organization creation |
-| `ADMIN`       | Full Better Auth admin statement set                 |
-| `USER`        | Default role with no global admin statements         |
+| Role           | Scope                                                |
+| -------------- | ---------------------------------------------------- |
+| `SYSTEM_ADMIN` | Full global administration and organization creation |
+| `ADMIN`        | Full Better Auth admin statement set                 |
+| `USER`         | Default role with no global admin statements         |
 
-`permissions.ts` combines Better Auth's admin and organization statements into one access-control definition. Both global admin roles currently receive the complete admin statement set. Organization roles remain separate on `member.role`; Better Auth supplies `owner`, `admin`, and `member`, and dynamic roles can be stored in `organizationRole`.
+`permissions.ts` (in the shared `@teris/auth` package) combines Better Auth's admin and organization statements into one access-control definition. Both global admin roles currently receive the complete admin statement set. Organization roles remain separate on `member.role`; Better Auth supplies `owner`, `admin`, and `member`, and dynamic roles can be stored in `organizationRole`.
 
-Only `SUPER_ADMIN` passes `allowUserToCreateOrganization`. Domain resources have not been added to the access-control statement yet.
+Only `SYSTEM_ADMIN` passes `allowUserToCreateOrganization`. Domain resources have not been added to the access-control statement yet.
 
 ## OpenAPI
 

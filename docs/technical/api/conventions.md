@@ -14,7 +14,7 @@ App: `@teris/api`, located at `apps/api/`.
 
 Cross-cutting infrastructure lives under `core/`:
 
-- `core/auth/` configures Better Auth, permissions, Elysia integration, and OpenAPI generation.
+- `core/auth/` instantiates the Better Auth server (via the shared `@teris/auth` package) and provides the Elysia integration and OpenAPI generation. Access-control statements, roles, and the server factory are shared from `@teris/auth`.
 - `core/db/` owns the shared Drizzle client, schemas, and generated migrations.
 
 Application routes live under `features/`. Each feature exports an Elysia plugin, and `main.ts` composes plugins and server-level middleware. Keep route handlers focused and move reusable business logic out of the entry point.

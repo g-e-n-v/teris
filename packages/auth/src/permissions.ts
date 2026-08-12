@@ -11,9 +11,7 @@ const statement = {
 
 export const ac = createAccessControl(statement);
 
-export const SUPER_ADMIN = ac.newRole({
-  ...adminAc.statements,
-});
+export const SYSTEM_ADMIN = ac.newRole(statement);
 
 export const ADMIN = ac.newRole({
   ...adminAc.statements,

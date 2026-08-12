@@ -1,0 +1,18 @@
+{
+  "name": "@teris/auth",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./permissions": "./src/permissions.ts",
+    "./server": "./src/server.ts"
+  },
+  "scripts": {
+    "type:check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@better-auth/drizzle-adapter": "^1.6.25",
+    "better-auth": "^1.6.25"
+  }
+}
