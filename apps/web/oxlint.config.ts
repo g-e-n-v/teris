@@ -32,6 +32,7 @@ export default defineConfig({
     "tailwindcss/no-unnecessary-arbitrary-value": "warn",
     "tailwindcss/no-unnecessary-whitespace": "error",
     "typescript/consistent-type-definitions": ["error", "type"],
+    "typescript/only-throw-error": "allow",
   },
   settings: {
     tailwindcss: {
