@@ -1,6 +1,22 @@
 export { Avatar } from "./components/avatar";
 export { Badge } from "./components/badge";
 export { Button } from "./components/button";
+export {
+  Card,
+  CardAction,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardFrame,
+  CardFrameAction,
+  CardFrameDescription,
+  CardFrameFooter,
+  CardFrameHeader,
+  CardFrameTitle,
+  CardHeader,
+  CardPanel,
+  CardTitle,
+} from "./components/card";
 export { Checkbox } from "./components/checkbox";
 export { CheckboxGroup } from "./components/checkbox-group";
 export { Input } from "./components/input";
