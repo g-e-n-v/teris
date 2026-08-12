@@ -5,6 +5,8 @@
   "type": "module",
   "exports": {
     ".": "./src/index.ts",
+    "./client": "./src/client.ts",
+    "./openapi": "./src/openapi.ts",
     "./permissions": "./src/permissions.ts",
     "./server": "./src/server.ts"
   },

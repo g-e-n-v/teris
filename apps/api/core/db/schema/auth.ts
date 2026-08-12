@@ -1,18 +1,27 @@
-import { boolean, pgTable, timestamp, uuid, varchar } from "drizzle-orm/pg-core";
+import { sql } from "drizzle-orm";
+import { boolean, pgTable, timestamp, uniqueIndex, uuid, varchar } from "drizzle-orm/pg-core";
 
-export const user = pgTable("user", {
-  banExpires: timestamp("ban_expires", { withTimezone: true }),
-  banReason: varchar("ban_reason", { length: 255 }),
-  banned: boolean("banned").notNull().default(false),
-  createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
-  email: varchar("email", { length: 255 }).notNull().unique(),
-  emailVerified: boolean("email_verified").notNull().default(false),
-  id: uuid().defaultRandom().primaryKey(),
-  image: varchar("image", { length: 255 }),
-  name: varchar("name", { length: 255 }),
-  role: varchar("role", { length: 255 }).notNull().default("USER"),
-  updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
-});
+export const user = pgTable(
+  "user",
+  {
+    banExpires: timestamp("ban_expires", { withTimezone: true }),
+    banReason: varchar("ban_reason", { length: 255 }),
+    banned: boolean("banned").notNull().default(false),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+    email: varchar("email", { length: 255 }).notNull().unique(),
+    emailVerified: boolean("email_verified").notNull().default(false),
+    id: uuid().defaultRandom().primaryKey(),
+    image: varchar("image", { length: 255 }),
+    name: varchar("name", { length: 255 }),
+    role: varchar("role", { length: 255 }).notNull().default("USER"),
+    updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  (table) => [
+    uniqueIndex("user_one_system_admin_idx")
+      .on(table.role)
+      .where(sql`"role" = 'SYSTEM_ADMIN'`),
+  ]
+);
 
 export const session = pgTable("session", {
   activeOrganizationId: uuid("active_organization_id"),
