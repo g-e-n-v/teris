@@ -38,7 +38,7 @@ export const invitation = pgTable("invitation", {
   status: varchar("status", { length: 255 }).notNull(),
 });
 
-export const organizationRole = pgTable("organizationRole", {
+export const organizationRole = pgTable("organization_role", {
   createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
   id: uuid().defaultRandom().primaryKey(),
   organizationId: uuid("organization_id")

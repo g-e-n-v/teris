@@ -1,5 +1,5 @@
 {
-  "id": "450bcfc9-b92d-4a89-a47f-68fe06eedaa6",
+  "id": "5091fbdf-27c3-44a6-ac62-7bd1be3f8349",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -267,7 +267,7 @@
           "type": "varchar(255)",
           "primaryKey": false,
           "notNull": true,
-          "default": "'user'"
+          "default": "'USER'"
         },
         "updated_at": {
           "name": "updated_at",
@@ -547,8 +547,8 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.organizationRole": {
-      "name": "organizationRole",
+    "public.organization_role": {
+      "name": "organization_role",
       "schema": "",
       "columns": {
         "created_at": {
@@ -593,9 +593,9 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "organizationRole_organization_id_organization_id_fk": {
-          "name": "organizationRole_organization_id_organization_id_fk",
-          "tableFrom": "organizationRole",
+        "organization_role_organization_id_organization_id_fk": {
+          "name": "organization_role_organization_id_organization_id_fk",
+          "tableFrom": "organization_role",
           "tableTo": "organization",
           "columnsFrom": ["organization_id"],
           "columnsTo": ["id"],

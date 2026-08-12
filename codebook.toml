@@ -1,1 +1,11 @@
-words = ["Elysia", "Elysia's", "Oxfmt", "Oxlint", "autofill", "oklch", "overscroll", "teris"]
+words = [
+  "Elysia",
+  "Elysia's",
+  "Oxfmt",
+  "Oxlint",
+  "autofill",
+  "inviter",
+  "oklch",
+  "overscroll",
+  "teris",
+]
