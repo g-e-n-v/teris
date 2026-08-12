@@ -9,7 +9,7 @@ type SidebarItem = {
   to: ComponentProps<typeof Link>["to"];
 };
 
-export const Route = createFileRoute("/demo")({
+export const Route = createFileRoute("/(public)/demo")({
   component: DemoLayout,
 });
 

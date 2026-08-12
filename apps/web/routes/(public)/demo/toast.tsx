@@ -3,7 +3,7 @@ import { useState } from "react";
 
 import { Button, toast } from "$/core/ui";
 
-export const Route = createFileRoute("/demo/toast")({
+export const Route = createFileRoute("/(public)/demo/toast")({
   component: ToastDemoPage,
 });
 

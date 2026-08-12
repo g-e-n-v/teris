@@ -3,7 +3,7 @@ import { useState } from "react";
 
 import { Checkbox, CheckboxGroup } from "$/core/ui";
 
-export const Route = createFileRoute("/demo/checkbox")({
+export const Route = createFileRoute("/(public)/demo/checkbox")({
   component: CheckboxDemoPage,
 });
 

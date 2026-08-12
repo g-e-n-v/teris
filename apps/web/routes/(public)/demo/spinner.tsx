@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 
 import { Spinner, Tooltip } from "$/core/ui";
 
-export const Route = createFileRoute("/demo/spinner")({
+export const Route = createFileRoute("/(public)/demo/spinner")({
   component: SpinnerDemoPage,
 });
 

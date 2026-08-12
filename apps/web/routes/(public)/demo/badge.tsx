@@ -3,7 +3,7 @@ import { createFileRoute } from "@tanstack/react-router";
 
 import { Badge } from "$/core/ui";
 
-export const Route = createFileRoute("/demo/badge")({
+export const Route = createFileRoute("/(public)/demo/badge")({
   component: BadgeDemoPage,
 });
 

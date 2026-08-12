@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 
 import { Text } from "$/core/ui";
 
-export const Route = createFileRoute("/demo/text")({
+export const Route = createFileRoute("/(public)/demo/text")({
   component: TextDemoPage,
 });
 

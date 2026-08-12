@@ -4,7 +4,7 @@ import { useState } from "react";
 
 import { Button } from "$/core/ui";
 
-export const Route = createFileRoute("/demo/button")({
+export const Route = createFileRoute("/(public)/demo/button")({
   component: ButtonDemoPage,
 });
 

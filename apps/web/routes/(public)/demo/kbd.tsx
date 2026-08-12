@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 
 import { Kbd } from "$/core/ui";
 
-export const Route = createFileRoute("/demo/kbd")({
+export const Route = createFileRoute("/(public)/demo/kbd")({
   component: KbdDemoPage,
 });
 

@@ -3,7 +3,7 @@ import { createFileRoute } from "@tanstack/react-router";
 
 import { ScrollArea } from "$/core/ui";
 
-export const Route = createFileRoute("/demo/scroll-area")({
+export const Route = createFileRoute("/(public)/demo/scroll-area")({
   component: ScrollAreaDemoPage,
 });
 

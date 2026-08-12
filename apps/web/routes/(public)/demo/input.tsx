@@ -4,7 +4,7 @@ import { createFileRoute } from "@tanstack/react-router";
 
 import { Input } from "$/core/ui";
 
-export const Route = createFileRoute("/demo/input")({
+export const Route = createFileRoute("/(public)/demo/input")({
   component: InputDemoPage,
 });
 

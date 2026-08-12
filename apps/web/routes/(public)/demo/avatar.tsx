@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 
 import { Avatar } from "$/core/ui";
 
-export const Route = createFileRoute("/demo/avatar")({
+export const Route = createFileRoute("/(public)/demo/avatar")({
   component: AvatarDemoPage,
 });
 
