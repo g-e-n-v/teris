@@ -13,6 +13,6 @@
   },
   "dependencies": {
     "@better-auth/drizzle-adapter": "^1.6.25",
-    "better-auth": "^1.6.25"
+    "better-auth": "catalog:"
   }
 }
