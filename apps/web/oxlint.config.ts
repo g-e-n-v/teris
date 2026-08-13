@@ -7,7 +7,7 @@ import path from "node:path";
 
 export default defineConfig({
   extends: [core, react],
-  ignorePatterns: core.ignorePatterns,
+  ignorePatterns: [...(core.ignorePatterns ?? []), "core/api/**"],
   jsPlugins: ["oxlint-tailwindcss"],
   overrides: [
     {

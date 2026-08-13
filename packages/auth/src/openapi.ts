@@ -13,7 +13,18 @@ export const createAuthOpenAPI = (auth: AuthInstance) => {
   return {
     components: async (): Promise<any> => {
       const { components } = await getSchema();
-      return components;
+
+      const securitySchemes = {
+        ...components.securitySchemes,
+        apiKeyCookie: {
+          description: "Better Auth session cookie",
+          in: "cookie",
+          name: "better-auth.session_token",
+          type: "apiKey",
+        },
+      };
+
+      return Object.assign(components, { securitySchemes });
     },
     getPaths: async (prefix = "/api/auth"): Promise<any> => {
       const { paths } = await getSchema();

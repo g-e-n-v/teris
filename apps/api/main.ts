@@ -19,7 +19,6 @@ const app = new Elysia()
           version: "0.0.0",
         },
         openapi: "3.0.0",
-        paths: await BetterAuthOpenAPI.getPaths(),
       },
       path: "/docs",
       scalar: { theme: "elysiajs" },
@@ -29,7 +28,7 @@ const app = new Elysia()
     cors({
       allowedHeaders: ["Content-Type", "Authorization"],
       credentials: true,
-      origin: "http://localhost:*",
+      origin: Bun.env.CORS_ORIGIN,
     })
   )
   .use(auth)
