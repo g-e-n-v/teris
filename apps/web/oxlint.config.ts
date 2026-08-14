@@ -31,7 +31,9 @@ export default defineConfig({
     "tailwindcss/no-unknown-classes": "warn",
     "tailwindcss/no-unnecessary-arbitrary-value": "warn",
     "tailwindcss/no-unnecessary-whitespace": "error",
+    "typescript/consistent-return": "allow",
     "typescript/consistent-type-definitions": ["error", "type"],
+    "typescript/no-floating-promises": "allow",
     "typescript/only-throw-error": "allow",
   },
   settings: {

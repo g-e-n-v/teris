@@ -4,14 +4,14 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "bun build main.ts --outdir dist",
+    "build": "bun build --target=bun main.ts --outdir dist",
     "dev": "bun --watch main.ts",
     "start": "bun main.ts",
-    "type:check": "tsc --noEmit",
-    "db:generate": "drizzle-kit generate --name",
-    "db:migrate": "drizzle-kit migrate",
-    "db:push": "drizzle-kit push",
-    "db:studio": "drizzle-kit studio"
+    "type:check": "bun --bun run tsc --noEmit",
+    "db:generate": "bun --bun run drizzle-kit generate --name",
+    "db:migrate": "bun --bun run drizzle-kit migrate",
+    "db:push": "bun --bun run drizzle-kit push",
+    "db:studio": "bun --bun run drizzle-kit studio"
   },
   "dependencies": {
     "@elysiajs/cors": "^1.4.2",

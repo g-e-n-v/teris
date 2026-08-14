@@ -52,4 +52,3 @@ Read these only when working in the relevant area:
 | Web color system | [docs/technical/web/color-system.md](docs/technical/web/color-system.md) |
 | API conventions and tooling | [docs/technical/api/conventions.md](docs/technical/api/conventions.md), [docs/technical/api/tooling.md](docs/technical/api/tooling.md) |
 | API auth and database | [docs/technical/api/authentication.md](docs/technical/api/authentication.md), [docs/technical/api/database.md](docs/technical/api/database.md) |
-| Multi-tenant architecture | [docs/rfc/001-multi-tenant-architecture.md](docs/rfc/001-multi-tenant-architecture.md) |

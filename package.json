@@ -16,12 +16,12 @@
   },
   "type": "module",
   "scripts": {
-    "dev": "turbo run dev",
-    "build": "turbo run build",
-    "start": "turbo run start",
-    "lint:check": "ultracite check --type-aware",
-    "lint:fix": "ultracite fix --type-aware",
-    "type:check": "turbo run type:check"
+    "dev": "bun --bun run turbo run dev",
+    "build": "bun --bun run turbo run build",
+    "start": "bun --bun run turbo run start",
+    "lint:check": "bun --bun run ultracite check --type-aware",
+    "lint:fix": "bun --bun run ultracite fix --type-aware",
+    "type:check": "bun --bun run turbo run type:check"
   },
   "devDependencies": {
     "babel-plugin-react-compiler": "^1.0.0",
