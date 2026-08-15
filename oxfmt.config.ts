@@ -4,7 +4,7 @@ import { defineConfig } from "oxfmt";
 
 export default defineConfig({
   ...ultracite,
-  ignorePatterns: [...(ultracite.ignorePatterns ?? []), "core/api/**"],
+  ignorePatterns: [...(ultracite.ignorePatterns ?? []), "apps/web/core/api/**"],
   printWidth: 100,
   sortImports: {
     customGroups: [

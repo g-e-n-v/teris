@@ -39,7 +39,6 @@
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^6.0.3",
     "kubb": "5.0.0-beta.106",
-    "oxlint-tailwindcss": "^1.6.0",
     "vite": "^8.1.1"
   }
 }

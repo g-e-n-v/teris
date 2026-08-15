@@ -1,3 +1,5 @@
+// oxlint-disable typescript/consistent-type-definitions
+//
 interface TerisEnv {
   DATABASE_URL: string;
   NODE_ENV: string;

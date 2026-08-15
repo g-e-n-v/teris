@@ -39,12 +39,10 @@ Use `import type` for type-only imports. Vite and Bun perform builds; TypeScript
 
 Ultracite runs on the Oxlint and Oxfmt backends with type-aware linting.
 
-| File                        | Responsibility                                                 |
-| --------------------------- | -------------------------------------------------------------- |
-| `oxlint.config.ts`          | Shared Ultracite core rules                                    |
-| `oxfmt.config.ts`           | 100-column formatting, import grouping, Tailwind class sorting |
-| `apps/web/oxlint.config.ts` | React, component, route, and Tailwind rules                    |
-| `apps/api/oxlint.config.ts` | API core rules                                                 |
+| File | Responsibility |
+| --- | --- |
+| `oxlint.config.ts` | Single Ultracite config: core + React rules, per-app `overrides`, Tailwind plugin |
+| `oxfmt.config.ts` | 100-column formatting, import grouping, Tailwind class sorting |
 
 Oxfmt groups side-effect, type, external, internal, and relative imports with blank lines between groups. Tailwind sorting uses `apps/web/core/styles/main.css` as its stylesheet and recognizes classes passed through `cn`.
 
