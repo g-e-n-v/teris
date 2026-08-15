@@ -17,6 +17,7 @@ const SIDEBAR_ITEMS: SidebarItem[] = [
   { icon: "solar:user-circle-outline", label: "Avatar", to: "/demo/avatar" },
   { icon: "solar:tag-horizontal-linear", label: "Badge", to: "/demo/badge" },
   { icon: "solar:cursor-outline", label: "Button", to: "/demo/button" },
+  { icon: "solar:calendar-linear", label: "Calendar", to: "/demo/calendar" },
   { icon: "solar:card-2-outline", label: "Card", to: "/demo/card" },
   { icon: "solar:check-square-linear", label: "Checkbox", to: "/demo/checkbox" },
   { icon: "solar:text-field-outline", label: "Input", to: "/demo/input" },

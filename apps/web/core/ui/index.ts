@@ -28,6 +28,7 @@ export {
 } from "./base/field";
 export { Checkbox } from "./base/checkbox";
 export { CheckboxGroup } from "./base/checkbox-group";
+export { Calendar } from "./base/calendar";
 export { Input } from "./base/input";
 export { Kbd } from "./base/kbd";
 export {

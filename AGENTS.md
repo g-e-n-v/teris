@@ -36,6 +36,7 @@ Edit schemas in `apps/api/core/db/schema/`, then generate and migrate. Never han
 - Try to use existing packages, components, and utilities before adding new ones.
 - If it can be created via CLI or scripts, automate it. Don't do it manually.
 - Run `bun run lint:fix` and `bun run type:check` before considering a task complete. No test runner or test script is configured yet.
+- Use `dayjs` instead native Date
 
 ## Technical Docs
 
