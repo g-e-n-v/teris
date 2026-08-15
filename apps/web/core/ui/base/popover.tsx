@@ -15,7 +15,13 @@ type PopoverPopupProps = PopoverPrimitive.Popup.Props & {
 };
 
 export function PopoverTrigger({ className, ...props }: PopoverPrimitive.Trigger.Props) {
-  return <PopoverPrimitive.Trigger className={className} data-slot="popover-trigger" {...props} />;
+  return (
+    <PopoverPrimitive.Trigger
+      className={cn("cursor-pointer", className)}
+      data-slot="popover-trigger"
+      {...props}
+    />
+  );
 }
 
 export function PopoverPopup({
@@ -55,8 +61,8 @@ export function PopoverPopup({
         >
           <PopoverPrimitive.Viewport
             className={cn(
-              "relative size-full max-h-(--available-height) overflow-clip py-4",
-              tooltipStyle ? "px-2 py-1" : "px-4 not-data-transitioning:overflow-y-auto"
+              "relative size-full max-h-(--available-height) overflow-clip py-2",
+              tooltipStyle ? "px-2 py-1" : "px-2 not-data-transitioning:overflow-y-auto"
             )}
             data-slot="popover-viewport"
           >

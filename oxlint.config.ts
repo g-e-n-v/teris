@@ -43,7 +43,10 @@ export default defineConfig({
     curly: "allow",
     "typescript/consistent-return": "allow",
     "typescript/consistent-type-definitions": ["error", "type"],
+    "typescript/no-misused-promises": "allow",
+    "typescript/promise-function-async": "allow",
     "typescript/strict-boolean-expressions": "allow",
+    "typescript/strict-void-return": "allow",
   },
   settings: {
     tailwindcss: {
