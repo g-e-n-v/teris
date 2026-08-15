@@ -20,7 +20,7 @@ export function CardHeader({ className, ...props }: ComponentProps<"div">) {
   return (
     <div
       className={cn(
-        "grid auto-rows-min grid-rows-[auto_auto] items-start gap-1.5 p-6 in-[[data-slot=card]:has(>[data-slot=card-panel])]:pb-4 has-data-[slot=card-action]:grid-cols-[1fr_auto]",
+        "grid auto-rows-min grid-rows-[auto_auto] items-start gap-1.5 p-5 in-[[data-slot=card]:has(>[data-slot=card-panel])]:pb-4 has-data-[slot=card-action]:grid-cols-[1fr_auto]",
         className
       )}
       data-slot="card-header"
@@ -66,7 +66,7 @@ export function CardPanel({ className, ...props }: ComponentProps<"div">) {
   return (
     <div
       className={cn(
-        "flex-1 p-6 in-[[data-slot=card]:has(>[data-slot=card-footer]:not(.border-t))]:pb-0 in-[[data-slot=card]:has(>[data-slot=card-header]:not(.border-b))]:pt-0",
+        "flex-1 p-5 in-[[data-slot=card]:has(>[data-slot=card-footer]:not(.border-t))]:pb-0 in-[[data-slot=card]:has(>[data-slot=card-header]:not(.border-b))]:pt-0",
         className
       )}
       data-slot="card-panel"
@@ -79,7 +79,7 @@ export function CardFooter({ className, ...props }: ComponentProps<"div">) {
   return (
     <div
       className={cn(
-        "flex items-center p-6 in-[[data-slot=card]:has(>[data-slot=card-panel])]:pt-4",
+        "flex items-center p-5 in-[[data-slot=card]:has(>[data-slot=card-panel])]:pt-4",
         className
       )}
       data-slot="card-footer"

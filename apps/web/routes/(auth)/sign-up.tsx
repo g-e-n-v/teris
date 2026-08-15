@@ -14,24 +14,24 @@ import {
   ToastProvider,
 } from "$/core/ui";
 import { FormField } from "$/features/form";
-import { useSignInForm } from "$/features/form/hooks/use-sign-in-form";
+import { useSignUpForm } from "$/features/form/hooks/use-sign-up-form";
 
 const toast = Toast.createToastManager();
 
-export const Route = createFileRoute("/(auth)/sign-in")({
-  component: SignInPage,
+export const Route = createFileRoute("/(auth)/sign-up")({
+  component: SignUpPage,
 });
 
-function SignInPage() {
-  const form = useSignInForm();
+function SignUpPage() {
+  const form = useSignUpForm();
 
   return (
     <ToastProvider position="top-center" toastManager={toast}>
       <div className="flex min-h-dvh items-center justify-center">
         <Card className="w-full max-w-sm">
           <CardHeader>
-            <CardTitle>Sign in</CardTitle>
-            <CardDescription>Enter your credentials to continue</CardDescription>
+            <CardTitle>Create your account</CardTitle>
+            <CardDescription>Join the club, we have coffee and bugs</CardDescription>
           </CardHeader>
           <CardContent className="flex flex-col gap-5">
             <form
@@ -43,13 +43,30 @@ function SignInPage() {
                 } catch (err) {
                   toast.add({
                     description: get(err, "message"),
-                    title: "Couldn't sign you in",
+                    title: "Couldn't create your account",
                     type: "error",
                   });
                 }
               }}
             >
               <div className="flex flex-col gap-4">
+                <form.Field name="name">
+                  {(field) => (
+                    <FormField label="Name" required meta={field.state.meta}>
+                      <Input
+                        value={field.state.value}
+                        onBlur={field.handleBlur}
+                        onChange={(e) => {
+                          field.handleChange(e.target.value);
+                        }}
+                        placeholder="Jane Doe"
+                        type="text"
+                        autoComplete="name"
+                      />
+                    </FormField>
+                  )}
+                </form.Field>
+
                 <form.Field name="email">
                   {(field) => (
                     <FormField label="Email" required meta={field.state.meta}>
@@ -76,9 +93,9 @@ function SignInPage() {
                         onChange={(e) => {
                           field.handleChange(e.target.value);
                         }}
-                        placeholder="Enter your password"
+                        placeholder="At least 8 characters"
                         type="password"
-                        autoComplete="current-password"
+                        autoComplete="new-password"
                       />
                     </FormField>
                   )}
@@ -87,7 +104,7 @@ function SignInPage() {
                 <form.Subscribe>
                   {(f) => (
                     <Button type="submit" disabled={!f.canSubmit} loading={f.isSubmitting}>
-                      {f.isSubmitting ? "Signing in..." : "Sign in"}
+                      {f.isSubmitting ? "Creating account..." : "Create account"}
                     </Button>
                   )}
                 </form.Subscribe>
@@ -95,9 +112,9 @@ function SignInPage() {
             </form>
 
             <Text variant="caption" className="text-center">
-              Don&apos;t have an account?{" "}
-              <a href="/sign-up" className="font-medium text-brand-500 hover:underline">
-                Sign up
+              Already have an account?{" "}
+              <a href="/sign-in" className="font-medium text-brand-500 hover:underline">
+                Sign in
               </a>
             </Text>
           </CardContent>

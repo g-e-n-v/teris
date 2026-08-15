@@ -4,24 +4,23 @@ import { z } from "zod";
 
 import { auth } from "$/core/auth";
 
-export const signInSchema = z.object({
+export const signUpSchema = z.object({
   email: z.string().email("Invalid email"),
-  password: z.string().min(1, "Password is required"),
+  name: z.string().min(1, "Name is required"),
+  password: z.string().min(8, "Password must be at least 8 characters"),
 });
 
-export function useSignInForm() {
+export function useSignUpForm() {
   const navigate = useNavigate();
 
   const form = useForm({
     defaultValues: {
       email: "",
+      name: "",
       password: "",
-    } satisfies FormSignInValues,
+    } satisfies FormSignUpValues,
     onSubmit: async ({ value }) => {
-      const { error } = await auth.signIn.email({
-        ...value,
-        rememberMe: true,
-      });
+      const { error } = await auth.signUp.email(value);
 
       if (error) {
         throw error;
@@ -30,12 +29,12 @@ export function useSignInForm() {
       await navigate({ to: "/dashboard" });
     },
     validators: {
-      onChange: signInSchema,
+      onChange: signUpSchema,
     },
   });
 
   return form;
 }
 
-export type FormSignInValues = z.infer<typeof signInSchema>;
-export type FormSignIn = ReturnType<typeof useSignInForm>;
+export type FormSignUpValues = z.infer<typeof signUpSchema>;
+export type FormSignUp = ReturnType<typeof useSignUpForm>;
