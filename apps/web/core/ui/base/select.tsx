@@ -4,8 +4,6 @@ import { Select as SelectPrimitive } from "@base-ui/react/select";
 import { Icon } from "@iconify/react";
 import { cn, tv } from "tailwind-variants";
 
-type WithClassName<T> = Omit<T, "className"> & { className?: string };
-
 export const variants = tv({
   slots: {
     icon: "-me-1 size-4.5 opacity-80 sm:size-4",
@@ -35,7 +33,7 @@ export function SelectTrigger({
   size,
   children,
   ...props
-}: WithClassName<SelectPrimitive.Trigger.Props> & VariantProps<typeof variants>) {
+}: PropsWithClassName<SelectPrimitive.Trigger.Props> & VariantProps<typeof variants>) {
   const v = variants({ size });
 
   return (
@@ -52,7 +50,10 @@ export function SelectTrigger({
   );
 }
 
-export function SelectValue({ className, ...props }: WithClassName<SelectPrimitive.Value.Props>) {
+export function SelectValue({
+  className,
+  ...props
+}: PropsWithClassName<SelectPrimitive.Value.Props>) {
   return (
     <SelectPrimitive.Value
       className={cn("flex-1 truncate data-placeholder:text-neutral-400", className)}
@@ -134,7 +135,7 @@ export function SelectItem({
   className,
   children,
   ...props
-}: WithClassName<SelectPrimitive.Item.Props>) {
+}: PropsWithClassName<SelectPrimitive.Item.Props>) {
   return (
     <SelectPrimitive.Item
       className={cn(
@@ -157,7 +158,7 @@ export function SelectItem({
 export function SelectSeparator({
   className,
   ...props
-}: WithClassName<SelectPrimitive.Separator.Props>) {
+}: PropsWithClassName<SelectPrimitive.Separator.Props>) {
   return (
     <SelectPrimitive.Separator
       className={cn("mx-2 my-1 h-px bg-neutral-200", className)}
@@ -171,7 +172,10 @@ export function SelectGroup(props: SelectPrimitive.Group.Props) {
   return <SelectPrimitive.Group data-slot="select-group" {...props} />;
 }
 
-export function SelectLabel({ className, ...props }: WithClassName<SelectPrimitive.Label.Props>) {
+export function SelectLabel({
+  className,
+  ...props
+}: PropsWithClassName<SelectPrimitive.Label.Props>) {
   return (
     <SelectPrimitive.Label
       className={cn(
@@ -187,7 +191,7 @@ export function SelectLabel({ className, ...props }: WithClassName<SelectPrimiti
 export function SelectGroupLabel({
   className,
   ...props
-}: WithClassName<SelectPrimitive.GroupLabel.Props>) {
+}: PropsWithClassName<SelectPrimitive.GroupLabel.Props>) {
   return (
     <SelectPrimitive.GroupLabel
       className={cn("px-2 py-1.5 text-xs font-medium text-neutral-500", className)}

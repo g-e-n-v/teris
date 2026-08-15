@@ -48,8 +48,8 @@ export const variants = tv({
   },
 });
 
-type ButtonProps = Omit<BaseButton.Props, "className"> &
-  VariantProps<typeof variants> & { loading?: boolean; className?: string };
+type ButtonProps = PropsWithClassName<BaseButton.Props> &
+  VariantProps<typeof variants> & { loading?: boolean };
 
 export function Button({
   className,

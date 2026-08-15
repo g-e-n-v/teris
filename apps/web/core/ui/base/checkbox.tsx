@@ -20,8 +20,7 @@ export const variants = tv({
   },
 });
 
-type CheckboxProps = Omit<BaseCheckbox.Root.Props, "className"> &
-  VariantProps<typeof variants> & { className?: string };
+type CheckboxProps = PropsWithClassName<BaseCheckbox.Root.Props> & VariantProps<typeof variants>;
 
 function renderIndicator(props: ComponentProps<"span">, state: BaseCheckbox.Indicator.State) {
   return (

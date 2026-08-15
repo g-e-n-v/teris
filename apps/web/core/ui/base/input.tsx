@@ -50,9 +50,8 @@ export const variants = tv({
   },
 });
 
-type InputProps = Omit<BaseInput.Props, "className" | "size"> &
+type InputProps = PropsWithClassName<Omit<BaseInput.Props, "size">> &
   VariantProps<typeof variants> & {
-    className?: string;
     prefix?: string | ReactElement;
     suffix?: string | ReactElement;
   };

@@ -43,10 +43,9 @@ type TextElement =
   | "span"
   | "strong";
 
-type TextProps<T extends TextElement = "span"> = ComponentPropsWithoutRef<T> &
+type TextProps<T extends TextElement = "span"> = PropsWithClassName<ComponentPropsWithoutRef<T>> &
   VariantProps<typeof variants> & {
     as?: T;
-    className?: string;
   };
 
 export function Text<T extends TextElement = "span">({

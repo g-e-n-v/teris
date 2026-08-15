@@ -11,17 +11,12 @@ export const variants = tv({
   },
 });
 
-type AvatarImageProps = Omit<BaseAvatar.Image.Props, "className"> & {
-  className?: string;
-};
+type AvatarImageProps = PropsWithClassName<BaseAvatar.Image.Props>;
 
-type AvatarFallbackProps = Omit<BaseAvatar.Fallback.Props, "className"> & {
-  className?: string;
-};
+type AvatarFallbackProps = PropsWithClassName<BaseAvatar.Fallback.Props>;
 
-type AvatarProps = Omit<BaseAvatar.Root.Props, "className" | "children"> &
+type AvatarProps = PropsWithClassName<Omit<BaseAvatar.Root.Props, "children">> &
   VariantProps<typeof variants> & {
-    className?: string;
     image?: AvatarImageProps;
     fallback?: AvatarFallbackProps;
   };

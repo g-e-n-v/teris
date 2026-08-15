@@ -49,15 +49,12 @@ export const variants = tv({
   },
 });
 
-type ScrollAreaProps = Omit<BaseScrollArea.Root.Props, "className"> &
+type ScrollAreaProps = PropsWithClassName<BaseScrollArea.Root.Props> &
   VariantProps<typeof variants> & {
     clampContentMinWidth?: boolean;
-    className?: string;
   };
 
-type ScrollBarProps = Omit<BaseScrollArea.Scrollbar.Props, "className"> & {
-  className?: string;
-};
+type ScrollBarProps = PropsWithClassName<BaseScrollArea.Scrollbar.Props>;
 
 function ScrollBar({ className, orientation = "vertical", ...props }: ScrollBarProps) {
   const v = variants();
