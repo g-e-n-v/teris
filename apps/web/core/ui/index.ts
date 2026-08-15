@@ -42,6 +42,17 @@ export {
 } from "./base/popover";
 export { ScrollArea } from "./base/scroll-area";
 export { Separator } from "./base/separator";
+export {
+  Select,
+  SelectGroup,
+  SelectGroupLabel,
+  SelectItem,
+  SelectLabel,
+  SelectPopup,
+  SelectSeparator,
+  SelectTrigger,
+  SelectValue,
+} from "./base/select";
 export { Skeleton } from "./base/skeleton";
 export { Spinner } from "./base/spinner";
 export { Text } from "./base/text";

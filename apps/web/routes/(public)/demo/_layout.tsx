@@ -25,6 +25,7 @@ const SIDEBAR_ITEMS: SidebarItem[] = [
   { icon: "solar:keyboard-outline", label: "Kbd", to: "/demo/kbd" },
   { icon: "solar:dialog-2-linear", label: "Popover", to: "/demo/popover" },
   { icon: "solar:posts-carousel-vertical-linear", label: "Scroll Area", to: "/demo/scroll-area" },
+  { icon: "solar:alt-arrow-down-linear", label: "Select", to: "/demo/select" },
   { icon: "solar:menu-dots-linear", label: "Skeleton", to: "/demo/skeleton" },
   { icon: "solar:refresh-circle-outline", label: "Spinner", to: "/demo/spinner" },
   { icon: "solar:text-linear", label: "Text", to: "/demo/text" },
@@ -91,9 +92,9 @@ function DemoLayout() {
         </div>
       </aside>
 
-      <main className="min-w-0 flex-1 p-4 sm:p-6 md:overflow-y-auto md:p-8">
+      <div className="relative min-w-0 flex-1 p-4 sm:p-6 md:overflow-y-auto md:p-8">
         <Outlet />
-      </main>
+      </div>
     </div>
   );
 }
