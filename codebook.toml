@@ -1,12 +1,13 @@
 words = [
+  "autofill",
   "elysia",
   "elysia's",
-  "oxfmt",
-  "oxlint",
-  "autofill",
+  "frontmost",
   "inviter",
   "oklch",
   "overscroll",
+  "oxfmt",
+  "oxlint",
   "teris",
   "zod",
 ]

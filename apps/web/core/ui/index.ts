@@ -44,7 +44,7 @@ export { Separator } from "./base/separator";
 export { Skeleton } from "./base/skeleton";
 export { Spinner } from "./base/spinner";
 export { Text } from "./base/text";
-export { ToastProvider, toast } from "./base/toast";
+export { type ToastPosition, ToastProvider, Toast, toast } from "./base/toast";
 export { Tooltip } from "./base/tooltip";
 
 export { ScreenLoading } from "./components/screen-loading";

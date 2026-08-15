@@ -1,6 +1,6 @@
 import type { ComponentProps } from "react";
 
-import { Toast as BaseToast } from "@base-ui/react";
+import { Toast } from "@base-ui/react";
 import { tv } from "tailwind-variants";
 
 import { Button } from "./button";
@@ -72,6 +72,30 @@ const TOAST_ICONS = {
 
 type ToastType = keyof typeof TOAST_ICONS;
 
+export type ToastPosition =
+  | "top-left"
+  | "top-center"
+  | "top-right"
+  | "bottom-left"
+  | "bottom-center"
+  | "bottom-right";
+
+type SwipeDirection = "up" | "down" | "left" | "right";
+
+function getSwipeDirection(position: ToastPosition): SwipeDirection[] {
+  const verticalDirection: SwipeDirection = position.startsWith("top") ? "up" : "down";
+
+  if (position.includes("center")) {
+    return [verticalDirection];
+  }
+
+  if (position.includes("left")) {
+    return ["left", verticalDirection];
+  }
+
+  return ["right", verticalDirection];
+}
+
 const variants = tv({
   slots: {
     body: "flex min-w-0 flex-col gap-0.5",
@@ -89,16 +113,25 @@ const variants = tv({
       "[--toast-shrink:calc(1-var(--toast-scale))]",
       "[--toast-calc-height:var(--toast-frontmost-height,var(--toast-height))]",
 
-      "absolute right-0 bottom-0 z-[calc(9999-var(--toast-index))] w-full select-none motion-reduce:transition-none",
+      "absolute z-[calc(9999-var(--toast-index))] w-full select-none motion-reduce:transition-none",
       "h-(--toast-calc-height)",
       "rounded-lg border border-neutral-200 bg-white text-neutral-900 shadow-lg/5",
       "[transition:transform_.5s_cubic-bezier(.22,1,.36,1),opacity_.5s,height_.15s]",
 
-      // Local offset-y variable used by expanded and swipe-dismissal transforms
-      "[--toast-calc-offset-y:calc(var(--toast-offset-y)*-1+var(--toast-index)*var(--toast-gap)*-1+var(--toast-swipe-movement-y))]",
+      // Base positioning using data-position
+      "data-[position*=right]:right-0 data-[position*=right]:left-auto",
+      "data-[position*=left]:right-auto data-[position*=left]:left-0",
+      "data-[position*=center]:right-0 data-[position*=center]:left-0",
+      "data-[position*=top]:top-0 data-[position*=top]:bottom-auto data-[position*=top]:origin-[50%_calc(50%-50%*min(var(--toast-index,0),1))]",
+      "data-[position*=bottom]:top-auto data-[position*=bottom]:bottom-0 data-[position*=bottom]:origin-[50%_calc(50%+50%*min(var(--toast-index,0),1))]",
+
+      // Offset-y variable used by expanded and swipe-dismissal transforms
+      "data-[position*=top]:[--toast-calc-offset-y:calc(var(--toast-offset-y)+var(--toast-index)*var(--toast-gap)+var(--toast-swipe-movement-y))]",
+      "data-[position*=bottom]:[--toast-calc-offset-y:calc(var(--toast-offset-y)*-1+var(--toast-index)*var(--toast-gap)*-1+var(--toast-swipe-movement-y))]",
 
       // Collapsed stack transform
-      "transform-[translateX(var(--toast-swipe-movement-x))_translateY(calc(var(--toast-swipe-movement-y)-(var(--toast-index)*var(--toast-peek))-(var(--toast-shrink)*var(--toast-calc-height))))_scale(var(--toast-scale))]",
+      "data-[position*=top]:transform-[translateX(var(--toast-swipe-movement-x))_translateY(calc(var(--toast-swipe-movement-y)+(var(--toast-index)*var(--toast-peek))+(var(--toast-shrink)*var(--toast-calc-height))))_scale(var(--toast-scale))]",
+      "data-[position*=bottom]:transform-[translateX(var(--toast-swipe-movement-x))_translateY(calc(var(--toast-swipe-movement-y)-(var(--toast-index)*var(--toast-peek))-(var(--toast-shrink)*var(--toast-calc-height))))_scale(var(--toast-scale))]",
 
       // Disable transition while actively swiping so the toast tracks the pointer
       "data-swiping:transition-none",
@@ -108,19 +141,37 @@ const variants = tv({
       "data-expanded:transform-[translateX(var(--toast-swipe-movement-x))_translateY(var(--toast-calc-offset-y))]",
 
       // Enter/exit animations
-      "data-starting-style:transform-[translateY(calc(100%+var(--toast-inset)))]",
+      "data-[position*=top]:data-starting-style:transform-[translateY(calc(-100%-var(--toast-inset)))]",
+      "data-[position*=bottom]:data-starting-style:transform-[translateY(calc(100%+var(--toast-inset)))]",
       "data-ending-style:opacity-0",
-      "data-ending-style:not-data-limited:not-data-swipe-direction:transform-[translateY(calc(100%+var(--toast-inset)))]",
+      "data-[position*=top]:data-ending-style:not-data-limited:not-data-swipe-direction:transform-[translateY(calc(-100%-var(--toast-inset)))]",
+      "data-[position*=bottom]:data-ending-style:not-data-limited:not-data-swipe-direction:transform-[translateY(calc(100%+var(--toast-inset)))]",
+      "data-ending-style:data-[swipe-direction=left]:transform-[translateX(calc(var(--toast-swipe-movement-x)-100%-var(--toast-inset)))_translateY(var(--toast-calc-offset-y))]",
       "data-ending-style:data-[swipe-direction=right]:transform-[translateX(calc(var(--toast-swipe-movement-x)+100%+var(--toast-inset)))_translateY(var(--toast-calc-offset-y))]",
+      "data-ending-style:data-[swipe-direction=up]:transform-[translateY(calc(var(--toast-swipe-movement-y)-100%-var(--toast-inset)))]",
       "data-ending-style:data-[swipe-direction=down]:transform-[translateY(calc(var(--toast-swipe-movement-y)+100%+var(--toast-inset)))]",
+      "data-expanded:data-ending-style:data-[swipe-direction=left]:transform-[translateX(calc(var(--toast-swipe-movement-x)-100%-var(--toast-inset)))_translateY(var(--toast-calc-offset-y))]",
       "data-expanded:data-ending-style:data-[swipe-direction=right]:transform-[translateX(calc(var(--toast-swipe-movement-x)+100%+var(--toast-inset)))_translateY(var(--toast-calc-offset-y))]",
+      "data-expanded:data-ending-style:data-[swipe-direction=up]:transform-[translateY(calc(var(--toast-swipe-movement-y)-100%-var(--toast-inset)))]",
       "data-expanded:data-ending-style:data-[swipe-direction=down]:transform-[translateY(calc(var(--toast-swipe-movement-y)+100%+var(--toast-inset)))]",
       "data-limited:opacity-0",
 
       // Gap fill so hovering between stacked toasts keeps the stack expanded
-      "after:absolute after:bottom-full after:left-0 after:h-[calc(var(--toast-gap)+1px)] after:w-full",
+      "after:absolute after:left-0 after:h-[calc(var(--toast-gap)+1px)] after:w-full",
+      "data-[position*=top]:after:top-full",
+      "data-[position*=bottom]:after:bottom-full",
     ],
     title: "font-medium",
+    viewport: [
+      "fixed z-60 mx-auto flex w-[calc(100%-var(--toast-inset)*2)] max-w-90 [--toast-inset:--spacing(4)] sm:[--toast-inset:--spacing(8)]",
+      // Vertical positioning
+      "data-[position*=top]:top-(--toast-inset)",
+      "data-[position*=bottom]:bottom-(--toast-inset)",
+      // Horizontal positioning
+      "data-[position*=left]:left-(--toast-inset)",
+      "data-[position*=right]:right-(--toast-inset)",
+      "data-[position*=center]:left-1/2 data-[position*=center]:-translate-x-1/2",
+    ],
   },
   variants: {
     pulse: {
@@ -152,27 +203,31 @@ function getPulse(updateKey?: number): "even" | "odd" | undefined {
 }
 
 //  Toasts
-function Toasts() {
-  const { toasts } = BaseToast.useToastManager();
+type ToastsProps = { position: ToastPosition };
+
+function Toasts({ position }: ToastsProps) {
+  const { toasts } = Toast.useToastManager();
 
   const v = variants();
+  const swipeDirection = getSwipeDirection(position);
 
   return (
-    <BaseToast.Portal>
-      <BaseToast.Viewport className="fixed right-4 bottom-4 z-60 flex w-90 max-w-[calc(100vw-2rem)] [--toast-inset:--spacing(4)]">
+    <Toast.Portal>
+      <Toast.Viewport className={v.viewport()} data-position={position}>
         {toasts.map((toast) => {
           const type = isValidType(toast.type) ? toast.type : undefined;
           const icon = type ? TOAST_ICONS[type] : undefined;
           const pulse = getPulse(toast.updateKey);
 
           return (
-            <BaseToast.Root
+            <Toast.Root
               key={toast.id}
               className={v.root({ pulse })}
-              swipeDirection={["right", "down"]}
+              data-position={position}
+              swipeDirection={swipeDirection}
               toast={toast}
             >
-              <BaseToast.Content className={v.content()}>
+              <Toast.Content className={v.content()}>
                 <div className="flex min-w-0 gap-2.5">
                   {icon && (
                     <svg
@@ -188,18 +243,18 @@ function Toasts() {
                   )}
 
                   <div className={v.body()}>
-                    <BaseToast.Title className={v.title()} />
-                    <BaseToast.Description className={v.description()} />
+                    <Toast.Title className={v.title()} />
+                    <Toast.Description className={v.description()} />
                   </div>
                 </div>
 
                 <div className="flex shrink-0 items-center gap-1">
                   {toast.actionProps && (
-                    <BaseToast.Action render={<Button size="xs" variant="secondary" />}>
+                    <Toast.Action render={<Button size="xs" variant="secondary" />}>
                       {toast.actionProps.children}
-                    </BaseToast.Action>
+                    </Toast.Action>
                   )}
-                  <BaseToast.Close aria-label="Dismiss notification" className={v.close()}>
+                  <Toast.Close aria-label="Dismiss notification" className={v.close()}>
                     <svg aria-hidden="true" className="size-4" fill="none" viewBox="0 0 24 24">
                       <path
                         d="m7 7 10 10M17 7 7 17"
@@ -208,28 +263,36 @@ function Toasts() {
                         strokeWidth="2"
                       />
                     </svg>
-                  </BaseToast.Close>
+                  </Toast.Close>
                 </div>
-              </BaseToast.Content>
-            </BaseToast.Root>
+              </Toast.Content>
+            </Toast.Root>
           );
         })}
-      </BaseToast.Viewport>
-    </BaseToast.Portal>
+      </Toast.Viewport>
+    </Toast.Portal>
   );
 }
 
 // Toast
-export const toast = BaseToast.createToastManager();
+export const toast = Toast.createToastManager();
 
 // ToastProvider
-type ToastProviderProps = ComponentProps<typeof BaseToast.Provider>;
+export type ToastProviderProps = {
+  position?: ToastPosition;
+} & ComponentProps<typeof Toast.Provider>;
 
-export function ToastProvider({ children, ...props }: ToastProviderProps) {
+export function ToastProvider({
+  children,
+  position = "bottom-right",
+  ...props
+}: ToastProviderProps) {
   return (
-    <BaseToast.Provider toastManager={toast} {...props}>
+    <Toast.Provider toastManager={toast} {...props}>
       {children}
-      <Toasts />
-    </BaseToast.Provider>
+      <Toasts position={position} />
+    </Toast.Provider>
   );
 }
+
+export { Toast } from "@base-ui/react";

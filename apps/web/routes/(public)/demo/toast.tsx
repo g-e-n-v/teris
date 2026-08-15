@@ -1,7 +1,9 @@
+import type { ToastPosition } from "$/core/ui";
+
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 
-import { Button, toast } from "$/core/ui";
+import { Button, Toast, ToastProvider, toast } from "$/core/ui";
 
 export const Route = createFileRoute("/(public)/demo/toast")({
   component: ToastDemoPage,
@@ -12,6 +14,15 @@ const TEXTS = [
   "A bit longer message that spans two lines.",
   "This is a longer description that intentionally takes more vertical space to demonstrate stacking with varying heights.",
   "An even longer description that should span multiple lines so we can verify the clamped collapsed height and smooth expansion animation when hovering or focusing the viewport.",
+];
+
+const POSITIONS: ToastPosition[] = [
+  "top-left",
+  "top-center",
+  "top-right",
+  "bottom-left",
+  "bottom-center",
+  "bottom-right",
 ];
 
 async function fakePromise(): Promise<string> {
@@ -27,8 +38,11 @@ async function fakePromise(): Promise<string> {
   throw new Error("Failed to load data");
 }
 
+const positionToast = Toast.createToastManager();
+
 function ToastDemoPage() {
   const [varyingCount, setVaryingCount] = useState(0);
+  const [position, setPosition] = useState<ToastPosition>("bottom-right");
 
   return (
     <div className="space-y-12">
@@ -209,6 +223,42 @@ function ToastDemoPage() {
         >
           With Varying Heights
         </Button>
+      </section>
+
+      <section>
+        <h2 className="mb-4 text-lg font-semibold text-neutral-900">Position</h2>
+        <p className="mb-4 text-sm text-neutral-600">
+          Uses a separate toast manager so it does not interfere with the demos above.
+        </p>
+
+        <ToastProvider position={position} toastManager={positionToast}>
+          <div className="flex flex-wrap gap-2">
+            {POSITIONS.map((p) => (
+              <Button
+                key={p}
+                onClick={() => {
+                  setPosition(p);
+                }}
+                size="sm"
+                variant={position === p ? "primary" : "secondary"}
+              >
+                {p}
+              </Button>
+            ))}
+            <Button
+              onClick={() => {
+                positionToast.add({
+                  description: `This toast appeared at ${position}.`,
+                  title: "Positioned toast",
+                  type: "info",
+                });
+              }}
+              variant="secondary"
+            >
+              Show toast
+            </Button>
+          </div>
+        </ToastProvider>
       </section>
     </div>
   );
