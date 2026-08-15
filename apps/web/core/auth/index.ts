@@ -1,1 +1,3 @@
-export { auth, useAuth } from "./client";
+export { auth } from "./client";
+
+export { useAuth } from "./hooks/use-auth";
