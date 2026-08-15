@@ -35,6 +35,7 @@ export default defineConfig({
     "typescript/consistent-type-definitions": ["error", "type"],
     "typescript/no-floating-promises": "allow",
     "typescript/only-throw-error": "allow",
+    "typescript/strict-boolean-expressions": "allow",
   },
   settings: {
     tailwindcss: {

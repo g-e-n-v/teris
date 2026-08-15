@@ -5,23 +5,12 @@
 - **Runtime & package manager:** Bun 1.3+ (`bun`)
 - **Language:** TypeScript (strict, `module: ESNext`, `moduleResolution: bundler`)
 - **Monorepo:** Turborepo with Bun workspaces (`apps/*`, `packages/*`)
-- **Web app:** React 19 + Vite 8, React Compiler, TanStack Router, Tailwind CSS 4, Base UI
+- **Web app:** React 19 + Vite 8, React Compiler, TanStack Router, Tailwind CSS 4
 - **API app:** Elysia + Bun runtime, Better Auth, OpenAPI
 - **Database:** Drizzle ORM 0.45.x + PostgreSQL via Bun SQL
 - **Linting/formatting:** Ultracite (Oxlint + Oxfmt), type-aware
 
-## Commands
-
-| Task                  | Command              |
-| --------------------- | -------------------- |
-| Dev (all apps)        | `bun run dev`        |
-| Build (all apps)      | `bun run build`      |
-| Start (all apps)      | `bun run start`      |
-| Type-check (all apps) | `bun run type:check` |
-| Lint check (all apps) | `bun run lint:check` |
-| Lint fix (all apps)   | `bun run lint:fix`   |
-
-Run `bun run lint:check` before considering a task complete. No test runner or test script is configured yet.
+Run `bun run lint:fix` before considering a task complete. No test runner or test script is configured yet.
 
 ## API Database Commands
 
@@ -36,9 +25,17 @@ Run from `apps/api/`:
 
 Edit schemas in `apps/api/core/db/schema/`, then generate and migrate. Never hand-edit generated files in `apps/api/core/db/migrations/`.
 
-## Naming
+## Conventions (**STRICT**)
 
-Use **kebab-case** for file and folder names. Well-known config and generated file names are exceptions.
+- Use **kebab-case** for file and folder names. Well-known config and generated file names are exceptions.
+
+## Rules (**STRICT**)
+
+- When installing dependencies, carefully check existing package.json files and decide whether to put them at the root (shared across apps/packages or common tools) or in individual apps/packages.
+- Only edit code in the `**/*/core` directory when explicitly instructed; otherwise, ask first.
+- Try to use existing packages, components, and utilities before adding new ones.
+- If it can be created via CLI or scripts, automate it. Don't do it manually.
+- Run `bun run lint:fix` and `bun run type:check` before considering a task complete. No test runner or test script is configured yet.
 
 ## Technical Docs
 

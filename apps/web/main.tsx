@@ -8,6 +8,7 @@ import { createRoot } from "react-dom/client";
 import { queryClient } from "$/core/api/query-client";
 import { auth } from "$/core/auth";
 import { router } from "$/core/router";
+import { ScreenLoading } from "$/core/ui";
 
 function App() {
   const session = auth.useSession();
@@ -18,7 +19,14 @@ function App() {
     }
   }, [session.data?.session.id, session.isPending]);
 
-  if (session.isPending) return "Auth loading...";
+  if (session.isPending) {
+    return (
+      <ScreenLoading
+        title="Who are you?"
+        description="I'm trying to find the answer right now — hang on a sec."
+      />
+    );
+  }
 
   return (
     <QueryClientProvider client={queryClient}>

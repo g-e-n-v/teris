@@ -1,6 +1,6 @@
-export { Avatar } from "./components/avatar";
-export { Badge } from "./components/badge";
-export { Button } from "./components/button";
+export { Avatar } from "./base/avatar";
+export { Badge } from "./base/badge";
+export { Button } from "./base/button";
 export {
   Card,
   CardAction,
@@ -16,15 +16,17 @@ export {
   CardHeader,
   CardPanel,
   CardTitle,
-} from "./components/card";
-export { Checkbox } from "./components/checkbox";
-export { CheckboxGroup } from "./components/checkbox-group";
-export { Input } from "./components/input";
-export { Kbd } from "./components/kbd";
-export { ScrollArea } from "./components/scroll-area";
-export { Separator } from "./components/separator";
-export { Skeleton } from "./components/skeleton";
-export { Spinner } from "./components/spinner";
-export { Text } from "./components/text";
-export { ToastProvider, toast } from "./components/toast";
-export { Tooltip } from "./components/tooltip";
+} from "./base/card";
+export { Checkbox } from "./base/checkbox";
+export { CheckboxGroup } from "./base/checkbox-group";
+export { Input } from "./base/input";
+export { Kbd } from "./base/kbd";
+export { ScrollArea } from "./base/scroll-area";
+export { Separator } from "./base/separator";
+export { Skeleton } from "./base/skeleton";
+export { Spinner } from "./base/spinner";
+export { Text } from "./base/text";
+export { ToastProvider, toast } from "./base/toast";
+export { Tooltip } from "./base/tooltip";
+
+export { ScreenLoading } from "./components/screen-loading";
