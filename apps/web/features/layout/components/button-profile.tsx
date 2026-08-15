@@ -2,7 +2,16 @@ import { Icon } from "@iconify/react";
 import { useState } from "react";
 
 import { useAuth, auth } from "$/core/auth";
-import { Avatar, Button, Popover, PopoverPopup, PopoverTrigger, Separator, Text } from "$/core/ui";
+import {
+  Avatar,
+  Button,
+  Popover,
+  PopoverPopup,
+  PopoverTrigger,
+  RoleBadge,
+  Separator,
+  Text,
+} from "$/core/ui";
 
 export function ButtonProfile() {
   const { user } = useAuth();
@@ -23,9 +32,13 @@ export function ButtonProfile() {
       <PopoverPopup className="w-56" side="right">
         <div className="flex flex-col gap-3">
           <div className="flex flex-col gap-1">
-            <Text weight="semibold">{user?.name}</Text>
+            <div className="flex items-center gap-2">
+              <Text weight="semibold">{user?.name}</Text>
+              <RoleBadge role={user?.role} />
+            </div>
             <Text className="text-neutral-500">{user?.email}</Text>
           </div>
+
           <Separator />
           <Button
             className="justify-start gap-2 text-error-500"

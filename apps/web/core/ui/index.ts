@@ -48,3 +48,4 @@ export { type ToastPosition, ToastProvider, Toast, toast } from "./base/toast";
 export { Tooltip } from "./base/tooltip";
 
 export { ScreenLoading } from "./components/screen-loading";
+export { RoleBadge } from "./components/role-badge";
