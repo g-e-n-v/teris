@@ -1,1 +1,0 @@
-CREATE UNIQUE INDEX "user_one_system_admin_idx" ON "user" USING btree ("role") WHERE "role" = 'SYSTEM_ADMIN';

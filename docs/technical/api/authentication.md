@@ -19,15 +19,15 @@ The Elysia plugin in `index.ts` mounts Better Auth at its default `/api/auth/*` 
 
 Global role values are uppercase and persisted on `user.role`:
 
-| Role           | Scope                                                |
-| -------------- | ---------------------------------------------------- |
-| `SYSTEM_ADMIN` | Full global administration and organization creation |
-| `ADMIN`        | Full Better Auth admin statement set                 |
-| `USER`         | Default role with no global admin statements         |
+| Role    | Scope                                                |
+| ------- | ---------------------------------------------------- |
+| `ROOT`  | Full global administration and organization creation |
+| `ADMIN` | Full Better Auth admin statement set                 |
+| `USER`  | Default role with no global admin statements         |
 
 `permissions.ts` (in the shared `@teris/auth` package) combines Better Auth's admin and organization statements into one access-control definition. Both global admin roles currently receive the complete admin statement set. Organization roles remain separate on `member.role`; Better Auth supplies `owner`, `admin`, and `member`, and dynamic roles can be stored in `organizationRole`.
 
-Only `SYSTEM_ADMIN` passes `allowUserToCreateOrganization`. Domain resources have not been added to the access-control statement yet.
+Only `ROOT` passes `allowUserToCreateOrganization`. Domain resources have not been added to the access-control statement yet.
 
 ## OpenAPI
 

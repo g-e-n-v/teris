@@ -11,7 +11,7 @@ export const auth = createAuthServer({
       create: {
         before: async (user) => {
           const [result] = await db.select({ count: count() }).from(schema.user);
-          return { data: { ...user, role: result.count ? user.role : "SYSTEM_ADMIN" } };
+          return { data: { ...user, role: result.count ? user.role : "ROOT" } };
         },
       },
     },

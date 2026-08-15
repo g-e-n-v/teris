@@ -17,9 +17,9 @@ export const user = pgTable(
     updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
   },
   (table) => [
-    uniqueIndex("user_one_system_admin_idx")
+    uniqueIndex("user_one_root_idx")
       .on(table.role)
-      .where(sql`"role" = 'SYSTEM_ADMIN'`),
+      .where(sql`"role" = 'ROOT'`),
   ]
 );
 

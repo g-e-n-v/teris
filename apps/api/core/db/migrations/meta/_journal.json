@@ -5,15 +5,8 @@
     {
       "idx": 0,
       "version": "7",
-      "when": 1786504924187,
+      "when": 1786786173696,
       "tag": "0000_init-auth",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "7",
-      "when": 1786515918098,
-      "tag": "0001_one_system_admin_constraint",
       "breakpoints": true
     }
   ]

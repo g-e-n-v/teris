@@ -2,7 +2,7 @@ import { drizzleAdapter } from "@better-auth/drizzle-adapter";
 import { betterAuth } from "better-auth";
 import { admin, organization, openAPI } from "better-auth/plugins";
 
-import { ac, ADMIN, SYSTEM_ADMIN, USER } from "./permissions";
+import { ac, ADMIN, ROOT, USER } from "./permissions";
 
 type CreateAuthServerConfig = {
   db: Parameters<typeof drizzleAdapter>[0];
@@ -23,13 +23,13 @@ export const createAuthServer = ({ db, schema, databaseHooks }: CreateAuthServer
     plugins: [
       admin({
         ac,
-        adminRoles: ["SYSTEM_ADMIN", "ADMIN"],
+        adminRoles: ["ROOT", "ADMIN"],
         defaultRole: "USER",
-        roles: { ADMIN, SYSTEM_ADMIN, USER },
+        roles: { ADMIN, ROOT, USER },
       }),
       organization({
         ac,
-        allowUserToCreateOrganization: (u) => u?.role === "SYSTEM_ADMIN",
+        allowUserToCreateOrganization: true,
         dynamicAccessControl: { enabled: true },
       }),
       openAPI(),
