@@ -1,6 +1,5 @@
 import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
 
-import { useAuth } from "$/core/auth";
 import { ButtonProfile } from "$/features/layout";
 
 export const Route = createFileRoute("/(private)")({
@@ -13,10 +12,6 @@ export const Route = createFileRoute("/(private)")({
 });
 
 function PrivateLayout() {
-  const { user } = useAuth();
-
-  console.log(user);
-
   return (
     <div className="flex h-screen w-screen">
       <div className="h-full w-72 overflow-y-auto border-r border-neutral-200">Left sidebar</div>

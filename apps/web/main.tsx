@@ -22,8 +22,8 @@ function App() {
   if (session.isPending) {
     return (
       <ScreenLoading
-        title="Who are you?"
-        description="I'm trying to find the answer right now — hang on a sec."
+        title="Checking your vibe..."
+        description="The bouncer is looking for your name on the list. No VIP treatment, sorry."
       />
     );
   }
