@@ -3,6 +3,7 @@ import { useNavigate } from "@tanstack/react-router";
 import { z } from "zod";
 
 import { auth } from "$/core/auth";
+import { toast } from "$/core/ui";
 
 export const signInSchema = z.object({
   email: z.string().email("Invalid email"),
@@ -24,7 +25,8 @@ export function useSignInForm() {
       });
 
       if (error) {
-        return { fields: { email: error.message } };
+        toast.add({ title: error.message, type: "error" });
+        return;
       }
 
       await navigate({ to: "/dashboard" });

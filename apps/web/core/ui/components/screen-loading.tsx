@@ -7,7 +7,7 @@ const DEFAULT_ICON = <Spinner className="size-10" />;
 
 type ScreenLoadingProps = {
   title?: string;
-  description?: string;
+  description?: ReactNode;
   icon?: ReactNode;
 };
 

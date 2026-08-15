@@ -23,7 +23,7 @@ function App() {
     return (
       <ScreenLoading
         title="Checking your vibe..."
-        description="The bouncer is looking for your name on the list. No VIP treatment, sorry."
+        description="The bouncer is looking for your name on the list. Hold still, this might take a while."
       />
     );
   }

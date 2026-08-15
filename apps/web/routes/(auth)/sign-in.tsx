@@ -29,10 +29,10 @@ function SignInPage() {
         </CardHeader>
         <CardContent className="flex flex-col gap-5">
           <form
-            onSubmit={(e) => {
+            onSubmit={async (e) => {
               e.preventDefault();
               e.stopPropagation();
-              void form.handleSubmit();
+              await form.handleSubmit();
             }}
           >
             <div className="flex flex-col gap-4">
