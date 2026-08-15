@@ -21,6 +21,7 @@ const SIDEBAR_ITEMS: SidebarItem[] = [
   { icon: "solar:check-square-linear", label: "Checkbox", to: "/demo/checkbox" },
   { icon: "solar:text-field-outline", label: "Input", to: "/demo/input" },
   { icon: "solar:keyboard-outline", label: "Kbd", to: "/demo/kbd" },
+  { icon: "solar:pen-2-linear", label: "Field", to: "/demo/field" },
   { icon: "solar:dialog-2-linear", label: "Popover", to: "/demo/popover" },
   { icon: "solar:posts-carousel-vertical-linear", label: "Scroll Area", to: "/demo/scroll-area" },
   { icon: "solar:menu-dots-linear", label: "Skeleton", to: "/demo/skeleton" },

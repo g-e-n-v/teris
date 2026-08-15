@@ -10,6 +10,7 @@ import {
   Input,
   Text,
 } from "$/core/ui";
+import { FormField } from "$/features/form";
 import { useSignInForm } from "$/features/form/hooks/use-sign-in-form";
 
 export const Route = createFileRoute("/(auth)/sign-in")({
@@ -37,13 +38,8 @@ function SignInPage() {
             <div className="flex flex-col gap-4">
               <form.Field name="email">
                 {(field) => (
-                  <div className="flex flex-col gap-1.5">
-                    <Text as="label" variant="label" htmlFor={field.name}>
-                      Email
-                    </Text>
+                  <FormField label="Email" required meta={field.state.meta}>
                     <Input
-                      id={field.name}
-                      name={field.name}
                       value={field.state.value}
                       onBlur={field.handleBlur}
                       onChange={(e) => {
@@ -51,26 +47,16 @@ function SignInPage() {
                       }}
                       placeholder="you@example.com"
                       type="email"
-                      aria-invalid={field.state.meta.errors.length > 0}
+                      autoComplete="email"
                     />
-                    {field.state.meta.isTouched && field.state.meta.errors.length > 0 && (
-                      <Text variant="caption" className="text-error-500">
-                        {field.state.meta.errors.map(String).join(", ")}
-                      </Text>
-                    )}
-                  </div>
+                  </FormField>
                 )}
               </form.Field>
 
               <form.Field name="password">
                 {(field) => (
-                  <div className="flex flex-col gap-1.5">
-                    <Text as="label" variant="label" htmlFor={field.name}>
-                      Password
-                    </Text>
+                  <FormField label="Password" required meta={field.state.meta}>
                     <Input
-                      id={field.name}
-                      name={field.name}
                       value={field.state.value}
                       onBlur={field.handleBlur}
                       onChange={(e) => {
@@ -78,26 +64,16 @@ function SignInPage() {
                       }}
                       placeholder="Enter your password"
                       type="password"
-                      aria-invalid={field.state.meta.errors.length > 0}
+                      autoComplete="current-password"
                     />
-                    {field.state.meta.isTouched && field.state.meta.errors.length > 0 && (
-                      <Text variant="caption" className="text-error-500">
-                        {field.state.meta.errors.map(String).join(", ")}
-                      </Text>
-                    )}
-                  </div>
+                  </FormField>
                 )}
               </form.Field>
 
-              <form.Subscribe
-                selector={(state) => ({
-                  canSubmit: state.canSubmit,
-                  isSubmitting: state.isSubmitting,
-                })}
-              >
-                {({ canSubmit, isSubmitting }) => (
-                  <Button type="submit" disabled={!canSubmit} loading={isSubmitting}>
-                    {isSubmitting ? "Signing in..." : "Sign in"}
+              <form.Subscribe>
+                {(f) => (
+                  <Button type="submit" disabled={!f.canSubmit} loading={f.isSubmitting}>
+                    {f.isSubmitting ? "Signing in..." : "Sign in"}
                   </Button>
                 )}
               </form.Subscribe>

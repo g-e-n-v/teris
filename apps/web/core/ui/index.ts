@@ -17,6 +17,15 @@ export {
   CardPanel,
   CardTitle,
 } from "./base/card";
+export {
+  Field,
+  FieldControl,
+  FieldDescription,
+  FieldError,
+  FieldItem,
+  FieldLabel,
+  FieldValidity,
+} from "./base/field";
 export { Checkbox } from "./base/checkbox";
 export { CheckboxGroup } from "./base/checkbox-group";
 export { Input } from "./base/input";
