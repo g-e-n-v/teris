@@ -21,6 +21,15 @@ export { Checkbox } from "./base/checkbox";
 export { CheckboxGroup } from "./base/checkbox-group";
 export { Input } from "./base/input";
 export { Kbd } from "./base/kbd";
+export {
+  Popover,
+  PopoverClose,
+  PopoverCreateHandle,
+  PopoverDescription,
+  PopoverPopup,
+  PopoverTitle,
+  PopoverTrigger,
+} from "./base/popover";
 export { ScrollArea } from "./base/scroll-area";
 export { Separator } from "./base/separator";
 export { Skeleton } from "./base/skeleton";
