@@ -16,7 +16,7 @@ export const variants = tv({
     "active:scale-98",
     "before:pointer-events-none before:absolute before:inset-0 before:rounded-[calc(var(--radius-lg)-1px)] before:content-['']",
     "focus-visible:ring-2 focus-visible:ring-brand-500/60 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-25 focus-visible:outline-none",
-    "disabled:pointer-events-none disabled:opacity-50",
+    "disabled:pointer-events-none disabled:opacity-64",
   ],
   defaultVariants: {
     size: "md",

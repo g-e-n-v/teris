@@ -14,8 +14,8 @@ export const variants = tv({
       "shadow-xs/5 before:pointer-events-none before:absolute before:inset-0 before:rounded-[calc(var(--radius-lg)-3px)]",
       "not-data-disabled:not-data-checked:not-aria-invalid:before:shadow-[0_1px_var(--color-black)]/4",
       "focus-visible:ring-2 focus-visible:ring-brand-500/60 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-25",
-      "aria-invalid:border-error-500/36 focus-visible:aria-invalid:border-error-500/64 focus-visible:aria-invalid:ring-error-500/48",
-      "data-checked:border-brand-500 data-disabled:cursor-not-allowed data-disabled:opacity-50",
+      "aria-invalid:border-error-400 focus-visible:aria-invalid:border-error-500 focus-visible:aria-invalid:ring-error-500/16",
+      "data-checked:border-brand-500 data-disabled:cursor-not-allowed data-disabled:opacity-64",
     ],
   },
 });

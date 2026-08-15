@@ -4,7 +4,7 @@ import { Badge } from "../base/badge";
 
 const ROLE_META: Record<string, { icon: string; label: string; variant: "info" | "warning" }> = {
   ADMIN: { icon: "solar:shield-check-linear", label: "Admin", variant: "info" },
-  ROOT: { icon: "solar:crown-linear", label: "Root", variant: "warning" },
+  ROOT: { icon: "solar:star-bold", label: "Root", variant: "warning" },
 };
 
 type RoleBadgeProps = {
@@ -18,7 +18,7 @@ export function RoleBadge({ role }: RoleBadgeProps) {
 
   return (
     <Badge className="gap-1" size="sm" variant={meta.variant}>
-      <Icon icon={meta.icon} />
+      <Icon icon={meta.icon} className="size-2.5" />
       {meta.label}
     </Badge>
   );

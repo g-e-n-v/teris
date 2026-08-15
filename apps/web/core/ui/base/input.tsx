@@ -42,7 +42,7 @@ export const variants = tv({
           // Invalid: solid error border, error ring on focus
           "has-aria-invalid:border-error-400",
           "has-aria-invalid:has-focus-visible:border-error-500 has-aria-invalid:has-focus-visible:ring-error-500/16",
-          "has-disabled:cursor-not-allowed has-disabled:bg-neutral-50 has-disabled:opacity-50",
+          "has-disabled:cursor-not-allowed has-disabled:bg-neutral-50 has-disabled:opacity-64",
         ],
       },
       true: {},

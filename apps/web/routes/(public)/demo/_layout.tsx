@@ -20,6 +20,7 @@ const SIDEBAR_ITEMS: SidebarItem[] = [
   { icon: "solar:calendar-linear", label: "Calendar", to: "/demo/calendar" },
   { icon: "solar:card-2-outline", label: "Card", to: "/demo/card" },
   { icon: "solar:check-square-linear", label: "Checkbox", to: "/demo/checkbox" },
+  { icon: "solar:magnifer-linear", label: "Combobox", to: "/demo/combobox" },
   { icon: "solar:pen-2-linear", label: "Field", to: "/demo/field" },
   { icon: "solar:text-field-outline", label: "Input", to: "/demo/input" },
   { icon: "solar:keyboard-outline", label: "Kbd", to: "/demo/kbd" },

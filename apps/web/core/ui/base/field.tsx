@@ -11,7 +11,7 @@ export function FieldLabel({ className, ...props }: FieldPrimitive.Label.Props) 
   return (
     <FieldPrimitive.Label
       className={cn(
-        "inline-flex items-center gap-2 text-lg/4.5 font-medium text-neutral-900 data-disabled:opacity-50 sm:text-sm/4",
+        "inline-flex items-center gap-2 text-lg/4.5 font-medium text-neutral-900 data-disabled:opacity-64 sm:text-sm/4",
         className
       )}
       {...props}

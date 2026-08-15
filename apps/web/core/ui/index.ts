@@ -29,6 +29,28 @@ export {
 export { Checkbox } from "./base/checkbox";
 export { CheckboxGroup } from "./base/checkbox-group";
 export { Calendar } from "./base/calendar";
+export {
+  Combobox,
+  ComboboxChip,
+  ComboboxChipRemove,
+  ComboboxChips,
+  ComboboxChipsInput,
+  ComboboxClear,
+  ComboboxCollection,
+  ComboboxEmpty,
+  ComboboxGroup,
+  ComboboxGroupLabel,
+  ComboboxInput,
+  ComboboxItem,
+  ComboboxList,
+  ComboboxPopup,
+  ComboboxRow,
+  ComboboxSeparator,
+  ComboboxStatus,
+  ComboboxTrigger,
+  ComboboxValue,
+  useComboboxFilter,
+} from "./base/combobox";
 export { Input } from "./base/input";
 export { Kbd } from "./base/kbd";
 export {

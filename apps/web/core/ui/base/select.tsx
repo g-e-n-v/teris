@@ -13,7 +13,7 @@ export const variants = tv({
       "pointer-coarse:after:absolute pointer-coarse:after:size-full pointer-coarse:after:min-h-11",
       "focus-visible:border-brand-400 focus-visible:ring-2 focus-visible:ring-brand-500/24",
       "aria-invalid:border-error-400 focus-visible:aria-invalid:border-error-500 focus-visible:aria-invalid:ring-error-500/16",
-      "data-disabled:pointer-events-none data-disabled:opacity-64",
+      "data-disabled:pointer-events-none data-disabled:cursor-not-allowed data-disabled:bg-neutral-50 data-disabled:opacity-64",
       "sm:min-h-8 sm:text-sm",
       "[&_svg:not([class*='opacity-'])]:opacity-80",
     ],
