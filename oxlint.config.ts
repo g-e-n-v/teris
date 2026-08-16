@@ -41,6 +41,7 @@ export default defineConfig({
   ],
   rules: {
     curly: "allow",
+    "no-sequences": "allow",
     "typescript/consistent-return": "allow",
     "typescript/consistent-type-definitions": ["error", "type"],
     "typescript/no-confusing-void-expression": "allow",

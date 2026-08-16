@@ -6,20 +6,16 @@ import { useEffect } from "react";
 import { createRoot } from "react-dom/client";
 
 import { queryClient } from "$/core/api/query-client";
-import { auth } from "$/core/auth";
+import { useAuth } from "$/core/auth";
 import { router } from "$/core/router";
 import { ScreenLoading } from "$/core/ui";
 
 function App() {
-  const session = auth.useSession();
+  const auth = useAuth();
 
-  useEffect(() => {
-    if (!session.isPending) {
-      router.invalidate();
-    }
-  }, [session.data?.session.id, session.isPending]);
+  useEffect(() => (router.invalidate(), undefined), [auth?.session?.id]);
 
-  if (session.isPending) {
+  if (auth.isPending) {
     return (
       <ScreenLoading
         title="Checking your vibe..."
@@ -30,17 +26,7 @@ function App() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <RouterProvider
-        router={router}
-        context={{
-          auth: {
-            isPending: session.isPending,
-            refetch: session.refetch,
-            session: session.data?.session,
-            user: session.data?.user,
-          },
-        }}
-      />
+      <RouterProvider router={router} context={{ auth }} />
     </QueryClientProvider>
   );
 }
