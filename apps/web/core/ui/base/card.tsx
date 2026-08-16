@@ -113,7 +113,7 @@ export function CardFrameHeader({ className, ...props }: ComponentProps<"div">) 
   return (
     <div
       className={cn(
-        "relative grid auto-rows-min grid-rows-[auto_auto] items-start gap-x-4 px-6 py-4 has-data-[slot=card-frame-action]:grid-cols-[1fr_auto]",
+        "relative grid auto-rows-min grid-rows-[auto_auto] items-start gap-x-4 px-5 py-4 has-data-[slot=card-frame-action]:grid-cols-[1fr_auto]",
         className
       )}
       data-slot="card-frame-header"
@@ -156,7 +156,7 @@ export function CardFrameAction({ className, ...props }: ComponentProps<"div">) 
 }
 
 export function CardFrameFooter({ className, ...props }: ComponentProps<"div">) {
-  return <div className={cn("px-6 py-4", className)} data-slot="card-frame-footer" {...props} />;
+  return <div className={cn("px-5 py-4", className)} data-slot="card-frame-footer" {...props} />;
 }
 
 export { CardPanel as CardContent };
