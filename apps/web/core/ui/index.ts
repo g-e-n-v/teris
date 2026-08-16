@@ -77,9 +77,28 @@ export {
 } from "./base/select";
 export { Skeleton } from "./base/skeleton";
 export { Spinner } from "./base/spinner";
+export {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableFooter,
+  TableHead,
+  TableHeader,
+  TableRow,
+  type TableVariant,
+} from "./base/table";
 export { Text } from "./base/text";
 export { type ToastPosition, ToastProvider, Toast, toast } from "./base/toast";
 export { Tooltip } from "./base/tooltip";
+export {
+  Frame,
+  FrameDescription,
+  FrameFooter,
+  FrameHeader,
+  FramePanel,
+  FrameTitle,
+} from "./base/frame";
 
 export { ScreenLoading } from "./components/screen-loading";
 export { RoleBadge } from "./components/role-badge";

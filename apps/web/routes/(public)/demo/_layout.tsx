@@ -22,6 +22,7 @@ const SIDEBAR_ITEMS: SidebarItem[] = [
   { icon: "solar:check-square-linear", label: "Checkbox", to: "/demo/checkbox" },
   { icon: "solar:magnifer-linear", label: "Combobox", to: "/demo/combobox" },
   { icon: "solar:pen-2-linear", label: "Field", to: "/demo/field" },
+  { icon: "solar:layers-linear", label: "Frame", to: "/demo/frame" },
   { icon: "solar:text-field-outline", label: "Input", to: "/demo/input" },
   { icon: "solar:keyboard-outline", label: "Kbd", to: "/demo/kbd" },
   { icon: "solar:dialog-2-linear", label: "Popover", to: "/demo/popover" },
@@ -29,6 +30,7 @@ const SIDEBAR_ITEMS: SidebarItem[] = [
   { icon: "solar:alt-arrow-down-linear", label: "Select", to: "/demo/select" },
   { icon: "solar:menu-dots-linear", label: "Skeleton", to: "/demo/skeleton" },
   { icon: "solar:refresh-circle-outline", label: "Spinner", to: "/demo/spinner" },
+  { icon: "solar:tablet-linear", label: "Table", to: "/demo/table" },
   { icon: "solar:text-linear", label: "Text", to: "/demo/text" },
   { icon: "solar:bell-outline", label: "Toast", to: "/demo/toast" },
 ];

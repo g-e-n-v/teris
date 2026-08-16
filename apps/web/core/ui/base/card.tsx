@@ -95,6 +95,7 @@ export function CardFrame({ className, ...props }: ComponentProps<"div">) {
         "relative flex flex-col rounded-2xl border border-neutral-200 bg-white bg-clip-padding text-neutral-900 shadow-xs/5 [--clip-bottom:-1rem] [--clip-top:-1rem]",
         "before:pointer-events-none before:absolute before:inset-0 before:rounded-[calc(var(--radius-2xl)-1px)] before:bg-neutral-100/72 before:shadow-[0_1px_oklch(0%_0_0/0.04)]",
         "has-data-[slot=table-container]:overflow-hidden",
+        "*:data-[slot=table-container]:-m-px *:data-[slot=table-container]:w-[calc(100%+2px)]",
         "*:data-[slot=card]:-m-px *:data-[slot=card]:bg-clip-padding *:data-[slot=card]:shadow-none *:data-[slot=card]:before:hidden",
         "*:data-[slot=card]:[clip-path:inset(var(--clip-top)_1px_var(--clip-bottom)_1px_round_calc(var(--radius-2xl)-1px))]",
         "*:first:data-[slot=card]:[--clip-top:1px] *:last:data-[slot=card]:[--clip-bottom:1px]",
